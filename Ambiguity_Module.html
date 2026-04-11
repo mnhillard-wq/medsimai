@@ -131,6 +131,7 @@
     .spec-grid { grid-template-columns:1fr; }
     .two-col { grid-template-columns:1fr; }
     .acronym-row { flex-direction:column; }
+    .types-grid { grid-template-columns:1fr !important; }
   }
 </style>
 </head>
@@ -141,18 +142,18 @@
 
   <a href="#overview" class="section-head">Module Overview</a>
   <a href="#what-is-ambiguity" class="sub">What is ambiguity?</a>
-  <a href="#three-types" class="sub">Three types</a>
+  <a href="#three-types" class="sub">Types</a>
   <a href="#module-flow" class="sub">Module flow</a>
-  <a href="#rubric" class="sub">Assessment rubric</a>
   <a href="#pre-survey" class="sub">Pre-module survey</a>
+  <a href="#rubric" class="sub">Principles</a>
 
   <a href="#case1" class="section-head">Case 1 — Mia</a>
   <a href="#case1-overview" class="sub">Case overview</a>
   <a href="#case1-sim" class="sub">Encounter</a>
 
   <a href="#frameworks" class="section-head">Frameworks</a>
-  <a href="#adapt" class="sub">ADAPT</a>
   <a href="#raps" class="sub">RAPS</a>
+  <a href="#adapt" class="sub">ADAPT</a>
 
   <a href="#case2" class="section-head">Case 2 — Claudia</a>
   <a href="#case2-overview" class="sub">Case overview</a>
@@ -181,7 +182,33 @@
   <div class="section-label">Module Overview</div>
   <h2 id="what-is-ambiguity">What is ambiguity in medicine?</h2>
 
-  <p>Medicine's ground state is uncertainty. Yet training has historically rewarded the pursuit of certainty, conditioning students to feel that "I don't know" is a failure rather than an honest and clinically important statement. This module asks you to practice something different: sitting with uncertainty, naming it clearly to a family, and communicating a thoughtful plan — even when no definitive answer exists. Each case involves a conversation with an AI-standardized patient on MedSimAI. There is no note and no oral presentation; the AI will provide feedback when you finish.</p>
+  <p>Medicine's ground state is uncertainty. Yet training has historically rewarded the pursuit of certainty, conditioning students to feel that "I don't know" is a failure rather than an honest and clinically important statement. This module asks you to practice something different: sitting with uncertainty, naming it clearly to a family, and communicating a thoughtful plan — even when no definitive answer exists. Each case touches a different type of ambiguity in practice — following each encounter, you will receive feedback from the AI and be offered some additional learning here in the module.</p>
+
+  <h3 id="three-types">Types of clinical ambiguity</h3>
+  <p>Ambiguity in clinical practice takes different forms. The three cases in this module each represent a distinct type.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:12px;margin:16px 0;">
+    <div class="spec-box" style="background:var(--blue-lt);border:1px solid var(--blue-md);">
+      <strong style="color:var(--blue);">Unexplained ambiguity</strong>
+      The workup is complete and unremarkable — no cause is found. Communicating "we may never have an answer" is the challenge. <em>(Case 1)</em>
+    </div>
+    <div class="spec-box" style="background:#F0FDFA;border:1px solid #CCFBF1;">
+      <strong style="color:#0D9488;">Protocol-driven ambiguity</strong>
+      Serious action is required before a diagnosis is confirmed. The family sees intervention without explanation. <em>(Case 2)</em>
+    </div>
+    <div class="spec-box" style="background:#E3EDF5;border:1px solid #9DC4D8;">
+      <strong style="color:#2A4A64;">Diagnostic ambiguity under pressure</strong>
+      The differential includes serious diagnoses, no answer yet, and the emotional stakes are high. <em>(Case 3)</em>
+    </div>
+    <div class="spec-box" style="background:var(--gray-50);border:1px solid var(--gray-200);">
+      <strong style="color:var(--gray-600);">Prognostic uncertainty</strong>
+      The diagnosis is known, but the outcome is not. Communicating prognosis honestly — without false hope or false doom — is its own skill. <em>(not covered)</em>
+    </div>
+    <div class="spec-box" style="background:var(--gray-50);border:1px solid var(--gray-200);">
+      <strong style="color:var(--gray-600);">Therapeutic uncertainty</strong>
+      The evidence base is limited or conflicting, and the right treatment path is genuinely unclear. Shared decision-making becomes essential. <em>(not covered)</em>
+    </div>
+  </div>
 
   <h3 id="module-flow">Module flow</h3>
 
@@ -231,49 +258,52 @@
 
   </div>
 
-  <h3 id="rubric">Assessment rubric</h3>
-  <p>The same rubric applies to all three cases.</p>
+  <h3 id="pre-survey">Pre-module survey</h3>
+  <p style="font-size:13.5px;">We are conducting a short survey to better understand student experiences and the impact of this module on confidence navigating uncertainty. It includes a pre-survey (&lt;5 min) before Case 1 and a similar post-survey after Case 3. Participation is not required to do the cases.</p>
+  <div class="callout gray">
+    <strong>Optional</strong>
+    If you would like to participate, please complete the pre-survey before beginning Case 1.
+    <br><br>
+    <a href="#" class="survey-link blue" style="opacity:0.5;cursor:not-allowed;">Pre-Module Survey — Qualtrics link coming soon</a>
+  </div>
+
+  <h3 id="rubric">Principles to carry across all cases</h3>
+  <p>The AI will use the following principles to guide its feedback after each encounter.</p>
 
   <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);margin:16px 0 24px;">
     <table class="rubric-table">
       <thead>
         <tr>
-          <th style="width:32%;">Domain</th>
-          <th style="width:68%;">Goal</th>
+          <th style="width:32%;">Principle</th>
+          <th style="width:68%;">What this looks like</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Names uncertainty directly</td>
-          <td>Uses clear language to state what is not known; does not imply a diagnosis or certainty that does not exist</td>
+          <td>Name uncertainty directly</td>
+          <td>Use clear language to state what is not known; do not imply a diagnosis or certainty that does not exist</td>
         </tr>
         <tr>
-          <td>Acknowledges family emotion</td>
-          <td>Validates the parent's emotional response; creates space for distress before moving to clinical information</td>
+          <td>Acknowledge the family's emotional response</td>
+          <td>Validate the parent's distress; create space for emotion before moving to clinical information</td>
         </tr>
         <tr>
-          <td>Avoids over-reassurance</td>
-          <td>Does not imply more certainty than the evidence supports; holds the genuine uncertainty without minimizing it</td>
+          <td>Hold genuine uncertainty without minimizing it</td>
+          <td>Do not imply more certainty than the evidence supports; resist the urge to reassure prematurely</td>
         </tr>
         <tr>
-          <td>Explains a clear plan</td>
-          <td>Describes next steps — monitoring, follow-up, what to watch for — even in the absence of a diagnosis</td>
+          <td>Offer a clear plan even without a diagnosis</td>
+          <td>Describe next steps — monitoring, follow-up, what to watch for — so the family leaves with direction</td>
         </tr>
         <tr>
-          <td>Non-abandonment</td>
-          <td>Communicates that the team will remain present and supportive regardless of whether an answer is found</td>
+          <td>Communicate that you will not abandon them</td>
+          <td>Make clear the team will remain present and supportive regardless of whether an answer is found</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h3 id="pre-survey">Pre-module survey</h3>
-  <div class="callout gray">
-    <strong>Optional</strong>
-    Complete before Case 1. No impact on your ability to do the cases.
-    <br><br>
-    <a href="#" class="survey-link blue" style="opacity:0.5;cursor:not-allowed;">Pre-Module Survey — Qualtrics link coming soon</a>
-  </div>
+
 </section>
 
 
@@ -299,13 +329,91 @@
      ══════════════════════════════════════════ -->
 <section id="frameworks">
   <div class="section-label">Frameworks</div>
-  <h2>Tools for communicating uncertainty</h2>
-  <p>You have now experienced one ambiguous encounter without a scaffold. The two frameworks below give you a vocabulary and a structure for approaching these conversations more deliberately. Neither is a script — they are a way of organizing your thinking before, during, and after a difficult conversation.</p>
+  <h2>Frameworks for communicating uncertainty</h2>
+  <p>You have now completed Case 1. The two frameworks below give you vocabulary and structure for the conversations ahead. RAPS helps you orient yourself to the uncertainty before and during an encounter; ADAPT gives you the specific communication steps to use in the room.</p>
 
-  <div class="callout purple">
-    <strong>Background reading (optional)</strong>
-    These frameworks draw on research into uncertainty in medical decision-making. Background papers are listed in the Resources section below — not required to complete the module, but available if you want to go deeper.
+  <!-- ── RAPS ── -->
+  <h3 id="raps">RAPS — Orienting yourself to uncertainty</h3>
+  <p>RAPS is a framework for how you as a clinician orient to uncertainty — before, during, and after the encounter. It was developed by clinician-educators at Harvard Medical School and published in the <em>Journal of General Internal Medicine</em> (2024). Before each case, use the quadrant grid below to orient yourself — notice where you are sitting relative to the family, and let that shape how you enter the conversation.</p>
+
+  <div style="margin:20px 0;">
+
+    <div class="acronym-row" style="margin-bottom:4px;">
+      <div class="acronym-letter" style="background:#E8E0F7;color:#3d1f7a;">R</div>
+      <div class="acronym-content">
+        <strong>Recognize</strong>
+        Notice that uncertainty is present — for you, for the patient, or both — and notice whether your experiences of uncertainty are symmetrical. The parent may be far more certain than you are, or far more uncertain. Awareness of this asymmetry changes how you approach the conversation.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#D9D0F0;color:#3d1f7a;">A</div>
+      <div class="acronym-content">
+        <strong>Acknowledge</strong>
+        Name, accept, and normalize the uncertainty — both internally and with the patient. Acknowledging uncertainty is not a weakness; it is an act of clinical honesty that deepens trust. <em>"I am not entirely certain what caused this"</em> rather than vague hedging.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#CAC1E8;color:#3d1f7a;">P</div>
+      <div class="acronym-content">
+        <strong>Partner</strong>
+        Invest in the therapeutic alliance and co-construct a plan of action. Emphasize non-abandonment: <em>"I don't know exactly what is going on, but I will be with you and will support you."</em> This creates certainty in the relationship itself, even when diagnostic certainty is impossible.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="border-top:none;">
+      <div class="acronym-letter" style="background:#BBB2E0;color:#2a1560;">S</div>
+      <div class="acronym-content">
+        <strong>Seek Support</strong>
+        After the encounter, reflect. Talk with a colleague. Uncertainty is not a private burden — sharing it normalizes the experience and drives learning. As a student, this means debriefing: what was hard, what helped, what you would do differently.
+      </div>
+    </div>
+
   </div>
+
+  <p style="font-size:13.5px;margin:20px 0 4px;">One of RAPS's most useful concepts is that the clinician and patient may not experience the same degree of uncertainty. Consider which quadrant applies as you enter each case.</p>
+
+  <div style="margin:12px 0 4px;display:grid;grid-template-columns:80px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);font-size:12.5px;">
+
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:flex-end;justify-content:flex-end;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);text-align:right;line-height:1.3;">Clinician uncertainty</span>
+    </div>
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: Low uncertainty</div>
+    <div style="background:var(--gray-100);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: High uncertainty</div>
+
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">High</span>
+    </div>
+    <div style="background:#F0FDFA;border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:#0D9488;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Clinician more uncertain</div>
+      The parent sees a baby who seems fine; you know the risk is real and are acting without a diagnosis. Name the clinical reasoning clearly.
+      <div style="margin-top:8px;font-size:10.5px;color:#0D9488;background:#CCFBF1;border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Case 2</div>
+    </div>
+    <div style="background:#E8E0F7;border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;position:relative;">
+      <div style="font-weight:700;color:#3d1f7a;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both highly uncertain</div>
+      The most demanding scenario. Partnership language and non-abandonment are critical — offer presence, not false certainty.
+      <div style="margin-top:8px;font-size:10.5px;color:#3d1f7a;background:#D9D0F0;border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Case 3</div>
+    </div>
+
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">Low</span>
+    </div>
+    <div style="background:var(--gray-50);border-right:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:var(--gray-400);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both low uncertainty</div>
+      No special navigation needed — a clear diagnosis and straightforward plan.
+    </div>
+    <div style="background:var(--blue-lt);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Patient more uncertain</div>
+      You're confident; the patient isn't. Validate their uncertainty before sharing your certainty.
+      <div style="margin-top:8px;font-size:10.5px;color:var(--blue);background:var(--blue-md);border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Case 1</div>
+    </div>
+
+  </div>
+  <p style="font-size:11.5px;color:var(--gray-400);margin-top:6px;">Perceived uncertainty exists on a continuum — these quadrants are a framework for orientation, not rigid categories.</p>
+  <p style="font-size:13.5px;margin-top:16px;">In Case 1 you were likely in the bottom-right quadrant: Lauren was frightened and uncertain, while you had a relatively clear clinical picture — the workup was unremarkable and the risk was low. The challenge was not diagnostic; it was communicating that the absence of a cause is itself the answer. Cases 2 and 3 place you in more demanding quadrants.</p>
+
+  <hr style="margin:32px 0;">
 
   <!-- ── ADAPT ── -->
   <h3 id="adapt">ADAPT — A framework for disclosing uncertainty</h3>
@@ -366,93 +474,6 @@
     </div>
   </details>
 
-  <!-- ── RAPS ── -->
-  <h3 id="raps">RAPS — A framework for navigating uncertainty</h3>
-  <p>Where ADAPT focuses on the communication act itself, RAPS is a broader framework for how you as a clinician orient to uncertainty — before, during, and after the encounter. It was developed by clinician-educators at Harvard Medical School and published in the <em>Journal of General Internal Medicine</em> (2024).</p>
-
-  <div style="margin:20px 0;">
-
-    <div class="acronym-row" style="margin-bottom:4px;">
-      <div class="acronym-letter" style="background:#E8E0F7;color:#3d1f7a;">R</div>
-      <div class="acronym-content">
-        <strong>Recognize</strong>
-        Notice that uncertainty is present — for you, for the patient, or both — and notice whether your experiences of uncertainty are symmetrical. The parent may be far more certain about what happened than you are, or far more uncertain. Awareness of this asymmetry changes how you approach the conversation.
-      </div>
-    </div>
-
-    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
-      <div class="acronym-letter" style="background:#D9D0F0;color:#3d1f7a;">A</div>
-      <div class="acronym-content">
-        <strong>Acknowledge</strong>
-        Name, accept, and normalize the uncertainty — both internally and with the patient. Acknowledging uncertainty is not a weakness; it is an act of clinical honesty that deepens trust. Use language that emphasizes humility: <em>"I am not entirely certain what caused this"</em> rather than vague hedging.
-      </div>
-    </div>
-
-    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
-      <div class="acronym-letter" style="background:#CAC1E8;color:#3d1f7a;">P</div>
-      <div class="acronym-content">
-        <strong>Partner</strong>
-        Invest in the therapeutic alliance and co-construct a plan of action. Emphasize non-abandonment: <em>"I don't know exactly what is going on, but I will be with you and will support you."</em> This creates a sense of certainty in the relationship itself, even when diagnostic certainty is impossible.
-      </div>
-    </div>
-
-    <div class="acronym-row" style="border-top:none;">
-      <div class="acronym-letter" style="background:#BBB2E0;color:#2a1560;">S</div>
-      <div class="acronym-content">
-        <strong>Seek Support</strong>
-        After the encounter, reflect. Talk with a colleague. Look up the clinical question. Uncertainty is not a private burden — sharing it with peers normalizes the experience and drives learning. As a student, this step is about debriefing: what was hard, what helped, what you would do differently.
-      </div>
-    </div>
-
-  </div>
-
-  <!-- RAPS 2x2 quadrant matrix -->
-  <p style="font-size:13.5px;margin:20px 0 4px;">One of RAPS's most useful concepts is that the clinician and patient may not experience the same degree of uncertainty. As you enter Cases 2 and 3, identify which quadrant you are in.</p>
-
-  <div style="margin:12px 0 4px;display:grid;grid-template-columns:80px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);font-size:12.5px;">
-
-    <!-- corner cell -->
-    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:flex-end;justify-content:flex-end;">
-      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);text-align:right;line-height:1.3;">Clinician uncertainty</span>
-    </div>
-    <!-- column headers -->
-    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: Low uncertainty</div>
-    <div style="background:var(--gray-100);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: High uncertainty</div>
-
-    <!-- row label: Clinician HIGH -->
-    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
-      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">High</span>
-    </div>
-    <!-- Q C: Clinician HIGH, Patient LOW -->
-    <div style="background:#F0FDFA;border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
-      <div style="font-weight:700;color:#0D9488;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Clinician more uncertain</div>
-      The patient thinks you have an answer you don't. Name your uncertainty clearly to realign expectations.
-    </div>
-    <!-- Q D: Both HIGH -->
-    <div style="background:#E8E0F7;border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;position:relative;">
-      <div style="font-weight:700;color:#3d1f7a;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both highly uncertain</div>
-      The most demanding scenario. Partnership language and non-abandonment are critical — offer presence, not false certainty.
-      <div style="margin-top:8px;font-size:10.5px;color:#3d1f7a;background:#D9D0F0;border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Cases 2 &amp; 3</div>
-    </div>
-
-    <!-- row label: Clinician LOW -->
-    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
-      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">Low</span>
-    </div>
-    <!-- Q A: Both LOW -->
-    <div style="background:var(--gray-50);border-right:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
-      <div style="font-weight:700;color:var(--gray-400);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both low uncertainty</div>
-      No special navigation needed — a clear diagnosis and straightforward plan.
-    </div>
-    <!-- Q B: Patient HIGH, Clinician LOW -->
-    <div style="background:var(--blue-lt);padding:14px 16px;line-height:1.55;">
-      <div style="font-weight:700;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Patient more uncertain</div>
-      You're confident; the patient isn't. Validate their uncertainty before sharing your certainty.
-      <div style="margin-top:8px;font-size:10.5px;color:var(--blue);background:var(--blue-md);border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Case 1</div>
-    </div>
-
-  </div>
-  <p style="font-size:11.5px;color:var(--gray-400);margin-top:6px;">Perceived uncertainty exists on a continuum — these quadrants are a framework for orientation, not rigid categories.</p>
 
 </section>
 
@@ -552,7 +573,7 @@
         <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">AAP clinical practice guideline: BRUE</a> — Tieder et al. <em>Pediatrics</em> 2016
       </li>
       <li style="margin-bottom:0;">
-        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">Neonatal fever and evaluation for serious bacterial infection</a> — Renaud et al. <em>Current Opinion in Pediatrics</em> 2022
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">AAP clinical practice guideline: evaluation and management of febrile infants 8–60 days old</a> — Pantell et al. <em>Pediatrics</em> 2021
       </li>
     </ul>
   </section>
