@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigating Ambiguity — MedSimAI Case Series</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:    #2563A8; --blue-lt: #EEF4FC; --blue-md: #CAEDFB;
+    --green:   #2D7A4F; --green-lt:#EEF8F2; --green-md:#D9F2D0;
+    --gray-50: #F8F9FA; --gray-100:#F0F2F5; --gray-200:#E2E6EA;
+    --gray-400:#9BA3AF; --gray-600:#4B5563; --gray-800:#1F2937;
+    --peach:#FAE2D5; --lavender:#F2CEED; --nav-w:240px;
+    --font: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--gray-800); background:#fff; display:flex; }
+  nav { position:fixed; top:0; left:0; width:var(--nav-w); height:100vh; overflow-y:auto; background:var(--gray-50); border-right:1px solid var(--gray-200); padding:28px 0 40px; display:flex; flex-direction:column; }
+  .nav-logo { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); padding:0 20px 20px; border-bottom:1px solid var(--gray-200); margin-bottom:16px; }
+  nav a { display:block; padding:5px 20px; font-size:13.5px; color:var(--gray-600); text-decoration:none; border-left:3px solid transparent; line-height:1.4; transition:color .15s,border-color .15s,background .15s; }
+  nav a:hover { color:var(--blue); background:var(--blue-lt); border-left-color:var(--blue); }
+  nav a.section-head { font-weight:600; color:var(--gray-800); margin-top:12px; font-size:13px; }
+  nav a.sub { padding-left:32px; font-size:13px; color:var(--gray-400); }
+  nav a.sub:hover { color:var(--blue); }
+  main { margin-left:var(--nav-w); max-width:820px; padding:48px 56px 80px; }
+  section { padding-bottom:48px; margin-bottom:12px; }
+  hr { border:none; border-top:1px solid var(--gray-200); margin:32px 0; }
+  .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; border-radius:3px; padding:2px 8px; background:var(--gray-100); }
+
+  /* ── Per-section accent stripes ── */
+  #overview, #case1, #frameworks, #case2, #case3 { border-top:2px solid var(--gray-200); padding-top:44px; }
+
+  #overview                 { border-top-color:var(--blue); }
+  #overview  .section-label { background:var(--blue-md); color:var(--blue); }
+  #overview  h3             { border-left:3px solid #B2E4E8; padding-left:10px; }
+
+  #case1                    { border-top-color:var(--blue); }
+  #case1     .section-label { background:var(--blue-md); color:var(--blue); }
+  #case1     h3             { border-left:3px solid #B2E4E8; padding-left:10px; }
+
+  #frameworks               { border-top-color:#9B7FD4; }
+  #frameworks .section-label { background:#E8E0F7; color:#3d1f7a; }
+  #frameworks h3            { border-left:3px solid #C5B3E8; padding-left:10px; }
+
+  #case2                    { border-top-color:#0D9488; }
+  #case2     .section-label { background:#CCFBF1; color:#0D9488; }
+  #case2     h3             { border-left:3px solid #5EEAD4; padding-left:10px; }
+
+  #case3                    { border-top-color:#5C7E9A; }
+  #case3     .section-label { background:#E3EDF5; color:#2A4A64; }
+  #case3     h3             { border-left:3px solid #9DC4D8; padding-left:10px; }
+
+  /* ── Typography ── */
+  h2 { font-size:22px; font-weight:700; color:var(--gray-800); margin-bottom:14px; line-height:1.3; }
+  h3 { font-size:16px; font-weight:600; color:var(--gray-800); margin:24px 0 8px; }
+  p  { margin-bottom:12px; }
+  em { font-style:italic; color:var(--gray-600); }
+
+  /* ── Callout boxes ── */
+  .callout { border-radius:8px; padding:14px 18px; margin:20px 0; font-size:13.5px; line-height:1.6; }
+  .callout strong { display:block; margin-bottom:4px; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
+  .callout.blue   { background:var(--blue-lt);  border-left:3px solid var(--blue); }
+  .callout.green  { background:#F0FDFA; border-left:3px solid #0D9488; }
+  .callout.gray   { background:var(--gray-50);  border-left:3px solid var(--gray-400); }
+  .callout.amber  { background:#F0FDFA;          border-left:3px solid #0D9488; }
+  .callout.purple { background:#E8E0F7;          border-left:3px solid #9B7FD4; }
+  .callout.blue   strong { color:var(--blue); }
+  .callout.green  strong { color:#0D9488; }
+  .callout.gray   strong { color:var(--gray-600); }
+  .callout.amber  strong { color:#134E4A; }
+  .callout.purple strong { color:#3d1f7a; }
+
+  /* ── Step list ── */
+  .step-list { list-style:none; counter-reset:steps; margin:16px 0; }
+  .step-list li { counter-increment:steps; display:flex; gap:14px; margin-bottom:12px; font-size:13.5px; align-items:flex-start; }
+  .step-list li::before { content:counter(steps); display:flex; align-items:center; justify-content:center; min-width:24px; height:24px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-weight:700; font-size:12px; margin-top:1px; flex-shrink:0; }
+
+  /* ── Spec grid ── */
+  .spec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  .spec-box { border-radius:8px; padding:14px 16px; font-size:13px; line-height:1.6; }
+  .spec-box strong { display:block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+
+  /* ── 2-col grid ── */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
+
+  /* ── Framework acronym display ── */
+  .acronym-row { display:flex; gap:0; margin:20px 0; border-radius:8px; overflow:hidden; border:1px solid var(--gray-200); }
+  .acronym-letter { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:52px; padding:18px 12px; font-size:26px; font-weight:800; line-height:1; }
+  .acronym-content { padding:14px 16px; font-size:13.5px; line-height:1.6; border-left:1px solid var(--gray-200); display:flex; flex-direction:column; justify-content:center; }
+  .acronym-content strong { display:block; font-size:13px; font-weight:700; margin-bottom:3px; }
+
+  /* ── Collapsible blocks ── */
+  details { border:1px solid var(--gray-200); border-radius:8px; margin:16px 0; overflow:hidden; }
+  summary { padding:12px 16px; font-size:13.5px; font-weight:600; cursor:pointer; background:var(--gray-50); list-style:none; display:flex; align-items:center; gap:8px; user-select:none; }
+  summary::before { content:'▶'; font-size:10px; color:var(--gray-400); transition:transform .2s; flex-shrink:0; }
+  details[open] summary::before { transform:rotate(90deg); }
+  .note { font-size:12px; font-weight:400; color:var(--gray-400); margin-left:4px; }
+
+  /* ── Rubric table ── */
+  .rubric-table { width:100%; border-collapse:collapse; font-size:13px; margin:0; }
+  .rubric-table th { background:var(--gray-100); padding:8px 12px; text-align:left; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-600); border-bottom:1px solid var(--gray-200); }
+  .rubric-table td { padding:10px 12px; border-bottom:1px solid var(--gray-200); vertical-align:top; line-height:1.55; }
+  .rubric-table td:first-child { font-weight:600; color:var(--gray-800); width:28%; }
+  .rubric-table ul { margin:4px 0 0 16px; padding:0; }
+  .rubric-table li { margin-bottom:2px; }
+
+  /* ── Definition list ── */
+  .def-list dt { font-weight:600; color:var(--blue); margin-top:16px; font-size:14px; }
+  .def-list dd { margin-left:0; padding-left:14px; border-left:2px solid var(--gray-200); font-size:13.5px; color:var(--gray-600); margin-top:2px; margin-bottom:4px; }
+
+
+  /* ── Flow timeline ── */
+  .flow-step { display:flex; gap:16px; margin-bottom:6px; align-items:flex-start; font-size:13.5px; }
+  .flow-num { display:flex; align-items:center; justify-content:center; min-width:28px; height:28px; border-radius:50%; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .flow-connector { width:2px; background:var(--gray-200); margin-left:13px; height:12px; }
+
+  /* ── Inline example boxes ── */
+  .example-box { margin:16px 0; border-radius:8px; overflow:hidden; border:1px solid var(--gray-200); }
+  .example-box-header { padding:10px 16px; border-bottom:1px solid var(--gray-200); font-size:11.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+  .example-box-body { padding:14px 16px; font-size:13.5px; line-height:1.65; }
+
+  /* ── Survey button ── */
+  .survey-link { display:inline-block; padding:10px 20px; border-radius:6px; font-size:13px; font-weight:600; text-decoration:none; margin-top:8px; }
+  .survey-link.amber  { background:#0D9488; color:#fff; }
+  .survey-link.blue   { background:var(--blue); color:#fff; }
+
+  @media (max-width:860px) {
+    nav { display:none; }
+    main { margin-left:0; padding:32px 24px 60px; }
+    .spec-grid { grid-template-columns:1fr; }
+    .two-col { grid-template-columns:1fr; }
+    .acronym-row { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MedSimAI — Ambiguity</div>
+
+  <a href="#overview" class="section-head">Module Overview</a>
+  <a href="#what-is-ambiguity" class="sub">What is ambiguity?</a>
+  <a href="#three-types" class="sub">Three types</a>
+  <a href="#module-flow" class="sub">Module flow</a>
+  <a href="#rubric" class="sub">Assessment rubric</a>
+  <a href="#pre-survey" class="sub">Pre-module survey</a>
+
+  <a href="#case1" class="section-head">Case 1 — Mia</a>
+  <a href="#case1-overview" class="sub">Case overview</a>
+  <a href="#case1-sim" class="sub">Encounter</a>
+
+  <a href="#frameworks" class="section-head">Frameworks</a>
+  <a href="#adapt" class="sub">ADAPT</a>
+  <a href="#raps" class="sub">RAPS</a>
+
+  <a href="#case2" class="section-head">Case 2 — Claudia</a>
+  <a href="#case2-overview" class="sub">Case overview</a>
+  <a href="#case2-sim" class="sub">Encounter</a>
+
+  <a href="#case3" class="section-head">Case 3 — Jack</a>
+  <a href="#case3-overview" class="sub">Case overview</a>
+  <a href="#case3-sim" class="sub">Encounter</a>
+
+  <a href="#references" class="section-head">Background</a>
+</nav>
+
+<main>
+
+<!-- ── Page header ── -->
+<div style="padding-bottom:28px;margin-bottom:0;">
+  <h1 style="font-size:30px;font-weight:800;color:var(--gray-800);margin-bottom:4px;line-height:1.2;">Navigating Ambiguity</h1>
+  <p style="font-size:20px;font-weight:500;color:var(--blue);margin:0;">MedSimAI Pediatrics Case Series</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — MODULE OVERVIEW (Amber)
+     ══════════════════════════════════════════ -->
+<section id="overview">
+  <div class="section-label">Module Overview</div>
+  <h2 id="what-is-ambiguity">What is ambiguity in medicine?</h2>
+
+  <p>Medicine's ground state is uncertainty. Yet training has historically rewarded the pursuit of certainty, conditioning students to feel that "I don't know" is a failure rather than an honest and clinically important statement. This module asks you to practice something different: sitting with uncertainty, naming it clearly to a family, and communicating a thoughtful plan — even when no definitive answer exists. Each case involves a conversation with an AI-standardized patient on MedSimAI. There is no note and no oral presentation; the AI will provide feedback when you finish.</p>
+
+  <h3 id="module-flow">Module flow</h3>
+
+  <!-- Flow diagram -->
+  <div style="margin:20px 0;padding:20px 24px;border-radius:8px;background:var(--gray-50);border:1px solid var(--gray-200);">
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:var(--gray-200);color:var(--gray-600);">1</div>
+      <div><strong>Pre-module survey</strong> <em>(optional)</em> — your current comfort and confidence navigating uncertainty with patients</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:var(--blue-md);color:var(--blue);">2</div>
+      <div><strong>Introduction</strong> — read this page through the Case 1 section</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:var(--blue-md);color:var(--blue);">3</div>
+      <div><strong>Case 1: Mia</strong> — AI-SP encounter on MedSimAI; AI feedback provided after</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:#E8E0F7;color:#3d1f7a;">4</div>
+      <div><strong>Frameworks</strong> — read the ADAPT and RAPS sections on this page</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:#CCFBF1;color:#0D9488;">5</div>
+      <div><strong>Case 2: Claudia</strong> — AI-SP encounter on MedSimAI; AI feedback provided after</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:#E3EDF5;color:#2A4A64;">6</div>
+      <div><strong>Case 3: Jack</strong> — AI-SP encounter on MedSimAI; AI feedback provided after</div>
+    </div>
+    <div class="flow-connector"></div>
+
+    <div class="flow-step">
+      <div class="flow-num" style="background:var(--gray-200);color:var(--gray-600);">7</div>
+      <div><strong>Post-module survey</strong> <em>(optional)</em> — comfort and confidence navigating uncertainty after the module</div>
+    </div>
+
+  </div>
+
+  <h3 id="rubric">Assessment rubric</h3>
+  <p>The same rubric applies to all three cases.</p>
+
+  <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);margin:16px 0 24px;">
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th style="width:32%;">Domain</th>
+          <th style="width:68%;">Goal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Names uncertainty directly</td>
+          <td>Uses clear language to state what is not known; does not imply a diagnosis or certainty that does not exist</td>
+        </tr>
+        <tr>
+          <td>Acknowledges family emotion</td>
+          <td>Validates the parent's emotional response; creates space for distress before moving to clinical information</td>
+        </tr>
+        <tr>
+          <td>Avoids over-reassurance</td>
+          <td>Does not imply more certainty than the evidence supports; holds the genuine uncertainty without minimizing it</td>
+        </tr>
+        <tr>
+          <td>Explains a clear plan</td>
+          <td>Describes next steps — monitoring, follow-up, what to watch for — even in the absence of a diagnosis</td>
+        </tr>
+        <tr>
+          <td>Non-abandonment</td>
+          <td>Communicates that the team will remain present and supportive regardless of whether an answer is found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="pre-survey">Pre-module survey</h3>
+  <div class="callout gray">
+    <strong>Optional</strong>
+    Complete before Case 1. No impact on your ability to do the cases.
+    <br><br>
+    <a href="#" class="survey-link blue" style="opacity:0.5;cursor:not-allowed;">Pre-Module Survey — Qualtrics link coming soon</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — CASE 1: MIA (Blue)
+     ══════════════════════════════════════════ -->
+<section id="case1">
+  <div class="section-label">Case 1 — Start Here</div>
+  <h2 id="case1-overview">Mia — A 2-month-old after a BRUE</h2>
+
+  <p><strong>Patient:</strong> Mia, 2 months old &nbsp;|&nbsp; <strong>Parent:</strong> Lauren Sampson (first-time mother) &nbsp;|&nbsp; <strong>Setting:</strong> Inpatient pediatrics — admitted for monitoring</p>
+
+  <p>Mia had a <strong>Brief Resolved Unexplained Event (BRUE)</strong> — she briefly stopped breathing, then recovered. The workup is complete and unremarkable, and in most BRUE cases no cause is ever found. Lauren is a terrified first-time parent who watched her infant stop breathing. The challenge is communicating "we may never have an answer" honestly — without false reassurance and without catastrophizing.</p>
+
+  <h3 id="case1-sim">MedSimAI encounter</h3>
+  <p style="font-size:13.5px;color:var(--gray-600);">Case 1 — Lauren Sampson / Mia.</p>
+
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — FRAMEWORKS (Purple)
+     ══════════════════════════════════════════ -->
+<section id="frameworks">
+  <div class="section-label">Frameworks</div>
+  <h2>Tools for communicating uncertainty</h2>
+  <p>You have now experienced one ambiguous encounter without a scaffold. The two frameworks below give you a vocabulary and a structure for approaching these conversations more deliberately. Neither is a script — they are a way of organizing your thinking before, during, and after a difficult conversation.</p>
+
+  <div class="callout purple">
+    <strong>Background reading (optional)</strong>
+    These frameworks draw on research into uncertainty in medical decision-making. Background papers are listed in the Resources section below — not required to complete the module, but available if you want to go deeper.
+  </div>
+
+  <!-- ── ADAPT ── -->
+  <h3 id="adapt">ADAPT — A framework for disclosing uncertainty</h3>
+  <p>ADAPT was developed to help clinicians structure the act of communicating uncertainty to patients and families. It was evaluated with medical students and surgical residents and shown to significantly increase confidence in uncertainty communication. The mnemonic guides you through five concrete steps.</p>
+
+  <div style="margin:20px 0;">
+
+    <div class="acronym-row" style="margin-bottom:4px;">
+      <div class="acronym-letter" style="background:#F0FDFA;color:#0D9488;">A</div>
+      <div class="acronym-content">
+        <strong>Assess the patient's current understanding</strong>
+        Before you explain anything, find out what the family already knows or believes. This shapes how you frame information and prevents you from talking past their actual concerns. <em>"Can you tell me what you understand about what happened and what the team has told you so far?"</em>
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#CCFBF1;color:#0D9488;">D</div>
+      <div class="acronym-content">
+        <strong>Disclose your uncertainty. Be direct.</strong>
+        Name the uncertainty explicitly and early. Vagueness is not kindness — it creates anxiety. Use clear, plain language. <em>"I want to be honest with you: we don't have a definitive answer for what caused this."</em>
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#99F6E4;color:#134E4A;">A</div>
+      <div class="acronym-content">
+        <strong>Acknowledge and respond to patient emotions</strong>
+        After disclosing uncertainty, pause. The family will have an emotional reaction — fear, frustration, disbelief. Make space for it before moving forward. <em>"I imagine that's really hard to hear. What are you feeling right now?"</em>
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#5EEAD4;color:#134E4A;">P</div>
+      <div class="acronym-content">
+        <strong>Plan next steps with the patient</strong>
+        Even without a diagnosis, there is always a plan. Walk the family through what happens next — monitoring, follow-up, what to watch for, when to return. Making the plan collaborative reinforces partnership. <em>"Here is what we can do from here, and I'd like to know if this makes sense to you."</em>
+      </div>
+    </div>
+
+    <div class="acronym-row" style="border-top:none;">
+      <div class="acronym-letter" style="background:#2DD4BF;color:#134E4A;">T</div>
+      <div class="acronym-content">
+        <strong>Temper expectations</strong>
+        Be honest about what the future may or may not bring. Avoid implying that the next test or the next visit will provide the answer if it may not. <em>"I want you to know that even with follow-up, we may not find a cause — and that is actually a common outcome with this type of event."</em>
+      </div>
+    </div>
+
+  </div>
+
+  <details>
+    <summary>ADAPT in practice — Case 1 example language <span class="note">click to expand</span></summary>
+    <div style="padding:16px 0 4px;font-size:13.5px;line-height:1.75;">
+      <p><strong>A — Assess:</strong> "Lauren, before I go through the results, I want to make sure I understand what the team has explained to you. Can you tell me what you know so far about what happened with Mia?"</p>
+      <p><strong>D — Disclose:</strong> "I want to be upfront with you: we have done a complete workup and we haven't found a cause. This type of event — we call it a BRUE — often doesn't have an identifiable explanation."</p>
+      <p><strong>A — Acknowledge:</strong> "I can imagine how frightening that is to hear, especially after what you watched happen. This wasn't your fault, and your instinct to bring her in was exactly right."</p>
+      <p><strong>P — Plan:</strong> "Here is what we want to do: we're going to monitor Mia overnight, and before you go home, we'll go through what to watch for and when to come back. We'll also arrange a close follow-up visit."</p>
+      <p><strong>T — Temper:</strong> "I do want to be honest — even at follow-up, we may not find a definitive explanation. That's actually what happens in the majority of these cases. Our plan is designed to keep Mia safe whether or not we ever have an answer."</p>
+    </div>
+  </details>
+
+  <!-- ── RAPS ── -->
+  <h3 id="raps">RAPS — A framework for navigating uncertainty</h3>
+  <p>Where ADAPT focuses on the communication act itself, RAPS is a broader framework for how you as a clinician orient to uncertainty — before, during, and after the encounter. It was developed by clinician-educators at Harvard Medical School and published in the <em>Journal of General Internal Medicine</em> (2024).</p>
+
+  <div style="margin:20px 0;">
+
+    <div class="acronym-row" style="margin-bottom:4px;">
+      <div class="acronym-letter" style="background:#E8E0F7;color:#3d1f7a;">R</div>
+      <div class="acronym-content">
+        <strong>Recognize</strong>
+        Notice that uncertainty is present — for you, for the patient, or both — and notice whether your experiences of uncertainty are symmetrical. The parent may be far more certain about what happened than you are, or far more uncertain. Awareness of this asymmetry changes how you approach the conversation.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#D9D0F0;color:#3d1f7a;">A</div>
+      <div class="acronym-content">
+        <strong>Acknowledge</strong>
+        Name, accept, and normalize the uncertainty — both internally and with the patient. Acknowledging uncertainty is not a weakness; it is an act of clinical honesty that deepens trust. Use language that emphasizes humility: <em>"I am not entirely certain what caused this"</em> rather than vague hedging.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="margin-bottom:4px;border-top:none;">
+      <div class="acronym-letter" style="background:#CAC1E8;color:#3d1f7a;">P</div>
+      <div class="acronym-content">
+        <strong>Partner</strong>
+        Invest in the therapeutic alliance and co-construct a plan of action. Emphasize non-abandonment: <em>"I don't know exactly what is going on, but I will be with you and will support you."</em> This creates a sense of certainty in the relationship itself, even when diagnostic certainty is impossible.
+      </div>
+    </div>
+
+    <div class="acronym-row" style="border-top:none;">
+      <div class="acronym-letter" style="background:#BBB2E0;color:#2a1560;">S</div>
+      <div class="acronym-content">
+        <strong>Seek Support</strong>
+        After the encounter, reflect. Talk with a colleague. Look up the clinical question. Uncertainty is not a private burden — sharing it with peers normalizes the experience and drives learning. As a student, this step is about debriefing: what was hard, what helped, what you would do differently.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RAPS 2x2 quadrant matrix -->
+  <p style="font-size:13.5px;margin:20px 0 4px;">One of RAPS's most useful concepts is that the clinician and patient may not experience the same degree of uncertainty. As you enter Cases 2 and 3, identify which quadrant you are in.</p>
+
+  <div style="margin:12px 0 4px;display:grid;grid-template-columns:80px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);font-size:12.5px;">
+
+    <!-- corner cell -->
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:flex-end;justify-content:flex-end;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);text-align:right;line-height:1.3;">Clinician uncertainty</span>
+    </div>
+    <!-- column headers -->
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: Low uncertainty</div>
+    <div style="background:var(--gray-100);border-bottom:1px solid var(--gray-200);padding:10px 14px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);display:flex;align-items:center;justify-content:center;">Patient: High uncertainty</div>
+
+    <!-- row label: Clinician HIGH -->
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">High</span>
+    </div>
+    <!-- Q C: Clinician HIGH, Patient LOW -->
+    <div style="background:#F0FDFA;border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:#0D9488;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Clinician more uncertain</div>
+      The patient thinks you have an answer you don't. Name your uncertainty clearly to realign expectations.
+    </div>
+    <!-- Q D: Both HIGH -->
+    <div style="background:#E8E0F7;border-bottom:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;position:relative;">
+      <div style="font-weight:700;color:#3d1f7a;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both highly uncertain</div>
+      The most demanding scenario. Partnership language and non-abandonment are critical — offer presence, not false certainty.
+      <div style="margin-top:8px;font-size:10.5px;color:#3d1f7a;background:#D9D0F0;border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Cases 2 &amp; 3</div>
+    </div>
+
+    <!-- row label: Clinician LOW -->
+    <div style="background:var(--gray-100);border-right:1px solid var(--gray-200);padding:10px 8px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;">Low</span>
+    </div>
+    <!-- Q A: Both LOW -->
+    <div style="background:var(--gray-50);border-right:1px solid var(--gray-200);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:var(--gray-400);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Both low uncertainty</div>
+      No special navigation needed — a clear diagnosis and straightforward plan.
+    </div>
+    <!-- Q B: Patient HIGH, Clinician LOW -->
+    <div style="background:var(--blue-lt);padding:14px 16px;line-height:1.55;">
+      <div style="font-weight:700;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Patient more uncertain</div>
+      You're confident; the patient isn't. Validate their uncertainty before sharing your certainty.
+      <div style="margin-top:8px;font-size:10.5px;color:var(--blue);background:var(--blue-md);border-radius:3px;padding:2px 7px;display:inline-block;font-weight:600;">Case 1</div>
+    </div>
+
+  </div>
+  <p style="font-size:11.5px;color:var(--gray-400);margin-top:6px;">Perceived uncertainty exists on a continuum — these quadrants are a framework for orientation, not rigid categories.</p>
+
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — CASE 2: CLAUDIA (Green)
+     ══════════════════════════════════════════ -->
+<section id="case2">
+  <div class="section-label">Case 2</div>
+  <h2 id="case2-overview">Claudia — A 30-day-old with fever</h2>
+
+  <p><strong>Patient:</strong> Claudia, 18 days old &nbsp;|&nbsp; <strong>Parent:</strong> Arthur Lopez (first-time father, low health literacy) &nbsp;|&nbsp; <strong>Setting:</strong> Inpatient pediatrics — admitted during sepsis workup</p>
+
+  <p>Claudia has a fever at 18 days old and is undergoing a full sepsis workup — LP, cultures, empiric IV antibiotics — despite looking relatively well. This is <strong>protocol-driven ambiguity</strong>: serious action without a diagnosis, because neonates can deteriorate rapidly and the exam is unreliable. Arthur is a first-time father who doesn't understand why so much is happening to a baby who seems fine.</p>
+
+  <h3 id="case2-sim">MedSimAI encounter</h3>
+  <p style="font-size:13.5px;color:var(--gray-600);">Case 2 — Arthur Lopez / Claudia.</p>
+
+  <details style="margin-top:20px;">
+    <summary>ADAPT in practice — Case 2 example language <span class="note">click to expand</span></summary>
+    <div style="padding:16px 0 4px;font-size:13.5px;line-height:1.75;">
+      <p><strong>A — Assess:</strong> "Arthur, before I explain what we're doing and why, I want to make sure I understand what the team has already shared with you. Can you tell me what you know so far about why Claudia was admitted?"</p>
+      <p><strong>D — Disclose:</strong> "I want to be honest with you: we don't have an infection confirmed yet — and we may not find one. But with a baby Claudia's age who has a fever, we have to act as if there could be a serious infection until we can prove otherwise."</p>
+      <p><strong>A — Acknowledge:</strong> "I can see this is really frightening — watching your daughter go through all of this when she seems okay is genuinely hard. Your concern for her is clear, and asking these questions is exactly right."</p>
+      <p><strong>P — Plan:</strong> "Here is what is happening: we are watching her closely, the cultures are running, and we expect results over the next 24 to 48 hours. We will update you as soon as we know more."</p>
+      <p><strong>T — Temper:</strong> "It's possible that all of the cultures come back negative — and if they do, that is good news, but it also means we may never know exactly what caused the fever. We are prepared for that, and we will talk through what it means for Claudia's care as results come in."</p>
+    </div>
+  </details>
+
+  <div class="callout green" style="margin-top:20px;">
+    <strong>After Case 2 — what's next</strong>
+    The AI will provide feedback on your encounter on MedSimAI. Once you have reviewed it, continue to Case 3.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — CASE 3: JACK (Steel)
+     ══════════════════════════════════════════ -->
+<section id="case3">
+  <div class="section-label">Case 3</div>
+  <h2 id="case3-overview">Jack — An 8-year-old with abnormal labs</h2>
+
+  <p><strong>Patient:</strong> Jack Wyles, age 8 &nbsp;|&nbsp; <strong>Parent:</strong> Irene Wyles (Jack's mother) &nbsp;|&nbsp; <strong>Setting:</strong> Inpatient pediatrics — admitted for monitoring</p>
+
+  <p>Jack is admitted with persistent fever and abnormal labs; the differential includes leukemia but no diagnosis has been made. This is <strong>diagnostic ambiguity under emotional pressure</strong>: Irene's older daughter Emma was treated for lymphoma, and she is pattern-matching Jack to that experience. Neither false reassurance nor alarm is honest — you must hold genuine uncertainty with a mother who has already lived through childhood cancer.</p>
+
+  <h3 id="case3-sim">MedSimAI encounter</h3>
+  <p style="font-size:13.5px;color:var(--gray-600);">Case 3 — Irene Wyles / Jack.</p>
+
+  <details style="margin-top:20px;">
+    <summary>ADAPT in practice — Case 3 example language <span class="note">click to expand</span></summary>
+    <div style="padding:16px 0 4px;font-size:13.5px;line-height:1.75;">
+      <p><strong>A — Assess:</strong> "Irene, I know you've been through so much already with Emma. Before I go through Jack's results, I want to understand — what are you most worried about right now, and what has the team explained to you so far?"</p>
+      <p><strong>D — Disclose:</strong> "I want to be direct with you about where we are: Jack's labs are abnormal, and we are taking that seriously. We are still working to understand what is causing them. I cannot tell you yet what the diagnosis is, and I don't want to speculate before we have more information."</p>
+      <p><strong>A — Acknowledge:</strong> "I know that uncertainty may be the hardest thing to hear, especially given what your family has already been through with Emma. It makes complete sense that your mind would go to the places it's going right now."</p>
+      <p><strong>P — Plan:</strong> "Here is what we are doing: we have additional tests running and we have asked the right specialists to be involved. We will have more information within the next day or two, and we will sit down with you as soon as we do."</p>
+      <p><strong>T — Temper:</strong> "I want you to know that I cannot rule anything in or out right now — and I won't pretend otherwise. What I can promise is that we will not leave you in the dark. We will share information with you as we have it, and we will get through this step by step together."</p>
+    </div>
+  </details>
+
+  <hr>
+
+  <h3 style="margin-top:32px;">Post-module survey</h3>
+
+  <div class="callout gray">
+    <strong>Optional</strong>
+    Complete after Case 3 if you participated in the pre-module survey. No impact on your ability to do the cases.
+    <br><br>
+    <a href="#" class="survey-link blue" style="opacity:0.5;cursor:not-allowed;">Post-Module Survey — Qualtrics link coming soon</a>
+  </div>
+
+</section>
+
+  <!-- ══════════════════════════════════════════
+       BACKGROUND
+       ══════════════════════════════════════════ -->
+  <section id="references" style="border-top:2px solid var(--gray-200);padding-top:44px;">
+    <div class="section-label">Background</div>
+    <h2>Additional reading</h2>
+    <p style="font-size:13.5px;color:var(--gray-600);margin-bottom:20px;">Key sources underlying the frameworks and cases in this module.</p>
+
+    <ul style="font-size:13px;line-height:1.85;color:var(--gray-600);padding-left:0;margin:0;list-style:none;">
+      <li style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--gray-200);">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">ADAPT framework</a> — Bhatt et al. <em>JGIM</em> 2023
+      </li>
+      <li style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--gray-200);">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">RAPS framework</a> — Patel et al. <em>JGIM</em> 2024
+      </li>
+      <li style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--gray-200);">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">Uncertainty and tolerance of uncertainty in medical students</a> — Helou et al. <em>Medical Education</em> 2020
+      </li>
+      <li style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--gray-200);">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">Tolerating uncertainty — the next medical revolution?</a> — Simpkin &amp; Schwartzstein. <em>NEJM</em> 2016
+      </li>
+      <li style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--gray-200);">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">AAP clinical practice guideline: BRUE</a> — Tieder et al. <em>Pediatrics</em> 2016
+      </li>
+      <li style="margin-bottom:0;">
+        <a href="#" style="color:var(--blue);font-weight:600;text-decoration:none;">Neonatal fever and evaluation for serious bacterial infection</a> — Renaud et al. <em>Current Opinion in Pediatrics</em> 2022
+      </li>
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>
