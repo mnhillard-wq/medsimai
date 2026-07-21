@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedSimAI Demo Course Overview</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:    #2563A8; --blue-lt: #EEF4FC; --blue-md: #CAEDFB;
+    --green:   #2D7A4F; --green-lt:#EEF8F2; --green-md:#D9F2D0;
+    --gray-50: #F8F9FA; --gray-100:#F0F2F5; --gray-200:#E2E6EA;
+    --gray-400:#9BA3AF; --gray-600:#4B5563; --gray-800:#1F2937;
+    --peach:#FAE2D5; --lavender:#F2CEED; --teal:#0D9488; --teal-lt:#CCFBF1;
+    --nav-w:250px;
+    --font: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--gray-800); background:#fff; display:flex; }
+
+  /* ── Nav ── */
+  nav { position:fixed; top:0; left:0; width:var(--nav-w); height:100vh; overflow-y:auto; background:var(--gray-50); border-right:1px solid var(--gray-200); padding:28px 0 40px; display:flex; flex-direction:column; }
+  .nav-logo { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); padding:0 20px 20px; border-bottom:1px solid var(--gray-200); margin-bottom:16px; }
+  nav a { display:block; padding:5px 20px; font-size:13.5px; color:var(--gray-600); text-decoration:none; border-left:3px solid transparent; line-height:1.4; transition:color .15s,border-color .15s,background .15s; }
+  nav a:hover { color:var(--blue); background:var(--blue-lt); border-left-color:var(--blue); }
+  nav a.section-head { font-weight:600; color:var(--gray-800); margin-top:12px; font-size:13px; }
+  nav a.sub { padding-left:32px; font-size:12.5px; color:var(--gray-400); }
+  nav a.sub:hover { color:var(--blue); }
+  main { margin-left:var(--nav-w); max-width:900px; padding:48px 56px 100px; }
+  section { padding-bottom:48px; margin-bottom:12px; }
+  hr { border:none; border-top:1px solid var(--gray-200); margin:32px 0; }
+
+  .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; border-radius:3px; padding:2px 8px; background:var(--gray-100); }
+  #overview, #progression, #howcases, #ms1, #advanced, #crossref { border-top:2px solid var(--gray-200); padding-top:44px; }
+  #overview   { border-top-color:var(--blue); }
+  #overview   .section-label { background:var(--blue-md); color:var(--blue); }
+  #progression{ border-top-color:var(--green); }
+  #progression .section-label{ background:var(--green-md); color:var(--green); }
+  #howcases   { border-top-color:#5C7E9A; }
+  #howcases   .section-label { background:#E3EDF5; color:#2A4A64; }
+  #howcases   h3 { border-left:3px solid #9DC4D8; padding-left:10px; }
+  #ms1        { border-top-color:var(--green); }
+  #ms1        .section-label { background:var(--green-md); color:var(--green); }
+  #advanced   { border-top-color:var(--blue); }
+  #advanced   .section-label { background:var(--blue-md); color:var(--blue); }
+  #crossref   { border-top-color:#9B7FD4; }
+  #crossref   .section-label { background:#E8E0F7; color:#3d1f7a; }
+
+  h2 { font-size:22px; font-weight:700; color:var(--gray-800); margin-bottom:14px; line-height:1.3; }
+  h3 { font-size:17px; font-weight:600; color:var(--gray-800); margin:28px 0 8px; }
+  h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+  p { margin-bottom:12px; }
+  em { font-style:italic; color:var(--gray-600); }
+  strong { font-weight:600; }
+
+  .callout { border-radius:8px; padding:14px 18px; margin:20px 0; font-size:13.5px; line-height:1.6; }
+  .callout strong { display:block; margin-bottom:4px; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
+  .callout.blue  { background:var(--blue-lt);  border-left:3px solid var(--blue); }
+  .callout.green { background:var(--green-lt); border-left:3px solid var(--green); }
+  .callout.gray  { background:var(--gray-50);  border-left:3px solid var(--gray-400); }
+  .callout.purple{ background:#F5F2FB; border-left:3px solid #9B7FD4; }
+  .callout.blue   strong { color:var(--blue); }
+  .callout.green  strong { color:var(--green); }
+  .callout.gray   strong { color:var(--gray-600); }
+  .callout.purple strong { color:#3d1f7a; }
+
+  .step-list { list-style:none; counter-reset:steps; margin:16px 0; }
+  .step-list li { counter-increment:steps; display:flex; gap:14px; margin-bottom:14px; font-size:13.5px; align-items:flex-start; }
+  .step-list li::before { content:counter(steps); display:flex; align-items:center; justify-content:center; min-width:24px; height:24px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-weight:700; font-size:12px; margin-top:1px; flex-shrink:0; }
+
+  /* ── Progression map ── */
+  .progression-group { margin-bottom:20px; }
+  .progression-group h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--gray-400); margin-bottom:10px; }
+  .progression-step { display:flex; align-items:baseline; gap:8px; font-size:13px; margin-bottom:6px; flex-wrap:wrap; }
+  .step-num { display:flex; align-items:center; justify-content:center; min-width:22px; height:22px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-size:11px; font-weight:700; flex-shrink:0; }
+  .step-label { font-weight:600; color:var(--gray-800); }
+  .step-patients { color:var(--gray-600); }
+
+  /* ── Case grid (overview cards) ── */
+  .case-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+  .case-card { border:1px solid var(--gray-200); border-radius:8px; padding:16px 18px; background:#fff; text-decoration:none; display:block; color:inherit; transition:box-shadow .15s, border-color .15s; }
+  .case-card:hover { box-shadow:var(--shadow-sm,0 2px 8px rgba(0,0,0,.06)); border-color:var(--blue-md); }
+  .case-card .tag-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+  .tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border-radius:3px; padding:2px 7px; }
+  .tag.medicine  { background:var(--blue-md);  color:#1a4a7a; }
+  .tag.ob        { background:var(--green-md); color:#1a4a32; }
+  .tag.psych     { background:var(--lavender);  color:#6b2060; }
+  .tag.peds      { background:var(--peach);     color:#7a3010; }
+  .tag.inpatient { background:#E8E0F7;          color:#3d1f7a; }
+  .tag.ed        { background:#FDE8C8;           color:#7a3d00; }
+  .tag.tool      { background:var(--teal-lt);    color:var(--teal); }
+  .level-badge { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; border-radius:3px; padding:2px 7px; }
+  .level-badge.entry    { background:var(--green-md); color:var(--green); }
+  .level-badge.advanced { background:var(--gray-200); color:var(--gray-600); }
+  .case-card h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:4px; }
+  .case-card .case-meta { font-size:12.5px; color:var(--gray-600); margin-bottom:8px; margin-top:-2px; }
+  .activities { font-size:12px; color:var(--gray-400); display:flex; flex-wrap:wrap; gap:6px; }
+  .activity-pill { background:var(--gray-100); border-radius:100px; padding:2px 8px; color:var(--gray-600); font-size:11.5px; }
+  .skill-pill { background:var(--blue-lt); border-radius:100px; padding:2px 9px; color:var(--blue); font-size:11.5px; display:inline-block; margin:2px 4px 2px 0; }
+
+  /* ── Case detail blocks ── */
+  .case-detail { padding:32px 0; border-top:1px solid var(--gray-200); }
+  .case-detail:first-of-type { border-top:none; padding-top:8px; }
+  .case-detail-head { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px; }
+  .case-detail-head .badges { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .case-links a { font-size:12px; color:var(--blue); text-decoration:none; font-weight:600; }
+  .case-links a:hover { text-decoration:underline; }
+  .case-links span { color:var(--gray-400); margin:0 6px; }
+  .case-detail h3 { margin-top:6px; font-size:19px; }
+  .case-identity { font-size:13.5px; color:var(--gray-600); margin-bottom:10px; }
+  .case-identity strong { color:var(--gray-800); }
+  .one-liner { font-size:14.5px; color:var(--gray-800); margin-bottom:12px; }
+
+  details { border:1px solid var(--gray-200); border-radius:8px; margin:12px 0; overflow:hidden; }
+  summary { padding:11px 16px; font-size:13.5px; font-weight:600; cursor:pointer; background:var(--gray-50); list-style:none; display:flex; align-items:center; gap:8px; user-select:none; }
+  summary::before { content:'▶'; font-size:10px; color:var(--gray-400); transition:transform .2s; flex-shrink:0; }
+  details[open] summary::before { transform:rotate(90deg); }
+  details > div.detail-body { padding:4px 16px 16px; }
+  .note { font-size:12px; font-weight:400; color:var(--gray-400); margin-left:4px; }
+
+  .obj-list { margin:6px 0 4px 18px; font-size:13.5px; line-height:1.75; color:var(--gray-800); }
+  .obj-list li { margin-bottom:2px; }
+
+  .journey-step { display:flex; gap:14px; margin-bottom:14px; align-items:flex-start; font-size:13.5px; }
+  .journey-num { display:flex; align-items:center; justify-content:center; min-width:26px; height:26px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .journey-body strong { display:block; color:var(--gray-800); margin-bottom:2px; }
+  .journey-meta { color:var(--gray-600); font-size:12.5px; margin-bottom:2px; }
+  .journey-loc { color:var(--gray-400); font-size:12px; }
+
+  .interp { background:var(--blue-lt); border-left:3px solid var(--blue); border-radius:6px; padding:10px 14px; font-size:13px; color:var(--gray-800); margin-top:8px; }
+  .interp strong { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue); margin-bottom:3px; }
+
+  .rubric-table { width:100%; border-collapse:collapse; font-size:13px; margin:0; }
+  .rubric-table th { background:var(--gray-100); padding:8px 12px; text-align:left; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-600); border-bottom:1px solid var(--gray-200); }
+  .rubric-table td { padding:10px 12px; border-bottom:1px solid var(--gray-200); vertical-align:top; line-height:1.55; }
+  .rubric-table td:first-child { font-weight:600; color:var(--gray-800); }
+
+  .spec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  .spec-box { border-radius:8px; padding:14px 16px; font-size:13px; line-height:1.6; }
+  .spec-box > strong:first-child { display:block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+
+  @media (max-width:860px) {
+    nav{display:none;}
+    main{margin-left:0;padding:32px 24px 60px;}
+    .case-grid{grid-template-columns:1fr;}
+    .spec-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MedSimAI Demo Course</div>
+  <a href="#overview" class="section-head">Overview</a>
+  <a href="#progression" class="section-head">Learning Progression</a>
+  <a href="#howcases" class="section-head">How Cases Work</a>
+
+  <a href="#ms1" class="section-head">MS1 Entry-Level Cases</a>
+  <a href="#case-melanie-jones" class="sub">Melanie Jones</a>
+  <a href="#case-sean-muller" class="sub">Sean Muller</a>
+  <a href="#case-jordan-fullerton" class="sub">Jordan Fullerton</a>
+  <a href="#case-marielena-gil" class="sub">Marielena Gil</a>
+
+  <a href="#advanced" class="section-head">Advanced Cases</a>
+  <a href="#case-jessica-raymond" class="sub">Jessica Raymond</a>
+  <a href="#case-alex-rivera" class="sub">Alex Rivera</a>
+  <a href="#case-marcus-green" class="sub">Marcus Green</a>
+  <a href="#case-jordan-liu" class="sub">Jordan Liu</a>
+  <a href="#case-febrile-infant" class="sub">Febrile Infant (Claudia Lopez)</a>
+  <a href="#case-izzy-ochal" class="sub">Izzy Ochal</a>
+  <a href="#case-mona-lee" class="sub">Mona Lee</a>
+  <a href="#case-ethel-kaplan" class="sub">Ethel Kaplan</a>
+  <a href="#case-feedback-tool" class="sub">Feedback on Any Presentation</a>
+
+  <a href="#crossref" class="section-head">Cross-Case Reference</a>
+  <a href="#skills-index" class="sub">Skills index</a>
+  <a href="#rubrics-index" class="sub">Rubrics &amp; attendings</a>
+</nav>
+
+<main>
+
+<div style="padding-bottom:28px;border-bottom:2px solid var(--gray-200);margin-bottom:40px;">
+  <h1 style="font-size:30px;font-weight:800;color:var(--gray-800);margin-bottom:4px;line-height:1.2;">MedSimAI Demo Course</h1>
+  <p style="font-size:20px;font-weight:500;color:var(--blue);margin:0;">Course Overview &amp; Case Directory</p>
+</div>
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<section id="overview">
+  <div class="section-label">Overview</div>
+  <h2>What's in this course</h2>
+  <p>The MedSimAI Demo Course (Course 58) contains 13 cases spanning outpatient primary care, the emergency department, inpatient medicine, psychiatry, OB/GYN, and pediatrics. This page orients faculty and learners to every case at a glance &mdash; the clinical skills practiced, the learning objectives, the activities a learner completes, and where each activity happens on the platform.</p>
+
+  <div class="callout blue">
+    <strong>How to use this page</strong>
+    Start with the Learning Progression map below to see how cases build in complexity. Each case card links down to a full detail entry with expandable sections for objectives, skills, the learner's step-by-step activity sequence, and faculty orientation notes.
+  </div>
+
+  <h3 style="margin-top:24px;">Learner-level categories</h3>
+  <div class="spec-grid">
+    <div class="spec-box" style="background:var(--green-lt);">
+      <strong style="color:var(--green);">🟢 MS1 Entry-Level</strong>
+      Four foundational cases &mdash; Melanie Jones, Sean Muller, Jordan Fullerton, Marielena Gil &mdash; tagged <strong>MS1-MS2</strong> on the platform. Each focuses on complete or focused history-taking, basic exam interpretation, and (in two cases) a first oral presentation.
+    </div>
+    <div class="spec-box" style="background:var(--blue-lt);">
+      <strong style="color:var(--blue);">🔵 Advanced</strong>
+      Nine clerkship-level-or-beyond cases spanning MS3 clerkships (medicine, psych, OB/GYN, pediatrics) plus one cross-cutting, level-agnostic presentation-coaching tool.
+    </div>
+    <div class="spec-box" style="background:var(--gray-50);">
+      <strong style="color:var(--gray-600);">A note on levels</strong>
+      Where the platform's Learner Level field was left blank, the badge shown is Computer's estimate from the case content (title, scenario text, complexity) &mdash; always labeled as an estimate, never presented as an authored platform value.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROGRESSION MAP ══════════════ -->
+<section id="progression">
+  <div class="section-label">Learning Progression</div>
+  <h2>Progression map</h2>
+  <p>Cases move from single-system, low-complexity encounters with simple activity sequences to multi-participant, multi-step cases involving management and interval reasoning. Click any card to jump to its full detail entry.</p>
+
+  <div class="callout green">
+    <strong>Suggested progression</strong>
+    <div style="margin-top:8px;">
+      <div class="progression-step"><span class="step-num">1</span><span class="step-label">History + Exam only &nbsp;&mdash;&nbsp;</span><span class="step-patients">Melanie Jones, Marielena Gil</span></div>
+      <div class="progression-step"><span class="step-num">2</span><span class="step-label">History + Oral Presentation &nbsp;&mdash;&nbsp;</span><span class="step-patients">Sean Muller, Jordan Fullerton</span></div>
+      <div class="progression-step"><span class="step-num">3</span><span class="step-label">Focused History + Reasoning Discussion &nbsp;&mdash;&nbsp;</span><span class="step-patients">Alex Rivera, Jordan Liu</span></div>
+      <div class="progression-step"><span class="step-num">4</span><span class="step-label">Focused History + Full Oral Presentation &nbsp;&mdash;&nbsp;</span><span class="step-patients">Marcus Green, Izzy Ochal, Mona Lee</span></div>
+      <div class="progression-step"><span class="step-num">5</span><span class="step-label">Counseling / Communication-only &nbsp;&mdash;&nbsp;</span><span class="step-patients">Jessica Raymond</span></div>
+      <div class="progression-step"><span class="step-num">6</span><span class="step-label">Multi-participant / Interval Reasoning &nbsp;&mdash;&nbsp;</span><span class="step-patients">Ethel Kaplan</span></div>
+      <div class="progression-step"><span class="step-num">7</span><span class="step-label">Full Sequence + Management/Orders &nbsp;&mdash;&nbsp;</span><span class="step-patients">Febrile Infant (Claudia Lopez)</span></div>
+      <div class="progression-step"><span class="step-num">+</span><span class="step-label">Cross-cutting skill tool (any level) &nbsp;&mdash;&nbsp;</span><span class="step-patients">Feedback on Any Presentation</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:32px;">🟢 Entry-Level &mdash; MS1</h3>
+  <div class="case-grid">
+    <a href="#case-melanie-jones" class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · Dermatology</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Melanie Jones</h4>
+      <div class="case-meta">Arm rash (tinea corporis)</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Note</span></div>
+    </a>
+    <a href="#case-sean-muller" class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · GI</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Sean Muller</h4>
+      <div class="case-meta">Chest pain / GERD, establish care</div>
+      <div class="activities"><span class="activity-pill">History</span><span class="activity-pill">Oral Presentation</span></div>
+    </a>
+    <a href="#case-jordan-fullerton" class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · MSK</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Jordan Fullerton</h4>
+      <div class="case-meta">Elbow pain (lateral epicondylitis)</div>
+      <div class="activities"><span class="activity-pill">Focused History</span><span class="activity-pill">Oral Presentation (voice)</span></div>
+    </a>
+    <a href="#case-marielena-gil" class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · New Patient</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Marielena Gil</h4>
+      <div class="case-meta">Abdominal pain, establish care</div>
+      <div class="activities"><span class="activity-pill">History</span><span class="activity-pill">Note</span></div>
+    </a>
+  </div>
+
+  <h3 style="margin-top:36px;">🔵 Advanced &mdash; Clerkship-Level or Beyond</h3>
+  <div class="case-grid">
+    <a href="#case-jessica-raymond" class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · Counseling</span><span class="level-badge advanced">Est. MS3</span></div>
+      <h4>Jessica Raymond</h4>
+      <div class="case-meta">T2DM follow-up, motivational interviewing</div>
+      <div class="activities"><span class="activity-pill">MI Conversation</span><span class="activity-pill">Attending Feedback</span></div>
+    </a>
+    <a href="#case-alex-rivera" class="case-card">
+      <div class="tag-row"><span class="tag ed">Emergency Medicine · Neurology</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Alex Rivera</h4>
+      <div class="case-meta">Acute ascending weakness (Guillain-Barr&eacute;)</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Reasoning Discussion</span></div>
+    </a>
+    <a href="#case-marcus-green" class="case-card">
+      <div class="tag-row"><span class="tag psych">Psychiatry · ED Consult</span><span class="level-badge advanced">Est. MS3</span></div>
+      <h4>Marcus Green</h4>
+      <div class="case-meta">Mania / behavior changes</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+    </a>
+    <a href="#case-jordan-liu" class="case-card">
+      <div class="tag-row"><span class="tag ed">Emergency Medicine · Pulmonary</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Jordan Liu</h4>
+      <div class="case-meta">Asthma exacerbation, ED management</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Reasoning Discussion</span></div>
+    </a>
+    <a href="#case-febrile-infant" class="case-card">
+      <div class="tag-row"><span class="tag peds">Pediatrics · ED · Clerkship</span><span class="level-badge advanced">Est. MS3</span></div>
+      <h4>Febrile Infant &mdash; Claudia Lopez</h4>
+      <div class="case-meta">Neonatal fever, sepsis workup</div>
+      <div class="activities"><span class="activity-pill">History</span><span class="activity-pill">Oral Presentation</span><span class="activity-pill">Orders / Management</span></div>
+    </a>
+    <a href="#case-izzy-ochal" class="case-card">
+      <div class="tag-row"><span class="tag peds">Pediatrics · Outpatient</span><span class="level-badge advanced">Est. MS2&ndash;MS3</span></div>
+      <h4>Izzy Ochal</h4>
+      <div class="case-meta">Recurrent headaches (migraine)</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+    </a>
+    <a href="#case-mona-lee" class="case-card">
+      <div class="tag-row"><span class="tag ob">OB/GYN · Outpatient/ED</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Mona Lee</h4>
+      <div class="case-meta">Early pregnancy pain/bleeding, r/o ectopic</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+    </a>
+    <a href="#case-ethel-kaplan" class="case-card">
+      <div class="tag-row"><span class="tag inpatient">Medicine · Inpatient · Pre-rounding</span><span class="level-badge advanced">Est. MS3</span></div>
+      <h4>Ethel Kaplan</h4>
+      <div class="case-meta">Delirium, post-pneumonia dehydration</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Family Interview</span><span class="activity-pill">Oral Presentation</span></div>
+    </a>
+    <a href="#case-feedback-tool" class="case-card">
+      <div class="tag-row"><span class="tag tool">Skills Tool · Any Level</span><span class="level-badge advanced">Level-agnostic</span></div>
+      <h4>Feedback on Any Presentation</h4>
+      <div class="case-meta">Reusable oral-presentation coaching (Dr. Cole)</div>
+      <div class="activities"><span class="activity-pill">Bring Your Own Case</span><span class="activity-pill">Presentation Feedback</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════ HOW CASES WORK ══════════════ -->
+<section id="howcases">
+  <div class="section-label">Platform Orientation</div>
+  <h2>How cases work on the platform</h2>
+  <p>Every case has two views: a faculty-facing <strong>Manage</strong> view for authoring, and a learner-facing <strong>Practice</strong> flow for completing the encounter.</p>
+
+  <h3>Manage view (6 tabs)</h3>
+  <ol class="step-list">
+    <li><div><strong>Educational Intent</strong><div style="color:var(--gray-600);margin-top:2px;">Learner level, practice focus, learner challenge/gap, observable behavior, organ system tags, and the four-axis complexity rating (diagnostic reasoning, management, communication, information gathering).</div></div></li>
+    <li><div><strong>Patient Data</strong><div style="color:var(--gray-600);margin-top:2px;">Demographics, vitals, history, and physical exam findings the simulated patient can draw on.</div></div></li>
+    <li><div><strong>Activity Plan</strong><div style="color:var(--gray-600);margin-top:2px;">Defines each phase/step of the encounter &mdash; activity type, participant, door-note instructions, and feedback settings.</div></div></li>
+    <li><div><strong>Case Summary</strong> <span style="font-weight:400;color:var(--gray-400);font-size:12.5px;">(primary source for this page)</span><div style="color:var(--gray-600);margin-top:2px;">Chief concern, clinical one-liner, learning objectives, and the differential with supporting/against evidence.</div></div></li>
+    <li><div><strong>Rubric Details</strong><div style="color:var(--gray-600);margin-top:2px;">Grading rubrics attached to each required output (transcript, oral presentation, note).</div></div></li>
+    <li><div><strong>Publish Checklist</strong><div style="color:var(--gray-600);margin-top:2px;">Readiness check before a case goes live to learners.</div></div></li>
+  </ol>
+
+  <h3>Practice flow (learner-facing)</h3>
+  <ol class="step-list">
+    <li><div><strong>Case overview &amp; door note</strong><div style="color:var(--gray-600);margin-top:2px;">Patient identity, setting, and the specific task for this step.</div></div></li>
+    <li><div><strong>Chart review</strong><div style="color:var(--gray-600);margin-top:2px;">Available before and during the encounter &mdash; vitals, labs, prior notes.</div></div></li>
+    <li><div><strong>Encounter</strong><div style="color:var(--gray-600);margin-top:2px;">Voice or chat with the patient, a family member, and/or an attending, depending on the case's activity plan.</div></div></li>
+    <li><div><strong>Follow-up activity</strong><div style="color:var(--gray-600);margin-top:2px;">Oral presentation, note writing, or an orders/management interface, if the case includes one.</div></div></li>
+    <li><div><strong>Feedback</strong><div style="color:var(--gray-600);margin-top:2px;">Rubric-based scoring on history-taking, communication, presentation, and/or documentation.</div></div></li>
+  </ol>
+
+  <h3>Activity types referenced in this course</h3>
+  <table class="rubric-table">
+    <thead><tr><th>Activity type</th><th>What it involves</th></tr></thead>
+    <tbody>
+      <tr><td>History &amp; Physical</td><td>Learner interviews the patient and performs/interprets a physical exam via chat or voice.</td></tr>
+      <tr><td>Clinical Interview</td><td>History-only encounter with no physical exam (used in Marielena Gil).</td></tr>
+      <tr><td>Oral Presentation &amp; Discussion</td><td>Structured case presentation to an attending, followed by Q&amp;A.</td></tr>
+      <tr><td>Clinical Reasoning Discussion</td><td>A more Socratic, less formal exchange with an attending &mdash; brief summary, differential, and plan, with probing follow-ups (Alex Rivera, Jordan Liu).</td></tr>
+      <tr><td>Orders / Management</td><td>Learner enters diagnostic/treatment orders and reviews results as they evolve over a simulated timeline (Febrile Infant only).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ MS1 ENTRY-LEVEL CASES ══════════════ -->
+<section id="ms1">
+  <div class="section-label">🟢 Entry-Level</div>
+  <h2>MS1 Entry-Level Cases</h2>
+  <p>Four foundational cases &mdash; explicitly tagged <strong>MS1-MS2</strong> on the platform. Each isolates a small set of core skills: history-taking, basic exam interpretation, and (for two cases) a first oral presentation.</p>
+
+  <!-- Melanie Jones -->
+  <div class="case-detail" id="case-melanie-jones">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag medicine">Medicine · Outpatient · Dermatology</span><span class="level-badge entry">MS1-MS2</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/231" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/231/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Melanie Jones</h3>
+    <p class="case-identity"><strong>Patient:</strong> Melanie Jones, 39, she/her &nbsp;|&nbsp; <strong>Case ID:</strong> 231 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient</p>
+    <p class="one-liner">39-year-old woman presenting with an acute annular pruritic lesion on her arm (tinea corporis) &mdash; the simplest activity sequence in the course: history + exam interpretation, then a note.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">History-taking</span><span class="skill-pill">Skin/lesion exam</span><span class="skill-pill">Differential formation</span><span class="skill-pill">Note writing</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Obtain a complete history from a patient who also has a rash.</li>
+          <li>Evaluate a skin lesion.</li>
+          <li>Formulate a differential diagnosis for the rash.</li>
+          <li>Document your findings in a note.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence <span class="note">where each step happens on the platform</span></summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Melanie Jones &middot; up to 40 minutes, chat</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on MIRS/UCSF + OSCE 3 Checklist rubrics</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Write Patient Note</strong><div class="journey-meta">Documentation of assessment and plan</div><div class="journey-loc">Practice &rarr; Step 1 note editor &middot; graded on case-specific Documentation Assessment Template</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>The simplest case in the course structurally &mdash; no oral presentation or attending discussion. A natural first case in any sequence.</div>
+  </div>
+
+  <!-- Sean Muller -->
+  <div class="case-detail" id="case-sean-muller">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag medicine">Medicine · Outpatient · GI</span><span class="level-badge entry">MS1-MS2</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/340" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/340/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Sean Muller &mdash; Complete History + Presentation</h3>
+    <p class="case-identity"><strong>Patient:</strong> Sean Muller, 22, he/him &nbsp;|&nbsp; <strong>Case ID:</strong> 340 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient preceptorship</p>
+    <p class="one-liner">22-year-old healthy man establishing care, with intermittent burning retrosternal/epigastric pain relieved by antacids (GERD vs. ACS work-up) &mdash; first case in the course to add an oral presentation.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Complete history</span><span class="skill-pill">Patient-centered communication</span><span class="skill-pill">Differential formation</span><span class="skill-pill">Oral presentation</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Obtaining a complete history.</li>
+          <li>Developing an initial differential and plan for chest pain in a young adult.</li>
+          <li>Presenting your findings to your attending.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>Complete History</strong><div class="journey-meta">Patient: Sean Muller</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on Master Interviewer Rating Scale + OSCE 3 Checklist</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Leila Marks</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; graded on Oral Presentation Skills (H&amp;P) 0/1/2 rubric</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>A logical "next step" after Melanie Jones &mdash; adds the oral-presentation skill on top of complete history-taking.</div>
+  </div>
+
+  <!-- Jordan Fullerton -->
+  <div class="case-detail" id="case-jordan-fullerton">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag medicine">Medicine · Outpatient · MSK</span><span class="level-badge entry">MS1-MS2</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/429" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/429/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Jordan Fullerton &mdash; Right Elbow Pain</h3>
+    <p class="case-identity"><strong>Patient:</strong> Jordan Fullerton, 72, he/him &nbsp;|&nbsp; <strong>Case ID:</strong> 429 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient preceptorship</p>
+    <p class="one-liner">72-year-old man with 3 weeks of activity-related right lateral elbow pain since starting pickleball (lateral epicondylitis) &mdash; a single-system, mechanism-driven focused history.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Focused MSK history</span><span class="skill-pill">Pertinent negative screening</span><span class="skill-pill">Rapport with older adults</span><span class="skill-pill">Oral presentation (voice)</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Take a focused history of the elbow pain: onset, timeline, character, severity, and what makes it better or worse.</li>
+          <li>Connect the pain to a recent change in activity.</li>
+          <li>Screen pertinent negatives that separate an overuse injury from neurologic, inflammatory, infectious, and traumatic causes.</li>
+          <li>Distinguish this new elbow pain from the patient's known chronic arthritis.</li>
+          <li>Build rapport with a reserved older patient and discuss initial next steps and return to activity.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>Focused Elbow-Pain History</strong><div class="journey-meta">Patient: Jordan Fullerton</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on mirs_ucsf + OSCE 3 Checklist</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion (voice mode)</strong><div class="journey-meta">Attending: Dr. Leila Cole</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; graded on WCM Oral Presentation Assessment Template</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Attending Dr. Leila Cole here appears to be the same persona referenced in the new "Feedback on Any Presentation" tool &mdash; likely a recurring attending across oral-presentation activities.</div>
+  </div>
+
+  <!-- Marielena Gil -->
+  <div class="case-detail" id="case-marielena-gil">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag medicine">Medicine · Outpatient · New Patient</span><span class="level-badge entry">MS1-MS2</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/84" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/84/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Marielena Gil</h3>
+    <p class="case-identity"><strong>Patient:</strong> Marielena Gil, 20, she/her &nbsp;|&nbsp; <strong>Case ID:</strong> 84 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient, establishing care</p>
+    <p class="one-liner">20-year-old woman establishing care with mild abdominal pain &mdash; the only entry-level case with no physical exam at all, isolating pure history-taking and communication.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">New-patient history</span><span class="skill-pill">Patient-centered communication</span><span class="skill-pill">Note writing</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Obtaining a complete history.</li>
+          <li>Developing an initial differential and plan.</li>
+          <li>Writing a note.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History (Clinical Interview)</strong><div class="journey-meta">Patient: Marielena Gil &middot; up to 30 minutes, no physical exam</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on mirs_ucsf + OSCE 3 Checklist</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Patient Note</strong><div class="journey-meta">Ungraded output</div><div class="journey-loc">Practice &rarr; Step 1 note editor</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Added to the course after the initial review pass. Its complete absence of a physical-exam component makes it the most stripped-down entry-level case &mdash; a good candidate for the very first case in a sequence.</div>
+  </div>
+</section>
+
+<!-- ══════════════ ADVANCED CASES ══════════════ -->
+<section id="advanced">
+  <div class="section-label">🔵 Advanced</div>
+  <h2>Advanced Cases</h2>
+  <p>Nine cases at clerkship-level or beyond, plus one cross-cutting skills tool. Most system Learner Level fields are blank for this group; badges marked <em>Est.</em> reflect Computer's interpretation from scenario text and case complexity, not an authored platform value.</p>
+
+  <!-- Jessica Raymond -->
+  <div class="case-detail" id="case-jessica-raymond">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag medicine">Medicine · Outpatient · Counseling</span><span class="level-badge advanced">Not tagged &middot; Est. MS3</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/387" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/387/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Jessica Raymond &mdash; Motivational Interviewing</h3>
+    <p class="case-identity"><strong>Patient:</strong> Jessica Raymond, 55, she/her &nbsp;|&nbsp; <strong>Case ID:</strong> 387 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient medicine clinic</p>
+    <p class="one-liner">55-year-old woman with poorly controlled T2DM (A1c 9%) in the contemplation stage of behavior change &mdash; the only case built entirely around a counseling conversation, with no history or exam component.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Motivational interviewing</span><span class="skill-pill">Behavior-change counseling</span><span class="skill-pill">Non-judgmental exploration</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Apply motivational interviewing techniques with a patient in the contemplation stage of behavior change.</li>
+          <li>Explore barriers to physical activity and medication adherence without judgment or unsolicited advice.</li>
+          <li>Elicit the patient's own reasons for change and collaboratively identify a concrete next step.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>Motivational Interviewing Conversation</strong><div class="journey-meta">Patient: Jessica Raymond &middot; focused on physical activity, not a full H&amp;P</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; ungraded, no rubric attached</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Brief Attending Feedback</strong><div class="journey-meta">Dr. Nicole Rosenblum &middot; &lt;2 minutes</div><div class="journey-loc">Practice &rarr; same room, learner says "Ready for Feedback" to transition</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>No learner level is tagged, but the stable chronic-disease panel patient and counseling-only focus place this at clerkship level (likely MS3, primary care). This is the course's only dedicated communication/counseling "skills track" case.</div>
+  </div>
+
+  <!-- Alex Rivera -->
+  <div class="case-detail" id="case-alex-rivera">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag ed">Emergency Medicine · Neurology</span><span class="level-badge advanced">MS3</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/253" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/253/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Alex Rivera &mdash; Acute Weakness</h3>
+    <p class="case-identity"><strong>Patient:</strong> Alex Rivera, 32, they/them &nbsp;|&nbsp; <strong>Case ID:</strong> 253 &nbsp;|&nbsp; <strong>Setting:</strong> Emergency Department</p>
+    <p class="one-liner">Previously healthy 32-year-old with acute, symmetric, ascending lower-extremity weakness two days after a URI &mdash; Guillain-Barr&eacute; Syndrome, requiring central-vs-peripheral localization.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Focused neuro history</span><span class="skill-pill">Hypothesis-driven exam</span><span class="skill-pill">Central vs. peripheral localization</span><span class="skill-pill">Clinical reasoning discussion</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Conduct a focused neurologic history in a patient with acute weakness and identify/interpret findings of a hypothesis-driven exam.</li>
+          <li>Develop a differential diagnosis and initial management plan.</li>
+          <li>Differentiate a central vs. peripheral lesion.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Alex Rivera &middot; voice/chat</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on mirs_ucsf + Guillain-Barr&eacute; Focused History Checklist</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Clinical Reasoning Discussion</strong><div class="journey-meta">Attending: Dr. Okafor (neurology)</div><div class="journey-loc">Practice &rarr; Step 2 discussion room &middot; ungraded, Socratic follow-up questions</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Uses "Clinical Reasoning Discussion" rather than a formal oral presentation &mdash; a less structured, more Socratic assessment format suited to this diagnostically complex, less-common presentation.</div>
+  </div>
+
+  <!-- Marcus Green -->
+  <div class="case-detail" id="case-marcus-green">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag psych">Psychiatry · ED Consult</span><span class="level-badge advanced">Not tagged &middot; Est. MS3 (title: "Psych Clerkship")</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/348" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/348/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Marcus Green &mdash; Psychiatry Clerkship</h3>
+    <p class="case-identity"><strong>Patient:</strong> Marcus Green, 27, he/him &nbsp;|&nbsp; <strong>Case ID:</strong> 348 &nbsp;|&nbsp; <strong>Setting:</strong> Emergency Department</p>
+    <p class="one-liner">27-year-old man with a week of elevated/irritable mood, decreased sleep, and pressured speech &mdash; the course's only psychiatric case, requiring explicit safety (SI/HI) risk assessment.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Focused psychiatric history</span><span class="skill-pill">Safety / risk assessment</span><span class="skill-pill">Mental status exam</span><span class="skill-pill">Oral presentation</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Obtain a focused psychiatric history, including elevated/irritable mood, decreased sleep, and grandiose speech.</li>
+          <li>Develop a differential diagnosis and initial management plan.</li>
+          <li>Present a concise psychiatric oral case summary to the attending, highlighting timeline, key findings, and reasoning.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Marcus Green &middot; 15-minute focused ER encounter</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on focused_history_marcus_green_rubric</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Jane Reyes &middot; &lt;5 minutes, must include DSM-5-based differential and risk assessment</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; ungraded</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Learner level is blank in the system, but the case title ("Psych Clerkship") and scenario text ("third-year medical student") support an MS3 estimate.</div>
+  </div>
+
+  <!-- Jordan Liu -->
+  <div class="case-detail" id="case-jordan-liu">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag ed">Emergency Medicine · Pulmonary</span><span class="level-badge advanced">MS3</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/351" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/351/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Jordan Liu &mdash; Cough and Shortness of Breath</h3>
+    <p class="case-identity"><strong>Patient:</strong> Jordan Liu, 18, he/him &nbsp;|&nbsp; <strong>Case ID:</strong> 351 &nbsp;|&nbsp; <strong>Setting:</strong> Emergency Department</p>
+    <p class="one-liner">18-year-old college student with a moderate asthma exacerbation &mdash; one of only two cases explicitly built around management reasoning: treat, reassess, and decide disposition.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Severity assessment</span><span class="skill-pill">Management reasoning</span><span class="skill-pill">Reassessment after treatment</span><span class="skill-pill">Disposition planning</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Take a focused history and assess severity of acute shortness of breath in the ED.</li>
+          <li>Build and prioritize a differential, screening for must-not-miss mimics (e.g., EVALI).</li>
+          <li>Start appropriate treatment, reassess the response, and plan a safe disposition.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Jordan Liu</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on mirs_ucsf + Jordan Liu History-Taking Checklist</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Clinical Reasoning Discussion</strong><div class="journey-meta">Attending: Dr. Sutton &middot; management/disposition probing</div><div class="journey-loc">Practice &rarr; Step 2 discussion room &middot; ungraded</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Explicitly tagged MS3 and flagged as "management reasoning" &mdash; a strong example of treat-reassess-disposition practice, alongside Febrile Infant.</div>
+  </div>
+
+  <!-- Febrile Infant -->
+  <div class="case-detail" id="case-febrile-infant">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag peds">Pediatrics · ED · Clerkship</span><span class="level-badge advanced">Not tagged &middot; Est. MS3 (title: "CLERKSHIP")</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/358" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/358/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Febrile Infant &mdash; Claudia Lopez</h3>
+    <p class="case-identity"><strong>Patient:</strong> Claudia Lopez, 28 days old, she/her (history via father, Arthur) &nbsp;|&nbsp; <strong>Case ID:</strong> 358 &nbsp;|&nbsp; <strong>Setting:</strong> Emergency Department, Pediatrics clerkship</p>
+    <p class="one-liner">28-day-old well-appearing infant with a documented fever &mdash; the most structurally advanced case in the course, combining history, presentation, and an active order-entry/management simulation.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Parent-as-historian interview</span><span class="skill-pill">Age-based risk stratification</span><span class="skill-pill">Order entry / management</span><span class="skill-pill">Frightened-caregiver communication</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Obtain a focused history from a parent-as-historian in a febrile neonate, including perinatal risk factors.</li>
+          <li>Apply age-based risk thresholds to determine the appropriate workup for a febrile infant (28&ndash;60 days).</li>
+          <li>Communicate with a frightened new parent.</li>
+          <li>Order the appropriate workup and empiric treatment for a febrile neonate.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence <span class="note">4+ phases &mdash; the longest sequence in the course</span></summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Via father, Arthur Lopez</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on mirs_ucsf + focused_history_claudia_lopez_rubric</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Nadia Brooks (EM)</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; ungraded, includes follow-up questions</div></div></div>
+        <div class="journey-step"><div class="journey-num">3</div><div class="journey-body"><strong>Orders (Management)</strong><div class="journey-meta">Diagnostic/treatment orders, results reviewed over a simulated timeline</div><div class="journey-loc">Practice &rarr; Step 3 management interface &middot; ungraded</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Learner level is blank, but the title ("CLERKSHIP") and scenario ("third-year medical student on Pediatrics clerkship") support an MS3 estimate. Strong candidate for the "most advanced" end of any progression map.</div>
+  </div>
+
+  <!-- Izzy Ochal -->
+  <div class="case-detail" id="case-izzy-ochal">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag peds">Pediatrics · Outpatient</span><span class="level-badge advanced">Not tagged &middot; Est. MS2&ndash;MS3</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/337" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/337/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Izzy Ochal</h3>
+    <p class="case-identity"><strong>Patient:</strong> Izzy Ochal, 13, she/her &nbsp;|&nbsp; <strong>Case ID:</strong> 337 &nbsp;|&nbsp; <strong>Setting:</strong> Pediatrics primary care</p>
+    <p class="one-liner">13-year-old girl with 3&ndash;4 months of disabling headaches (migraine) &mdash; the only case requiring independent interviewing of an adolescent without a parent present.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Adolescent interviewing</span><span class="skill-pill">Red-flag screening</span><span class="skill-pill">Differential prioritization</span><span class="skill-pill">Oral presentation</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Conduct a focused headache history in an adolescent, including red-flag screening and functional-impact assessment.</li>
+          <li>Communicate directly with a pediatric patient, adapting style to an adolescent's developmental stage.</li>
+          <li>Formulate a differential for recurrent headache and commit to a leading diagnosis with supporting reasoning.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Izzy Ochal &middot; no note required</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on focused_history_izzy_ochal_rubric</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Alvarez</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; ungraded</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>No learner level is tagged; content (must-not-miss secondary-headache screening, full oral presentation) places it near the other clerkship-level outpatient/pediatrics cases rather than entry-level.</div>
+  </div>
+
+  <!-- Mona Lee -->
+  <div class="case-detail" id="case-mona-lee">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag ob">OB/GYN · Outpatient/ED</span><span class="level-badge advanced">Not tagged &middot; scenario text says "MS3"</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/338" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/338/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Mona Lee</h3>
+    <p class="case-identity"><strong>Patient:</strong> Mona Lee, 34, she/her &nbsp;|&nbsp; <strong>Case ID:</strong> 338 &nbsp;|&nbsp; <strong>Setting:</strong> OB/GYN or Emergency Medicine clerkship</p>
+    <p class="one-liner">34-year-old woman with a positive pregnancy test and unilateral LLQ pain/spotting &mdash; must rule out ectopic pregnancy; pairs safety-critical reasoning with detailed OB-specific presentation requirements.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Risk stratification (ectopic)</span><span class="skill-pill">OB-specific history (GTPAL)</span><span class="skill-pill">Return precautions communication</span><span class="skill-pill">Oral presentation</span></div>
+
+    <details>
+      <summary>Learning objectives &amp; observable behavior</summary>
+      <div class="detail-body">
+        <p style="font-size:13.5px;color:var(--gray-800);">Recognize risk of hemodynamic compromise; give appropriate return precautions. Perform a focused history and exam, generate an assessment with an initial management plan, and present to the attending.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Mona Lee &middot; 20-minute focused, risk-stratifying encounter</div><div class="journey-loc">Practice &rarr; Step 1 encounter room &middot; graded on focused_history_mona_lee_rubric</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Leila Navarro &middot; requires GTPAL, Rh status, gestational dating</div><div class="journey-loc">Practice &rarr; Step 2 presentation room &middot; ungraded</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>System field is blank, but scenario text explicitly states "You are an MS3" &mdash; confidently MS3, OB/GYN or EM clerkship.</div>
+  </div>
+
+  <!-- Ethel Kaplan -->
+  <div class="case-detail" id="case-ethel-kaplan">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag inpatient">Medicine · Inpatient · Pre-rounding</span><span class="level-badge advanced">Not tagged &middot; Est. MS3 (title: "Clerkship")</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/242" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/242/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Ethel Kaplan &mdash; Clerkship</h3>
+    <p class="case-identity"><strong>Patient:</strong> Ethel Kaplan, 87, she/her (family: daughter Rachel) &nbsp;|&nbsp; <strong>Case ID:</strong> 242 &nbsp;|&nbsp; <strong>Setting:</strong> Inpatient medicine clerkship</p>
+    <p class="one-liner">87-year-old admitted for pneumonia, now with new delirium and hypernatremic dehydration &mdash; the only case requiring a chart-review/pre-rounding workflow plus separate patient and family-member interviews.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Chart review / pre-rounding</span><span class="skill-pill">Interval history</span><span class="skill-pill">Family-member interview</span><span class="skill-pill">Multi-cause clinical reasoning</span></div>
+
+    <details>
+      <summary>Learning objectives</summary>
+      <div class="detail-body">
+        <ol class="obj-list">
+          <li>Elicit a focused interval history from an elderly woman and her daughter, plus a targeted physical exam.</li>
+          <li>Engage in chart review and integrate I/Os, labs, and vital signs into your pre-rounding assessment.</li>
+          <li>Present a concise, structured oral case summary to the attending, highlighting the most salient changes.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence <span class="note">3 participants: patient, family, attending</span></summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>History &amp; Physical</strong><div class="journey-meta">Patient: Ethel Kaplan</div><div class="journey-loc">Practice &rarr; Step 1 bedside encounter &middot; ungraded (automatic PE coverage only)</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Clinical Interview</strong><div class="journey-meta">Family member: Rachel (daughter), at bedside</div><div class="journey-loc">Practice &rarr; Step 2 encounter room &middot; ungraded</div></div></div>
+        <div class="journey-step"><div class="journey-num">3</div><div class="journey-body"><strong>Oral Presentation &amp; Discussion</strong><div class="journey-meta">Attending: Dr. Morgan &middot; up to 5 minutes to synthesize before presenting</div><div class="journey-loc">Practice &rarr; Step 3 presentation room &middot; ungraded, no rubric attached</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Likely the most cognitively demanding case in the set &mdash; interval, multi-cause inpatient reasoning (delirium from combined etiologies) plus a pre-rounding synthesis step not required anywhere else.</div>
+  </div>
+
+  <!-- Feedback on Any Presentation -->
+  <div class="case-detail" id="case-feedback-tool">
+    <div class="case-detail-head">
+      <div class="badges"><span class="tag tool">Skills Tool · Any Level</span><span class="level-badge advanced">Level-agnostic</span></div>
+      <div class="case-links"><a href="https://medsimai.com/dashboard/edit-case/371" target="_blank">Manage</a><span>&middot;</span><a href="https://medsimai.com/dashboard/case/371/overview?courseId=58" target="_blank">Practice</a></div>
+    </div>
+    <h3>Feedback on Any Presentation</h3>
+    <p class="case-identity"><strong>Attending persona:</strong> Dr. Cole &nbsp;|&nbsp; <strong>Case ID:</strong> 371 &nbsp;|&nbsp; <strong>Setting:</strong> Outpatient, HIPAA-safe practice exercise</p>
+    <p class="one-liner">Not a fixed patient case &mdash; a reusable oral-presentation coaching tool. Learners bring material from any completed encounter and receive structure/organization feedback, independent of clinical content.</p>
+    <div style="margin-bottom:10px;"><span class="skill-pill">Oral presentation structure &amp; organization</span></div>
+
+    <details>
+      <summary>Learning objective</summary>
+      <div class="detail-body">
+        <p style="font-size:13.5px;color:var(--gray-800);">Practice delivering an outpatient oral case presentation based on any simulation or standardized patient encounter already completed, with targeted feedback on structure, wording, and organization.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Learner activity sequence</summary>
+      <div class="detail-body">
+        <div class="journey-step"><div class="journey-num">1</div><div class="journey-body"><strong>Complete History (Clinical Interview)</strong><div class="journey-meta">Listed participant "Dr. Cole"</div><div class="journey-loc">Practice &rarr; Step 1 &middot; ungraded</div></div></div>
+        <div class="journey-step"><div class="journey-num">2</div><div class="journey-body"><strong>Oral Presentation Feedback</strong><div class="journey-meta">Attending: Dr. Cole &middot; 10&ndash;15 minutes, structure/organization feedback only</div><div class="journey-loc">Practice &rarr; Step 2 &middot; graded on Oral Presentation Skills (H&amp;P) 0/1/2 rubric</div></div></div>
+      </div>
+    </details>
+
+    <div class="interp"><strong>Faculty note (Computer's interpretation)</strong>Designed to be layered on top of any other completed case &mdash; best presented as a cross-cutting tool ("use after completing any case") rather than a rung on the MS1&rarr;advanced ladder. Note: the Step 1 learner instructions currently still contain unedited template text referencing Marielena Gil &mdash; worth correcting before this case is published live.</div>
+  </div>
+</section>
+
+<!-- ══════════════ CROSS-CASE REFERENCE ══════════════ -->
+<section id="crossref">
+  <div class="section-label">Cross-Case Reference</div>
+  <h2>Skills index &amp; recurring platform elements</h2>
+
+  <h3 id="skills-index">Skills practiced, by case</h3>
+  <table class="rubric-table">
+    <thead><tr><th>Skill domain</th><th>Cases</th></tr></thead>
+    <tbody>
+      <tr><td>Complete/focused history-taking</td><td>All 13 cases</td></tr>
+      <tr><td>Physical exam interpretation</td><td>Melanie Jones, Jordan Fullerton, Alex Rivera, Marcus Green, Jordan Liu, Febrile Infant, Izzy Ochal, Mona Lee, Ethel Kaplan</td></tr>
+      <tr><td>Oral case presentation</td><td>Sean Muller, Jordan Fullerton, Marcus Green, Febrile Infant, Izzy Ochal, Mona Lee, Ethel Kaplan, Feedback on Any Presentation</td></tr>
+      <tr><td>Clinical reasoning discussion (Socratic)</td><td>Alex Rivera, Jordan Liu</td></tr>
+      <tr><td>Note writing</td><td>Melanie Jones, Marielena Gil</td></tr>
+      <tr><td>Orders / management</td><td>Febrile Infant</td></tr>
+      <tr><td>Motivational interviewing / counseling</td><td>Jessica Raymond</td></tr>
+      <tr><td>Safety / risk assessment</td><td>Marcus Green (SI/HI), Mona Lee (hemodynamic compromise)</td></tr>
+      <tr><td>Family-member interview</td><td>Ethel Kaplan</td></tr>
+      <tr><td>Chart review / pre-rounding synthesis</td><td>Ethel Kaplan, Febrile Infant (chart available throughout)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="rubrics-index" style="margin-top:32px;">Recurring rubrics &amp; attendings</h3>
+  <div class="two-col-note" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="callout gray">
+      <strong>Recurring rubrics</strong>
+      <strong style="text-transform:none;font-size:13px;color:var(--gray-800);margin-top:8px;">mirs_ucsf / Master Interviewer Rating Scale</strong> and <strong style="text-transform:none;font-size:13px;color:var(--gray-800);">OSCE 3 Checklist</strong> appear across most history-taking activities. Case-specific focused-history checklists appear in advanced cases (e.g., Guillain-Barr&eacute; Focused History Checklist). <strong style="text-transform:none;font-size:13px;color:var(--gray-800);">Oral Presentation Skills (H&amp;P) 0/1/2</strong> and the <strong style="text-transform:none;font-size:13px;color:var(--gray-800);">WCM Oral Presentation Assessment Template</strong> are the two oral-presentation rubrics in use.
+    </div>
+    <div class="callout gray">
+      <strong>Recurring attendings</strong>
+      Dr. Leila Marks (Sean Muller) &middot; Dr. Leila Cole (Jordan Fullerton; also the "Feedback on Any Presentation" persona) &middot; Dr. Jane Reyes (Marcus Green) &middot; Dr. Sutton (Jordan Liu) &middot; Dr. Okafor (Alex Rivera) &middot; Dr. Nadia Brooks (Febrile Infant) &middot; Dr. Alvarez (Izzy Ochal) &middot; Dr. Leila Navarro (Mona Lee) &middot; Dr. Morgan (Ethel Kaplan) &middot; Dr. Nicole Rosenblum (Jessica Raymond).
+    </div>
+  </div>
+
+  <div class="callout purple" style="margin-top:24px;">
+    <strong>Source of truth</strong>
+    This page summarizes the complete case reference file compiled from each case's Case Summary and Educational Intent tabs. For full verbatim detail &mdash; exhaustive exam findings, complete door notes, and full rubric text &mdash; see the companion reference document.
+  </div>
+
+  <p style="margin-top:28px;font-size:13px;color:var(--gray-400);">MedSimAI Demo Course &middot; Course 58 &middot; Overview compiled July 2026</p>
+</section>
+
+</main>
+</body>
+</html>
