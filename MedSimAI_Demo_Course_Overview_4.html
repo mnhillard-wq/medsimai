@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedSimAI Demo Course Overview</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:    #2563A8; --blue-lt: #EEF4FC; --blue-md: #CAEDFB;
+    --green:   #2D7A4F; --green-lt:#EEF8F2; --green-md:#D9F2D0;
+    --gray-50: #F8F9FA; --gray-100:#F0F2F5; --gray-200:#E2E6EA;
+    --gray-400:#9BA3AF; --gray-600:#4B5563; --gray-800:#1F2937;
+    --peach:#FAE2D5; --lavender:#F2CEED; --teal:#0D9488; --teal-lt:#CCFBF1;
+    --nav-w:250px;
+    --font: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--gray-800); background:#fff; display:flex; }
+
+  /* ── Nav ── */
+  nav { position:fixed; top:0; left:0; width:var(--nav-w); height:100vh; overflow-y:auto; background:var(--gray-50); border-right:1px solid var(--gray-200); padding:28px 0 40px; display:flex; flex-direction:column; }
+  .nav-logo { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); padding:0 20px 20px; border-bottom:1px solid var(--gray-200); margin-bottom:16px; }
+  nav a { display:block; padding:5px 20px; font-size:13.5px; color:var(--gray-600); text-decoration:none; border-left:3px solid transparent; line-height:1.4; transition:color .15s,border-color .15s,background .15s; }
+  nav a:hover { color:var(--blue); background:var(--blue-lt); border-left-color:var(--blue); }
+  nav a.section-head { font-weight:600; color:var(--gray-800); margin-top:12px; font-size:13px; }
+  nav a.sub { padding-left:32px; font-size:12.5px; color:var(--gray-400); }
+  nav a.sub:hover { color:var(--blue); }
+  main { margin-left:var(--nav-w); max-width:900px; padding:48px 56px 100px; }
+  section { padding-bottom:48px; margin-bottom:12px; }
+  hr { border:none; border-top:1px solid var(--gray-200); margin:32px 0; }
+
+  .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; border-radius:3px; padding:2px 8px; background:var(--gray-100); }
+  #overview, #progression, #howcases, #ms1, #advanced, #crossref, #assessment, #control { border-top:2px solid var(--gray-200); padding-top:44px; }
+  #overview   { border-top-color:var(--blue); }
+  #overview   .section-label { background:var(--blue-md); color:var(--blue); }
+  #progression{ border-top-color:var(--green); }
+  #progression .section-label{ background:var(--green-md); color:var(--green); }
+  #howcases   { border-top-color:#5C7E9A; }
+  #howcases   .section-label { background:#E3EDF5; color:#2A4A64; }
+  #howcases   h3 { border-left:3px solid #9DC4D8; padding-left:10px; }
+  #ms1        { border-top-color:var(--green); }
+  #ms1        .section-label { background:var(--green-md); color:var(--green); }
+  #advanced   { border-top-color:var(--blue); }
+  #advanced   .section-label { background:var(--blue-md); color:var(--blue); }
+  #crossref   { border-top-color:#9B7FD4; }
+  #crossref   .section-label { background:#E8E0F7; color:#3d1f7a; }
+  #assessment { border-top-color:var(--teal); }
+  #assessment .section-label { background:var(--teal-lt); color:var(--teal); }
+  #control    { border-top-color:#9B7FD4; }
+  #control    .section-label { background:#E8E0F7; color:#3d1f7a; }
+
+  h2 { font-size:22px; font-weight:700; color:var(--gray-800); margin-bottom:14px; line-height:1.3; }
+  h3 { font-size:17px; font-weight:600; color:var(--gray-800); margin:28px 0 8px; }
+  h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+  p { margin-bottom:12px; }
+  em { font-style:italic; color:var(--gray-600); }
+  strong { font-weight:600; }
+
+  .callout { border-radius:8px; padding:14px 18px; margin:20px 0; font-size:13.5px; line-height:1.6; }
+  .callout strong { display:block; margin-bottom:4px; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
+  .callout.blue  { background:var(--blue-lt);  border-left:3px solid var(--blue); }
+  .callout.green { background:var(--green-lt); border-left:3px solid var(--green); }
+  .callout.gray  { background:var(--gray-50);  border-left:3px solid var(--gray-400); }
+  .callout.purple{ background:#F5F2FB; border-left:3px solid #9B7FD4; }
+  .callout.blue   strong { color:var(--blue); }
+  .callout.green  strong { color:var(--green); }
+  .callout.gray   strong { color:var(--gray-600); }
+  .callout.purple strong { color:#3d1f7a; }
+
+  .step-list { list-style:none; counter-reset:steps; margin:16px 0; }
+  .step-list li { counter-increment:steps; display:flex; gap:14px; margin-bottom:14px; font-size:13.5px; align-items:flex-start; }
+  .step-list li::before { content:counter(steps); display:flex; align-items:center; justify-content:center; min-width:24px; height:24px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-weight:700; font-size:12px; margin-top:1px; flex-shrink:0; }
+
+  /* ── Progression map ── */
+  .progression-group { margin-bottom:20px; }
+  .progression-group h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--gray-400); margin-bottom:10px; }
+  .progression-step { display:flex; align-items:baseline; gap:8px; font-size:13px; margin-bottom:6px; flex-wrap:wrap; }
+  .step-num { display:flex; align-items:center; justify-content:center; min-width:22px; height:22px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-size:11px; font-weight:700; flex-shrink:0; }
+  .step-label { font-weight:600; color:var(--gray-800); }
+  .step-patients { color:var(--gray-600); }
+
+  /* ── Case grid (overview cards) ── */
+  .case-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+  .case-card { position:relative; border:1px solid var(--gray-200); border-radius:8px; padding:11px 14px; background:#fff; text-decoration:none; display:block; color:inherit; transition:box-shadow .15s, border-color .15s; }
+  .case-card:hover { box-shadow:var(--shadow-sm,0 2px 8px rgba(0,0,0,.06)); border-color:var(--blue-md); }
+  .case-card .tag-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:5px; }
+  .tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border-radius:3px; padding:2px 7px; }
+  .tag.medicine  { background:var(--blue-md);  color:#1a4a7a; }
+  .tag.ob        { background:var(--green-md); color:#1a4a32; }
+  .tag.psych     { background:var(--lavender);  color:#6b2060; }
+  .tag.peds      { background:var(--peach);     color:#7a3010; }
+  .tag.inpatient { background:#E8E0F7;          color:#3d1f7a; }
+  .tag.ed        { background:#FDE8C8;           color:#7a3d00; }
+  .tag.tool      { background:var(--teal-lt);    color:var(--teal); }
+  .level-badge { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; border-radius:3px; padding:2px 7px; }
+  .level-badge.entry    { background:var(--green-md); color:var(--green); }
+  .level-badge.advanced { background:var(--gray-200); color:var(--gray-600); }
+  .level-badge.neutral  { background:var(--gray-200); color:var(--gray-600); }
+  .case-card h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:2px; }
+  .case-card .case-meta { font-size:12.5px; line-height:1.35; color:var(--gray-600); margin-bottom:6px; margin-top:-1px; }
+  .activities { font-size:12px; color:var(--gray-400); display:flex; flex-wrap:wrap; gap:6px; }
+  .activity-pill { background:var(--gray-100); border-radius:100px; padding:2px 8px; color:var(--gray-600); font-size:11.5px; }
+  .skill-focus { font-size:12px; line-height:1.4; color:var(--gray-600); margin-top:6px; padding-top:6px; border-top:1px solid var(--gray-100); }
+  .skill-focus strong { color:var(--gray-800); font-weight:600; }
+
+  /* ── PE-finding flag + Neurology clerkship tag ── */
+  .pe-icon { position:absolute; top:11px; right:13px; font-size:13px; line-height:1; cursor:default; }
+  .tag.neuro { background:#EDE9FE; color:#6D28D9; }
+
+  .complexity-meter { margin-top:10px; padding-top:9px; border-top:1px solid var(--gray-100); display:flex; flex-direction:column; gap:4px; }
+  .axis-row { display:flex; align-items:center; gap:7px; }
+  .axis-row .axis-label { width:38px; flex-shrink:0; font-size:10px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; color:var(--gray-400); }
+  .dots { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--gray-200); }
+  .dot.comm.filled { background:#20808D; }
+  .dot.dx.filled   { background:#A84B2F; }
+  .dot.mgmt.filled { background:#848456; }
+  .meter-legend { display:flex; flex-wrap:wrap; gap:8px 16px; font-size:11.5px; color:var(--gray-400); margin:2px 0 20px; }
+  .meter-legend span { display:inline-flex; align-items:center; gap:5px; }
+  .meter-legend .dot { width:6px; height:6px; }
+  .skill-pill { background:var(--blue-lt); border-radius:100px; padding:2px 9px; color:var(--blue); font-size:11.5px; display:inline-block; margin:2px 4px 2px 0; }
+
+  /* ── Case detail blocks ── */
+  .case-detail { padding:32px 0; border-top:1px solid var(--gray-200); }
+  .case-detail:first-of-type { border-top:none; padding-top:8px; }
+  .case-detail-head { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px; }
+  .case-detail-head .badges { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .case-links a { font-size:12px; color:var(--blue); text-decoration:none; font-weight:600; }
+  .case-links a:hover { text-decoration:underline; }
+  .case-links span { color:var(--gray-400); margin:0 6px; }
+  .case-detail h3 { margin-top:6px; font-size:19px; }
+  .case-identity { font-size:13.5px; color:var(--gray-600); margin-bottom:10px; }
+  .case-identity strong { color:var(--gray-800); }
+  .one-liner { font-size:14.5px; color:var(--gray-800); margin-bottom:12px; }
+
+  details { border:1px solid var(--gray-200); border-radius:8px; margin:12px 0; overflow:hidden; }
+  summary { padding:11px 16px; font-size:13.5px; font-weight:600; cursor:pointer; background:var(--gray-50); list-style:none; display:flex; align-items:center; gap:8px; user-select:none; }
+  summary::before { content:'▶'; font-size:10px; color:var(--gray-400); transition:transform .2s; flex-shrink:0; }
+  details[open] summary::before { transform:rotate(90deg); }
+  details > div.detail-body { padding:4px 16px 16px; }
+  .note { font-size:12px; font-weight:400; color:var(--gray-400); margin-left:4px; }
+
+  .obj-list { margin:6px 0 4px 18px; font-size:13.5px; line-height:1.75; color:var(--gray-800); }
+  .obj-list li { margin-bottom:2px; }
+
+  .journey-step { display:flex; gap:14px; margin-bottom:14px; align-items:flex-start; font-size:13.5px; }
+  .journey-num { display:flex; align-items:center; justify-content:center; min-width:26px; height:26px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .journey-body strong { display:block; color:var(--gray-800); margin-bottom:2px; }
+  .journey-meta { color:var(--gray-600); font-size:12.5px; margin-bottom:2px; }
+  .journey-loc { color:var(--gray-400); font-size:12px; }
+
+  .interp { background:var(--blue-lt); border-left:3px solid var(--blue); border-radius:6px; padding:10px 14px; font-size:13px; color:var(--gray-800); margin-top:8px; }
+  .interp strong { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue); margin-bottom:3px; }
+
+  .rubric-table { width:100%; border-collapse:collapse; font-size:13px; margin:0; }
+  .rubric-table th { background:var(--gray-100); padding:8px 12px; text-align:left; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-600); border-bottom:1px solid var(--gray-200); }
+  .rubric-table td { padding:10px 12px; border-bottom:1px solid var(--gray-200); vertical-align:top; line-height:1.55; }
+  .rubric-table td:first-child { font-weight:600; color:var(--gray-800); }
+
+  .spec-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:16px 0; }
+  .spec-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  .spec-box { border-radius:8px; padding:14px 16px; font-size:13px; line-height:1.6; }
+  .spec-box > strong:first-child { display:block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+  .spec-box.teal   { background:var(--teal-lt); }
+  .spec-box.teal   > strong:first-child { color:var(--teal); }
+  .spec-box.gray   { background:var(--gray-50); }
+  .spec-box.gray   > strong:first-child { color:var(--gray-600); }
+  .spec-box.purple { background:#F5F2FB; }
+  .spec-box.purple > strong:first-child { color:#3d1f7a; }
+
+  @media (max-width:860px) {
+    nav{display:none;}
+    main{margin-left:0;padding:32px 24px 60px;}
+    .case-grid{grid-template-columns:1fr;}
+    .spec-grid{grid-template-columns:1fr;}
+    .spec-grid-3{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MedSimAI Demo Course</div>
+  <a href="#overview" class="section-head">Overview</a>
+  <a href="#progression" class="section-head">Learning Progression</a>
+  <a href="#howcases" class="section-head">How Cases Work</a>
+  <a href="#assessment" class="section-head">Assessment &amp; Feedback</a>
+  <a href="#control" class="section-head">Customization &amp; Control</a>
+</nav>
+
+<main>
+
+<div style="margin-bottom:16px;">
+  <h1 style="font-size:26px;font-weight:700;color:var(--blue);margin-bottom:4px;line-height:1.3;">Welcome to MedSimAI</h1>
+</div>
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<section id="overview" style="padding-top:16px;padding-bottom:16px;margin-bottom:0;">
+  <div class="section-label">Overview</div>
+  <p>Like MedSimAI, this demo case creation spans multiple learner levels, specialties, and clinical skills. This guide walks through the full case progression, how each activity type works, how learners are assessed, and how faculty can adapt cases for their own curriculum.</p>
+
+</section>
+
+<!-- ══════════════ PROGRESSION MAP ══════════════ -->
+<section id="progression">
+  <div class="section-label">Learning Progression</div>
+  <h3 style="margin-top:8px;">Early Learners &mdash; Preclinical</h3>
+  <p>The introductory cases feature new patients with nonemergent concerns who are generally comfortable and easy to engage. They are designed to give learners a straightforward setting in which to practice either focused or complete history-taking skills.</p>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · GI</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Sean Muller</h4>
+      <div class="case-meta">Chest pain / GERD, establish care</div>
+      <div class="activities"><span class="activity-pill">History</span><span class="activity-pill">Oral Presentation</span></div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · MSK</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Jordan Fullerton</h4>
+      <div class="case-meta">Tennis elbow (lateral epicondylitis)</div>
+      <div class="activities"><span class="activity-pill">Complete History</span><span class="activity-pill">Oral Presentation</span></div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient</span><span class="level-badge entry">MS1-MS2</span></div>
+      <h4>Marielena Gil</h4>
+      <div class="case-meta">Chronic recurrent abdominal pain</div>
+      <div class="activities"><span class="activity-pill">Complete History</span><span class="activity-pill">Note</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:36px;">Advanced &mdash; Clerkship-Level or Beyond</h3>
+  <p>The more advanced cases introduce intentional diagnostic, communication, or management complexity, pushing learners to develop and apply new skills.</p>
+  <div class="case-grid">
+    <div class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · Counseling</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Jessica Raymond</h4>
+      <div class="case-meta">T2DM follow-up, motivational interviewing</div>
+      <div class="activities"><span class="activity-pill">MI Conversation</span><span class="activity-pill">Direct AI-Attending Observation and Feedback</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Challenging communication and motivational interviewing (ambulatory care)</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag medicine">Medicine · Outpatient · Derm</span><span class="level-badge neutral">MS1-MS2</span><span class="pe-icon" title="Includes an interpretable physical exam finding">🩺</span></div>
+      <h4>Melanie Jones</h4>
+      <div class="case-meta">Arm rash (tinea corporis)</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Note</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Focused physical exam and interpreting a visual exam finding (ambulatory care)</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag neuro">Neurology · ED</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Alex Rivera</h4>
+      <div class="case-meta">Acute ascending weakness (Guillain-Barr&eacute;)</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Reasoning Discussion</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Hypothesis-driven inquiry and recognition of clinical urgency</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag psych">Psychiatry · ED Consult</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Marcus Green</h4>
+      <div class="case-meta">Mania / behavior changes</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Redirecting a patient and delivering a psychiatric presentation</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag ed">Emergency Medicine · Pulmonary</span><span class="level-badge advanced">MS3</span><span class="pe-icon" title="Includes an interpretable physical exam finding">🩺</span></div>
+      <h4>Jordan Liu</h4>
+      <div class="case-meta">Asthma exacerbation, ED management</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Reasoning Discussion</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Managing an asthma exacerbation</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag peds">Pediatrics · ED</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Febrile Infant &mdash; Claudia Lopez</h4>
+      <div class="case-meta">Neonatal fever, sepsis workup</div>
+      <div class="activities"><span class="activity-pill">History</span><span class="activity-pill">Oral Presentation</span><span class="activity-pill">Orders / Management</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Applying a clinical protocol, communicating with a parent, using test results to guide management</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag peds">Pediatrics · Outpatient</span><span class="level-badge advanced">MS2&ndash;MS3</span></div>
+      <h4>Izzy Ochal</h4>
+      <div class="case-meta">Recurrent headaches (migraine)</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Communicating effectively with an adolescent</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag ob">OB/GYN · Outpatient/ED</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Mona Lee</h4>
+      <div class="case-meta">Early pregnancy pain/bleeding, r/o ectopic</div>
+      <div class="activities"><span class="activity-pill">Focused History &amp; Exam</span><span class="activity-pill">Oral Presentation</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Conducting an OB/GYN interview, assessing illness severity, and presenting the case</div>
+    </div>
+    <div class="case-card">
+      <div class="tag-row"><span class="tag inpatient">Medicine · Inpatient · Pre-rounding</span><span class="level-badge advanced">MS3</span></div>
+      <h4>Ethel Kaplan</h4>
+      <div class="case-meta">Delirium, post-pneumonia dehydration</div>
+      <div class="activities"><span class="activity-pill">History &amp; Exam</span><span class="activity-pill">Family Interview</span><span class="activity-pill">Oral Presentation</span></div>
+      <div class="skill-focus"><strong>Skill focus:</strong> Obtaining an interval history from a hospitalized patient and delivering an inpatient presentation</div>
+    </div>
+  </div>
+
+  <div class="callout gray"><strong>Physical exam interpretation</strong>Two cases (marked with 🩺) ask learners to interpret a physical exam finding directly: Melanie Jones features a visual exam photo finding, and Jordan Liu features breath-sound auscultation.</div>
+
+  <p style="margin-top:28px;">Finally, some cases are designed for flexible, on-demand practice. Learners can use these cases at any point to rehearse a specific skill&mdash;such as delivering an oral presentation&mdash;after gathering information in another simulated encounter or case.</p>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <div class="tag-row"><span class="tag tool">Skills Tool · Any Level</span><span class="level-badge advanced">Level-agnostic</span></div>
+      <h4>Feedback on Any Presentation</h4>
+      <div class="case-meta">Reusable oral-presentation coaching (Dr. Cole)</div>
+      <div class="activities"><span class="activity-pill">Bring Your Own Case</span><span class="activity-pill">Presentation Feedback</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOW CASES WORK ══════════════ -->
+<section id="howcases">
+  <div class="section-label">Platform Orientation</div>
+  <h2>Activity Types</h2>
+  <table class="rubric-table">
+    <thead><tr><th>Activity type</th><th>What it involves</th></tr></thead>
+    <tbody>
+      <tr><td>History &amp; Physical</td><td>Learner interviews the patient and performs/interprets a physical exam via chat or voice.</td></tr>
+      <tr><td>Clinical Interview</td><td>History-only encounter with no physical exam.</td></tr>
+      <tr><td>Oral Presentation &amp; Discussion</td><td>Structured case presentation to an attending, followed by Q&amp;A.</td></tr>
+      <tr><td>Clinical Reasoning Discussion</td><td>A more Socratic, less formal exchange with an attending &mdash; brief summary, differential, and plan, with probing follow-ups.</td></tr>
+      <tr><td>Orders / Management</td><td>Learner enters diagnostic/treatment orders and reviews results as they evolve over a simulated timeline.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ ASSESSMENT & FEEDBACK ══════════════ -->
+<section id="assessment">
+  <div class="section-label">Assessment &amp; Feedback</div>
+  <h2>How Learners Are Evaluated</h2>
+  <p>Every activity type produces feedback in one of two forms &mdash; formative feedback tied to exact moments in the encounter, and structured assessment data scored against a rubric. Both draw on the same three feedback domains.</p>
+
+  <table class="rubric-table">
+    <thead><tr><th>Feedback domain</th><th>What it captures</th></tr></thead>
+    <tbody>
+      <tr><td>History-Taking</td><td>Diagnostic information gathered and case-specific discriminators; missed items are flagged with direct transcript evidence.</td></tr>
+      <tr><td>Communication</td><td>Behavior-level coaching against a MIRS-based checklist, including suggested rewording of specific phrases.</td></tr>
+      <tr><td>Clinical Reasoning</td><td>Problem representation and differential diagnosis, with evidence for and against each item on the list.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Where rubrics come from</h3>
+  <p>Rubrics are built from validated instruments &mdash; the MIRS checklist for communication, and instructor-generated history-taking checklists that AI helps draft and refine.</p>
+
+  <div class="callout blue"><strong>Want to use your own rubric?</strong>Instructors can also add institutional rubrics for use with their own learners, helping promote consistency across an internal curriculum or program.</div>
+</section>
+
+<!-- ══════════════ CUSTOMIZATION & CONTROL ══════════════ -->
+<section id="control">
+  <div class="section-label">Customization &amp; Control</div>
+  <h2>What Faculty Can Change</h2>
+  <p>Every case is built from a set of components, and faculty control what matters most while AI handles the rest of the drafting.</p>
+
+  <table class="rubric-table">
+    <thead><tr><th>Component</th><th>What it defines</th></tr></thead>
+    <tbody>
+      <tr><td>Case Design</td><td>What are we teaching? Learning objectives, differential, vitals/labs, management plan, attending notes.</td></tr>
+      <tr><td>Clinical Data</td><td>What facts does the patient know? Chief concern, timeline, symptoms, history, what they will and won&rsquo;t volunteer.</td></tr>
+      <tr><td>AI-SP Persona</td><td>Who is this person? Opening line, demeanor, emotional phases, what matters to them beyond the medical issue.</td></tr>
+      <tr><td>Feedback Priorities</td><td>Which feedback domains matter most for this case &mdash; history-taking, communication, or clinical reasoning &mdash; and how heavily each is weighted.</td></tr>
+      <tr><td>Structured Assessments</td><td>What rubric-scored data gets captured and reported back for tracking at the learner, case, or program level.</td></tr>
+      <tr><td>Complexity</td><td>How difficult the encounter is, spanning communication complexity (patient behavior, tone) and clinical/reasoning complexity (diagnostic and management demands).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Built to be adapted</h3>
+  <p>Building a new case is easy with AI assistance that enables instructors to specify priorities and feel confident about all data provided to students. Cases can also be shared for use only, shared with edit access for co-design, or copied and modified independently.</p>
+</section>
+
+</main>
+</body>
+</html>
