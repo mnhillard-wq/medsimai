@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Spanish — Complete History Course</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:#2563A8; --blue-lt:#EEF4FC; --blue-md:#CAEDFB;
+    --green:#2D7A4F; --green-lt:#EEF8F2; --green-md:#D9F2D0;
+    --gray-50:#F8F9FA; --gray-100:#F0F2F5; --gray-200:#E2E6EA;
+    --gray-400:#9BA3AF; --gray-600:#4B5563; --gray-800:#1F2937;
+    --peach:#FAE2D5; --lavender:#F2CEED; --teal:#0D9488; --teal-lt:#CCFBF1;
+    --rust:#B3472D; --amber:#B4780A;
+    --nav-w:260px;
+    --font: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior:smooth; }
+  body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--gray-800); background:#fff; display:flex; }
+
+  /* Nav */
+  nav { position:fixed; top:0; left:0; width:var(--nav-w); height:100vh; overflow-y:auto; background:var(--gray-50); border-right:1px solid var(--gray-200); padding:26px 0 40px; display:flex; flex-direction:column; }
+  .nav-logo { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); padding:0 20px 16px; border-bottom:1px solid var(--gray-200); margin-bottom:12px; }
+  nav a { display:block; padding:5px 20px; font-size:13.5px; color:var(--gray-600); text-decoration:none; border-left:3px solid transparent; line-height:1.4; transition:color .15s,border-color .15s,background .15s; }
+  nav a:hover { color:var(--blue); background:var(--blue-lt); border-left-color:var(--blue); }
+  nav a.section-head { font-weight:600; color:var(--gray-800); margin-top:10px; font-size:13px; }
+  nav a.sub { padding-left:34px; font-size:12.5px; color:var(--gray-400); }
+  nav a.sub:hover { color:var(--blue); }
+  main { margin-left:var(--nav-w); max-width:900px; padding:44px 56px 120px; }
+
+  section { border-top:2px solid var(--gray-200); padding-top:40px; padding-bottom:20px; }
+  section:first-of-type { border-top:none; padding-top:8px; }
+  #overview{border-top-color:var(--blue);} #sequence{border-top-color:var(--green);}
+  #prep{border-top-color:var(--teal);} #pretest{border-top-color:var(--amber);}
+  #mod-a{border-top-color:var(--blue);} #mod-b{border-top-color:#9B7FD4;}
+  #posttest{border-top-color:var(--amber);} #surveys{border-top-color:var(--green);} #presurvey{border-top-color:var(--green);}
+
+  .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; border-radius:3px; padding:2px 8px; background:var(--gray-100); }
+  #overview .section-label{background:var(--blue-md);color:var(--blue);}
+  #sequence .section-label{background:var(--green-md);color:var(--green);}
+  #prep .section-label{background:var(--teal-lt);color:var(--teal);}
+  #pretest .section-label,#posttest .section-label{background:#FCEBCB;color:var(--amber);}
+  #mod-a .section-label{background:var(--blue-md);color:var(--blue);}
+  #mod-b .section-label{background:#E8E0F7;color:#3d1f7a;}
+  #surveys .section-label{background:var(--green-md);color:var(--green);}
+  #presurvey .section-label{background:var(--green-md);color:var(--green);}
+
+  h1 { font-size:26px; font-weight:700; color:var(--blue); margin-bottom:4px; line-height:1.25; }
+  h2 { font-size:17px; font-weight:600; color:var(--gray-800); margin-bottom:12px; line-height:1.3; }
+  h3 { font-size:17px; font-weight:600; color:var(--gray-800); margin:26px 0 8px; }
+  h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+  p { margin-bottom:12px; }
+  strong { font-weight:600; }
+  em { color:var(--gray-600); }
+  a.inline { color:var(--blue); text-decoration:none; font-weight:600; }
+  a.inline:hover { text-decoration:underline; }
+
+  .callout { border-radius:8px; padding:13px 16px; margin:16px 0; font-size:13.5px; line-height:1.6; }
+  .callout strong.lbl { display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+  .callout.blue{background:var(--blue-lt);border-left:3px solid var(--blue);} .callout.blue strong.lbl{color:var(--blue);}
+  .callout.green{background:var(--green-lt);border-left:3px solid var(--green);} .callout.green strong.lbl{color:var(--green);}
+  .callout.gray{background:var(--gray-50);border-left:3px solid var(--gray-400);} .callout.gray strong.lbl{color:var(--gray-600);}
+  .callout.teal{background:var(--teal-lt);border-left:3px solid var(--teal);} .callout.teal strong.lbl{color:var(--teal);}
+  .callout.purple{background:#F5F2FB;border-left:3px solid #9B7FD4;} .callout.purple strong.lbl{color:#3d1f7a;}
+
+  ul.clean { list-style:none; margin:8px 0 12px; }
+  ul.clean li { position:relative; padding-left:20px; margin-bottom:7px; font-size:13.5px; line-height:1.55; }
+  ul.clean li::before { content:''; position:absolute; left:2px; top:8px; width:6px; height:6px; border-radius:50%; background:var(--blue-md); }
+  ul.clean li strong { color:var(--gray-800); }
+  .sp { color:var(--teal); font-style:italic; }
+
+  .step-list { list-style:none; counter-reset:st; margin:14px 0; }
+  .step-list li { counter-increment:st; display:flex; gap:14px; margin-bottom:12px; font-size:13.5px; align-items:flex-start; }
+  .step-list li::before { content:counter(st); display:flex; align-items:center; justify-content:center; min-width:24px; height:24px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-weight:700; font-size:12px; margin-top:1px; flex-shrink:0; }
+
+  /* Horizontal timeline */
+  .htl { display:flex; flex-wrap:wrap; margin:18px 0 6px; overflow:hidden; }
+  .htl-step { flex:1 1 130px; min-width:118px; max-width:200px; position:relative; padding:6px 6px 4px; text-align:center; }
+  .htl-step::before { content:''; position:absolute; top:19px; left:-50%; width:100%; height:2px; background:var(--gray-200); z-index:0; }
+  .htl-step:first-child::before { display:none; }
+  .htl-node { position:relative; z-index:1; width:26px; height:26px; border-radius:50%; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
+  .htl-name { font-size:11.5px; font-weight:600; color:var(--gray-800); line-height:1.25; }
+  .htl-task { font-size:10.5px; color:var(--gray-400); line-height:1.25; margin-top:2px; }
+  .htl-step.blue .htl-node{background:var(--blue-md);color:var(--blue);}
+  .htl-step.purple .htl-node{background:#E8E0F7;color:#3d1f7a;}
+  .htl-step.amber .htl-node{background:#FCEBCB;color:var(--amber);}
+  .htl-step.green .htl-node{background:var(--green-md);color:var(--green);}
+  .htl-step.gray .htl-node{background:var(--gray-200);color:var(--gray-600);font-size:11px;}
+  @media (max-width:520px){ .htl-step{flex-basis:33%;min-width:0;} }
+
+  /* Encounter card */
+  .enc { border:1px solid var(--gray-200); border-left:4px solid var(--blue); border-radius:10px; padding:16px 18px; margin:18px 0 8px; background:#fff; }
+  .enc.amber{border-left-color:var(--amber);} .enc.purple{border-left-color:#9B7FD4;} .enc.teal{border-left-color:var(--teal);}
+  .enc-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+  .enc-kicker { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--blue); }
+  .enc.amber .enc-kicker{color:var(--amber);} .enc.purple .enc-kicker{color:#6b3fa0;} .enc.teal .enc-kicker{color:var(--teal);}
+  .enc h4 { font-size:15.5px; margin-bottom:2px; }
+  .enc .meta { font-size:12.5px; color:var(--gray-600); margin-bottom:10px; }
+  .enc .meta b { color:var(--gray-800); font-weight:600; }
+  .enc .instr { font-size:13.5px; margin-bottom:12px; }
+  .btn-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:2px; }
+  .btn { display:inline-block; background:var(--blue); color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:7px 15px; border-radius:6px; transition:background .15s; }
+  .btn:hover { background:#1d4f88; }
+  .btn.amber{background:var(--amber);} .btn.amber:hover{background:#8f5f08;}
+  .btn.purple{background:#7c5cc4;} .btn.purple:hover{background:#674ba6;}
+  .btn.teal{background:var(--teal);} .btn.teal:hover{background:#0b7a70;}
+  .btn.ghost { background:#fff; color:var(--blue); border:1px solid var(--blue-md); }
+  .btn.ghost:hover { background:var(--blue-lt); }
+  .agent-id { display:block; font-size:11px; color:var(--gray-400); margin-top:10px; }
+  .agent-id code { font-size:10.5px; color:var(--gray-400); }
+  .feedback { font-size:12.5px; color:var(--gray-600); margin-top:10px; padding-top:10px; border-top:1px solid var(--gray-100); }
+  .feedback b { color:var(--gray-800); }
+  code.kbd { background:var(--gray-100); border-radius:4px; padding:1px 6px; font-size:12.5px; color:var(--gray-800); }
+
+  details { border:1px solid var(--gray-200); border-radius:8px; margin:14px 0; overflow:hidden; }
+  summary { padding:11px 16px; font-size:13.5px; font-weight:600; cursor:pointer; background:var(--gray-50); list-style:none; display:flex; align-items:center; gap:8px; user-select:none; }
+  summary::before { content:'▶'; font-size:10px; color:var(--gray-400); transition:transform .2s; flex-shrink:0; }
+  details[open] summary::before { transform:rotate(90deg); }
+  details > .body { padding:6px 16px 16px; }
+  details.aqua { border-color:var(--teal); }
+  details.aqua summary { background:var(--teal-lt); color:var(--teal); }
+  details.aqua summary::before { color:var(--teal); }
+  .chk h5 { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue); margin:12px 0 4px; font-weight:700; }
+  .chk ul { list-style:none; margin-bottom:4px; }
+  .chk li { font-size:13px; padding-left:16px; position:relative; margin-bottom:3px; line-height:1.5; }
+  .chk li::before { content:'–'; position:absolute; left:2px; color:var(--gray-400); }
+
+  .mod-head { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .track-badge { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:2px 8px; border-radius:3px; }
+  .track-a{background:var(--blue-md);color:#1a4a7a;} .track-b{background:#E8E0F7;color:#3d1f7a;}
+
+  @media (max-width:860px){
+    nav{display:none;}
+    main{margin-left:0;padding:28px 22px 70px;}
+    .enc-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Medical Spanish · Complete History</div>
+  <a href="#overview" class="section-head">Overview</a>
+  <a href="#sequence" class="section-head">Course sequence</a>
+  <a href="#prep" class="section-head">Before you start</a>
+  <a href="#prep-history" class="sub">Taking a complete history</a>
+  <a href="#prep-lcc" class="sub">Language-concordant care</a>
+  <a href="#presurvey" class="section-head">Pre-course survey</a>
+  <a href="#pretest" class="section-head">Case 1 · Sean Morales</a>
+  <a href="#mod-a" class="section-head">Case 2A · Modules 1–3</a>
+  <a href="#m1" class="sub">Module 1 · CC &amp; HPI</a>
+  <a href="#m2" class="sub">Module 2 · PMH &amp; Surgical</a>
+  <a href="#m3" class="sub">Module 3 · Meds &amp; Allergies</a>
+  <a href="#consol-a" class="sub">Consolidation A</a>
+  <a href="#mod-b" class="section-head">Case 2B · Modules 4–5</a>
+  <a href="#m4" class="sub">Module 4 · Family &amp; Social</a>
+  <a href="#m5" class="sub">Module 5 · Review of Systems</a>
+  <a href="#consol-b" class="sub">Full-case run-through</a>
+  <a href="#posttest" class="section-head">Case 3 · Melanie Jones</a>
+  <a href="#contact" class="section-head">Questions &amp; feedback</a>
+</nav>
+
+<main>
+
+<div style="margin-bottom:20px;">
+  <div style="font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">MedSimAI — Medical Spanish</div>
+  <h1>Taking a Complete History in Spanish</h1>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">Overview</div>
+  <p>This course provides practice taking a complete medical history in Spanish. The focus is on communicating clearly, building rapport, and gathering an organized history.</p>
+  <p>The course uses MedSimAI, an online platform with AI-simulated patients. You can interview a virtual patient by voice or text and receive structured feedback afterward. Encounters can be repeated as needed and completed at your own pace.</p>
+  <p><a class="inline" href="https://www.medsimai.com" target="_blank" rel="noopener">Open MedSimAI → www.medsimai.com</a></p>
+
+  <h3 id="sequence" style="margin-top:26px;">The path from start to finish</h3>
+  <div class="htl">
+    <a class="htl-step green" href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_0oyAiwwUVlMkwK2" target="_blank" rel="noopener" style="text-decoration:none;"><div class="htl-node">✓</div><div class="htl-name">Pre-course survey</div><div class="htl-task">Start here</div></a>
+    <div class="htl-step amber"><div class="htl-node">C1</div><div class="htl-name">Sean Morales</div><div class="htl-task">Case 1 · full history</div></div>
+    <div class="htl-step blue"><div class="htl-node">1</div><div class="htl-name">Chief Concern &amp; HPI</div><div class="htl-task">Case 2A</div></div>
+    <div class="htl-step blue"><div class="htl-node">2</div><div class="htl-name">PMH &amp; Surgical</div><div class="htl-task">Case 2A</div></div>
+    <div class="htl-step blue"><div class="htl-node">3</div><div class="htl-name">Meds &amp; Allergies</div><div class="htl-task">Case 2A</div></div>
+    <div class="htl-step gray"><div class="htl-node">★</div><div class="htl-name">Consolidation A</div><div class="htl-task">Recommended</div></div>
+    <div class="htl-step purple"><div class="htl-node">4</div><div class="htl-name">Family &amp; Social</div><div class="htl-task">Case 2B</div></div>
+    <div class="htl-step purple"><div class="htl-node">5</div><div class="htl-name">Review of Systems</div><div class="htl-task">Case 2B</div></div>
+    <div class="htl-step gray"><div class="htl-node">★</div><div class="htl-name">Full-case run-through</div><div class="htl-task">Recommended</div></div>
+    <div class="htl-step amber"><div class="htl-node">C3</div><div class="htl-name">Melanie Jones</div><div class="htl-task">Case 3 · full history</div></div>
+    <a class="htl-step green" href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_dnExil1Bq3ojaZM" target="_blank" rel="noopener" style="text-decoration:none;"><div class="htl-node">✓</div><div class="htl-name">Post-course survey</div><div class="htl-task">Finish here</div></a>
+  </div>
+
+  <div class="callout blue">
+    <strong class="lbl">How each encounter works</strong>
+    Do the patient encounter in <em>voice</em> mode, speaking with the patient in Spanish. When you have finished the module's task, say <code class="kbd">I'm ready for feedback</code> in English. The encounter then switches to your AI attending, Dr. Vega; at that point you may want to switch to <em>text</em> mode so the feedback is easier to read. The same feedback stays in your transcript to review after the encounter.
+  </div>
+</section>
+
+<!-- PREP -->
+<section id="prep">
+  <div class="section-label">Before you start</div>
+  <p>Two things to carry into all of your encounters: a mental map of what a complete history covers, and a few principles for caring well across languages.</p>
+
+  <h3 id="prep-history">Taking a complete history</h3>
+  <div class="callout gray">
+    <strong class="lbl">New to taking a complete history?</strong>
+    Some students in this course have not yet taken a complete medical history. This site includes a brief reminder of what to cover in each part of the history. The feedback also provides examples of how to ask key questions in both English and Spanish.
+  </div>
+  <ul class="clean">
+    <li>Chief concern &amp; HPI — why the patient came in, and the full story of the symptom.</li>
+    <li>Past medical &amp; surgical history — prior conditions and operations, with details.</li>
+    <li>Medications &amp; allergies — everything they take, and what they react to.</li>
+    <li>Family &amp; social history — family illnesses and the patient's life, habits, and safety.</li>
+    <li>Review of systems — a quick head-to-toe screen for symptoms you have not covered.</li>
+  </ul>
+  <details class="aqua">
+    <summary>Full complete-history checklist</summary>
+    <div class="body chk">
+      <h5>Chief concern &amp; history of present illness</h5>
+      <ul><li>Location · Quality · Severity · Timing/chronology (how long, constant or intermittent)</li><li>Setting · Modifying factors (better/worse, anything tried) · Associated symptoms</li></ul>
+      <h5>Past medical &amp; psychiatric history</h5>
+      <ul><li>Each condition; when and how it was diagnosed; how it was/is treated; any complications</li></ul>
+      <h5>Surgical history</h5>
+      <ul><li>Each surgery; when; why; any complications</li></ul>
+      <h5>OB/GYN history (patients assigned female at birth)</h5>
+      <ul><li>Age at first period (menarche); pregnancy history; deliveries and complications</li></ul>
+      <h5>Medications</h5>
+      <ul><li>Prescription medications with dose and frequency; problems taking or accessing them</li><li>Over-the-counter medications; supplements, herbal, or home remedies</li></ul>
+      <h5>Allergies</h5>
+      <ul><li>Any allergies, including food — and the specific reaction to each</li></ul>
+      <h5>Social, occupational &amp; sexual history</h5>
+      <ul><li>Where born / where they live now; who they live with; social supports</li><li>Relationship/partner; safety at home (screen for violence); sexual history (asked sensitively)</li><li>Occupation; education / health literacy; tobacco, alcohol, recreational drugs; diet &amp; exercise</li></ul>
+      <h5>Family history</h5>
+      <ul><li>Medical problems in parents, siblings, or children</li></ul>
+      <h5>Review of systems</h5>
+      <ul><li>Explain what the ROS is, move in an organized order, and screen ≥2 items per system</li><li>General · Skin · Neuro/Psych · HEENT · Endocrine · Cardiovascular · Pulmonary · GI · GU · Musculoskeletal · Hematologic</li></ul>
+    </div>
+  </details>
+
+  <h3 id="prep-lcc">Language-concordant care</h3>
+  <p>When you and your patient can speak directly in their preferred language — language-concordant care — communication is better and outcomes improve. A few principles keep that care safe and respectful:</p>
+  <ul class="clean">
+    <li>Know your level, honestly. Being able to chat is not the same as being able to communicate health concepts. Even strong self-raters should keep training and be formally assessed.</li>
+    <li>You are the clinician, not the interpreter. If a task is beyond your Spanish, use a qualified medical interpreter rather than switching roles yourself.</li>
+    <li>Communicate to be understood. Check the patient's understanding, avoid jargon, and offer a simpler synonym when a word doesn't land. If you use an English term, say so and give the Spanish equivalent.</li>
+    <li>Lead with respect and privacy. Use a warm greeting and the respectful <span class="sp">usted</span>, and open sensitive topics with a privacy statement — <span class="sp">"Estas preguntas son confidenciales y se las hago a todos mis pacientes."</span></li>
+    <li>Stay curious, not assuming. Ask about home and herbal remedies openly; they are a normal and important part of many patients' care.</li>
+  </ul>
+  <div class="callout gray"><em>Adapted from the Center for Clinician Multilingualism's Language-Concordant Care Toolkit.</em></div>
+</section>
+
+<!-- PRE-COURSE SURVEY -->
+<section id="presurvey">
+  <div class="section-label">Before you begin</div>
+  <h2>Pre-course survey</h2>
+  <div class="btn-row"><a class="btn teal" href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_0oyAiwwUVlMkwK2" target="_blank" rel="noopener">Pre-course survey</a></div>
+</section>
+
+<!-- PRETEST -->
+<section id="pretest">
+  <div class="section-label">Case 1 · Pretest</div>
+  <h2>Case 1 — Sean Morales</h2>
+  <p>After completing the pre-course survey, obtain a full history from Sean Morales in Spanish. You can return to this encounter as many times as you'd like during the course for extra practice with parts of the history.</p>
+</section>
+
+<!-- MEDICAL SPANISH A -->
+<section id="mod-a">
+  <div class="section-label">Case 2A · Medical Spanish A</div>
+  <h2>Case 2 — Marielena Gil · Modules 1–3</h2>
+  <p>You now meet Marielena Gil — Case 2 — and stay with her across Modules 1–5 (Medical Spanish A and B), picking up where the last module left off so the history builds continuously.</p>
+
+  <!-- MODULE 1 -->
+  <div id="m1"><div class="mod-head"><h3 style="margin-top:14px;">Module 1 — Chief Concern &amp; History of Present Illness</h3><span class="track-badge track-a">Case 2A</span></div></div>
+  <div class="callout blue"><strong class="lbl">Objective</strong>Greet the patient, build rapport, and elicit her chief concern and the full story of her present illness in Spanish.</div>
+  <h4>The questions to master</h4>
+  <ul class="clean">
+    <li>Open the visit — greet her warmly, introduce yourself, and ask what brought her in. <span class="sp">"¿Qué la trae hoy?"</span></li>
+    <li>Characterize the symptom across all seven attributes — location, quality, severity, and timing. <span class="sp">"¿Dónde le duele?" · "¿Cómo es el dolor?" · "Del uno al diez, ¿qué tan fuerte es?" · "¿Cuándo empezó? ¿Es constante o va y viene?"</span></li>
+    <li>Cover setting, modifiers, and associated symptoms. <span class="sp">"¿Hay algo que lo mejora o lo empeora?" · "¿Ha notado otros síntomas?"</span></li>
+  </ul>
+
+  <!-- MODULE 2 -->
+  <div id="m2"><div class="mod-head"><h3>Module 2 — Past Medical &amp; Surgical History</h3><span class="track-badge track-a">Case 2A</span></div></div>
+  <div class="callout blue"><strong class="lbl">Objective</strong>Gather her past medical and past surgical history in Spanish, transitioning smoothly from her presenting concern into her background.</div>
+  <h4>The questions to master</h4>
+  <ul class="clean">
+    <li>Past medical &amp; psychiatric problems — for each, get when and how it was diagnosed, how it is treated, and any complications. <span class="sp">"¿Ha tenido alguna enfermedad? ¿Cómo se la diagnosticaron? ¿Cómo la han tratado?"</span></li>
+    <li>Surgical history — what, when, why, and any complications. <span class="sp">"¿Le han hecho alguna cirugía u operación? ¿Cuándo y por qué?"</span></li>
+    <li>OB/GYN history may come up here — age at first period and any pregnancy history. <span class="sp">"¿A qué edad tuvo su primera regla? ¿Ha estado embarazada?"</span></li>
+  </ul>
+
+  <!-- MODULE 3 -->
+  <div id="m3"><div class="mod-head"><h3>Module 3 — Medications, Allergies &amp; Herbal Remedies</h3><span class="track-badge track-a">Case 2A</span></div></div>
+  <div class="callout blue"><strong class="lbl">Objective</strong>Cover her medications, allergies, and use of herbal remedies in Spanish.</div>
+  <h4>The questions to master</h4>
+  <ul class="clean">
+    <li>Medications — prescription and over-the-counter, with dose and frequency, plus any trouble taking or affording them. <span class="sp">"¿Toma algún medicamento, con o sin receta? ¿Qué dosis y con qué frecuencia?"</span></li>
+    <li>Supplements &amp; home remedies — vitamins, supplements, herbs, or <span class="sp">remedios caseros</span>. <span class="sp">"¿Usa vitaminas, suplementos o remedios caseros?"</span></li>
+    <li>Allergies — including food, and the specific reaction to each. <span class="sp">"¿Es alérgica a algún medicamento o comida? ¿Qué le pasa cuando lo toma?"</span></li>
+  </ul>
+
+  <!-- CONSOLIDATION A -->
+  <div id="consol-a">
+    <h3>Consolidation A — chief concern through medications <span style="font-weight:400;color:var(--gray-400);font-size:14px;">(recommended, not required)</span></h3>
+    <p>This works like an extra module — a recommended, optional run-through. When Modules 1–3 feel comfortable, take Marielena's history in one continuous Spanish encounter, from her chief concern through medications and allergies. Stop before family and social history, and practice smooth transitions between sections.</p>
+  </div>
+</section>
+
+<!-- MEDICAL SPANISH B -->
+<section id="mod-b">
+  <div class="section-label">Case 2B · Medical Spanish B</div>
+  <h2>Case 2 — Marielena Gil · Modules 4–5</h2>
+  <p>The second track with Marielena moves into the more personal parts of the history and then a full-body screen.</p>
+
+  <!-- MODULE 4 -->
+  <div id="m4"><div class="mod-head"><h3 style="margin-top:14px;">Module 4 — Family &amp; Social History</h3><span class="track-badge track-b">Case 2B</span></div></div>
+  <div class="callout purple"><strong class="lbl">Objective</strong>Obtain her family and social history in Spanish, including a sensitive sexual-health history introduced with a privacy statement.</div>
+  <h4>The questions to master</h4>
+  <ul class="clean">
+    <li>Family history — health problems in parents, siblings, or children. <span class="sp">"¿Alguien en su familia tiene problemas de salud?"</span></li>
+    <li>Social history — living situation and supports, school and work, and habits like tobacco, alcohol, and drugs. <span class="sp">"¿Con quién vive? ¿A qué se dedica? ¿Fuma? ¿Toma alcohol?"</span></li>
+    <li>Safety &amp; sexual health, asked sensitively — open with a privacy statement, then screen for safety and sexual health. <span class="sp">"Estas preguntas son confidenciales… ¿Se siente segura en casa?"</span></li>
+  </ul>
+
+  <!-- MODULE 5 -->
+  <div id="m5"><div class="mod-head"><h3>Module 5 — Review of Systems</h3><span class="track-badge track-b">Case 2B</span></div></div>
+  <div class="callout purple"><strong class="lbl">Objective</strong>Complete a focused review of systems in Spanish, screening the body systems you have not yet covered.</div>
+  <h4>The questions to master</h4>
+  <ul class="clean">
+    <li>Set it up — explain what the ROS is before you start, a quick set of screening questions. <span class="sp">"Le voy a hacer unas preguntas rápidas sobre diferentes partes del cuerpo."</span></li>
+    <li>Move in an organized order and screen at least two items per system: general, skin, neuro/psych, HEENT, endocrine, cardiovascular, pulmonary, GI, GU, musculoskeletal, hematologic.</li>
+    <li>Keep her oriented — because the ROS is high-volume, avoid jargon, don't rush, and check in as you go.</li>
+  </ul>
+
+  <!-- CONSOLIDATION B / FULL CASE -->
+  <div id="consol-b">
+    <h3>Full-case run-through <span style="font-weight:400;color:var(--gray-400);font-size:14px;">(recommended, not required)</span></h3>
+    <p>Another module of sorts — recommended but optional. Bring it all together: conduct Marielena's complete history in one continuous Spanish encounter, from greeting and rapport through the review of systems, closing professionally.</p>
+  </div>
+</section>
+
+<!-- POSTTEST -->
+<section id="posttest">
+  <div class="section-label">Case 3 · Posttest</div>
+  <h2>Case 3 — Melanie Jones</h2>
+  <p>Close the course with a full history in Spanish with a new patient, Melanie Jones. Your task is to conduct the complete history from greeting through the review of systems, closing professionally. Then complete the post-course survey.</p>
+  <div class="btn-row" style="margin-top:12px;"><a class="btn teal" href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_dnExil1Bq3ojaZM" target="_blank" rel="noopener">Post-course survey</a></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Questions &amp; feedback</div>
+  <h2>Need help or have feedback?</h2>
+  <p>If you have technical difficulties or questions at any point in the course, or would like to provide feedback on the cases or exercises to inform future iterations, please email Peyton Thompson at <a class="inline" href="mailto:pct4001@med.cornell.edu">pct4001@med.cornell.edu</a>.</p>
+</section>
+
+</main>
+</body>
+</html>
