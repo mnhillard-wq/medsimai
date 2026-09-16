@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backup Physical Exam: Samantha Strahan</title>
+<style>
+:root{
+  --bg:#f9fafb; --card:#ffffff; --ink:#101316; --muted:#5e646f; --line:#dfe2e7;
+  --accent:#354ca5; --accent-soft:#ecf3fe; --chip:#ecf3fe; --chip-ink:#354ca5; --focus:#4f6acf; --ok:#367b46; --on-accent:#ffffff;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1117; --card:#181b24; --ink:#e8eaf0; --muted:#a2a8b4; --line:#2c3140;
+    --accent:#8fa2ec; --accent-soft:#1f2740; --chip:#1f2740; --chip-ink:#c3cdf5; --focus:#8fa2ec; --ok:#7fc28f; --on-accent:#0f1117; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+header{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.kicker{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:28px;margin:4px 0 2px;color:var(--accent);letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0}
+.vitals{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.vitals span{background:var(--chip);color:var(--chip-ink);font-weight:600;border-radius:999px;padding:4px 10px;font-size:14px;font-variant-numeric:tabular-nums}
+.note{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 18px;font-size:15px}
+.search{position:sticky;top:0;background:var(--bg);padding:8px 0 10px;z-index:2}
+.search input{width:100%;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.search input:focus{outline:2px solid var(--focus);outline-offset:1px}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:22px 0 8px}
+.exam{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.exam button{all:unset;box-sizing:border-box;display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;font-weight:600}
+.exam button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:12px}
+.exam button:hover{background:var(--accent-soft);border-radius:12px}
+.exam .ttl{display:flex;flex-direction:column}
+.exam .desc{font-weight:400;font-size:13px;color:var(--muted)}
+.exam button .hint{font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap}
+.exam.open{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.exam.open button .hint{color:var(--ok);font-weight:600}
+.result{display:none;padding:0 14px 14px;border-top:1px solid var(--line);margin:0 14px;padding-left:0;padding-right:0;padding-top:10px}
+.exam.open .result{display:block}
+.hidden{display:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:26px}
+.panel h3{margin:0 0 8px;font-size:18px;color:var(--accent)}
+.panel ol{margin:0;padding-left:20px}
+.panel li{margin-bottom:8px}
+.panel li b{display:block}
+.empty{color:var(--muted);margin:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.actions button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.actions button:focus-visible{outline:2px solid var(--focus)}
+.noresults{color:var(--muted);padding:8px 2px}
+@media print{
+  .search,.note,#browse,.actions{display:none}
+  body{background:#fff;color:#000}
+  .panel{border:none;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Backup physical exam sheet</div>
+    <h1>Samantha Strahan, 27</h1>
+    <p class="sub">Emergency Department &middot; Friday, September 18, 2026</p>
+    <div class="vitals" aria-label="Vital signs">
+      <span>T 100.6 F</span><span>BP 114/82</span><span>HR 94</span><span>RR 22</span><span>SpO2 98% on room air</span>
+    </div>
+  </header>
+
+  <p class="note">Use this sheet only if MedSimAI doesn't return an exam finding. Choose each exam you would perform. The result appears when you select it, and your findings collect at the bottom in the order you requested them.</p>
+
+  <div class="search">
+    <label for="q" class="hidden">Search for an exam</label>
+    <input id="q" type="search" placeholder="Type the exam you want, for example reflexes, Babinski, lips" autocomplete="off">
+  </div>
+
+  <div id="browse"></div>
+
+  <section class="panel" aria-live="polite">
+    <h3>Findings you requested</h3>
+    <p class="empty" id="empty">None yet.</p>
+    <ol id="picked"></ol>
+    <div class="actions">
+      <button type="button" id="copy" class="primary">Copy findings</button>
+      <button type="button" id="print">Print findings</button>
+      <button type="button" id="reset">Start over</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const EXAMS = [
+  // General
+  {s:"General", t:"General appearance", d:"overall appearance, distress, toxic-appearing", a:"appearance, general, looks, distress, toxic, overall", r:"Awake, looking about the room. Appears tired and flushed. Keeps her eyes half closed against the overhead light. No respiratory distress, not toxic-appearing."},
+  {s:"General", t:"HEENT", d:"head, eyes, ears, nose, throat, tympanic membranes, oropharynx", a:"head, eyes, ears, nose, throat, scalp, tympanic membranes, TM, otoscopy, oropharynx", r:"No scalp trauma. Tympanic membranes normal. Nares clear. Oropharynx without erythema or exudate."},
+  {s:"General", t:"Lips and mouth", d:"oral mucosa, hydration", a:"lips, mouth, oral, mucous membranes, sores, blisters, ulcers, cold sore, hydration", r:"A single small cold sore on the inner lip. No others. Mucous membranes slightly dry."},
+  {s:"General", t:"Neck", d:"range of motion, nuchal rigidity, lymph nodes, thyroid", a:"neck, lymph nodes, lymphadenopathy, thyroid, range of motion", r:"Supple, full range of motion. No nuchal rigidity. No lymphadenopathy. Thyroid normal."},
+  {s:"General", t:"Cardiovascular", d:"heart sounds, murmur, rate and rhythm, peripheral pulses", a:"heart, cardiac, CV, murmur, S1, S2, pulses, auscultation", r:"Mildly tachycardic, regular. Normal S1 and S2. No murmur. Peripheral pulses normal."},
+  {s:"General", t:"Respiratory", d:"lung auscultation, breath sounds, work of breathing", a:"lungs, chest, breath sounds, pulmonary, auscultation, work of breathing", r:"Breathing a little faster than normal. Chest clear bilaterally. No increased work of breathing."},
+  {s:"General", t:"Abdomen", d:"tenderness, distension, bowel sounds, organomegaly", a:"abdominal, belly, stomach, tenderness, organomegaly, liver, spleen, bowel sounds", r:"Soft, non-tender, non-distended. Bowel sounds present. No organomegaly."},
+  {s:"General", t:"Extremities", d:"edema, joints, calves, capillary refill", a:"legs, arms, edema, joints, calf, capillary refill", r:"No edema, no joint swelling, no calf tenderness. Capillary refill under two seconds."},
+  {s:"General", t:"Skin", d:"rash, lesions, petechiae, purpura", a:"skin, rash, petechiae, purpura, lesions", r:"Warm and flushed. No rash and no other lesions. No petechiae or purpura."},
+  // Neurologic
+  {s:"Neurologic", t:"Mental status", d:"MSE, orientation, memory, language, aphasia, confusion", a:"MSE, mental status exam, orientation, memory, language, aphasia, confusion, cognition", r:"Not given as an exam result. You examine her mental status by talking with her and observing her answers."},
+  {s:"Neurologic", t:"Level of consciousness", d:"LOC, GCS, alertness, arousal", a:"LOC, GCS, Glasgow, alertness, arousal, consciousness", r:"Awake and alert throughout. Looks fatigued, does not drift off. Opens eyes spontaneously and follows motor commands. Her verbal responses are not appropriate. GCS 14 (E4 V4 M6)."},
+  {s:"Neurologic", t:"Cranial nerves, overall", d:"CN II to XII, cranial nerve screen", a:"CN II-XII, CN 2-12, cranial nerve screen, cranial nerves", r:"Cranial nerves II through XII intact and symmetric. Pupils equal and reactive, extraocular movements full, face symmetric, palate elevates midline, tongue midline. No focal cranial nerve deficit."},
+  {s:"Neurologic", t:"Pupils and visual fields", d:"CN II, pupils, PERRLA, light reflex, visual acuity", a:"CN II, pupils, PERRLA, light reflex, visual acuity, visual fields, confrontation", r:"Pupils 3 mm, equal, briskly reactive to light bilaterally. She winces at the penlight. No relative afferent pupillary defect. Visual fields full to confrontation, with partial cooperation."},
+  {s:"Neurologic", t:"Fundoscopy", d:"CN II, optic disc, ophthalmoscopy, papilledema", a:"CN II, optic disc, ophthalmoscopy, papilledema, fundus, fundi", r:"Limited. She is bothered by the light and keeps closing her eyes, so the optic discs cannot be adequately seen."},
+  {s:"Neurologic", t:"Extraocular movements", d:"CN III, IV, VI, EOM, eye movements, H test, diplopia", a:"CN III, CN IV, CN VI, EOM, eye movements, H test, diplopia, nystagmus", r:"Full range of extraocular movements in all directions. No nystagmus, no diplopia, no gaze palsy."},
+  {s:"Neurologic", t:"Facial sensation and jaw", d:"CN V, trigeminal, corneal reflex, masseter", a:"CN V, trigeminal, corneal reflex, masseter, jaw", r:"Facial sensation intact to light touch in all three divisions bilaterally. Corneal reflexes intact. Masseter and temporalis strength normal and symmetric."},
+  {s:"Neurologic", t:"Facial symmetry", d:"CN VII, facial nerve, smile, eyebrow raise, droop", a:"CN VII, facial nerve, smile, eyebrow raise, droop, face", r:"Face symmetric at rest and with movement. Forehead wrinkles symmetrically, eye closure strong, smile symmetric. No facial droop."},
+  {s:"Neurologic", t:"Hearing", d:"CN VIII, acoustic, Weber, Rinne", a:"CN VIII, acoustic, Weber, Rinne, hearing", r:"Hearing grossly intact to finger rub bilaterally. Weber midline. Rinne air greater than bone bilaterally."},
+  {s:"Neurologic", t:"Palate, voice, articulation", d:"CN IX and X, gag reflex, uvula, say ahh, dysarthria", a:"CN IX, CN X, gag reflex, uvula, say ahh, dysarthria, speech, articulation", r:"Palate elevates midline, uvula central, gag present. Articulation is normal. No dysarthria."},
+  {s:"Neurologic", t:"Shoulder shrug", d:"CN XI, spinal accessory, trapezius, SCM", a:"CN XI, spinal accessory, trapezius, SCM, sternocleidomastoid", r:"Shoulder shrug 5/5 and symmetric. Sternocleidomastoid strength normal bilaterally."},
+  {s:"Neurologic", t:"Tongue", d:"CN XII, hypoglossal, protrusion, deviation", a:"CN XII, hypoglossal, protrusion, deviation, tongue", r:"Tongue protrudes midline without deviation, atrophy, or fasciculations."},
+  {s:"Neurologic", t:"Muscle strength, tone or bulk", d:"motor exam, power, MRC, spasticity, atrophy", a:"motor exam, strength, power, MRC, tone, spasticity, bulk, atrophy, weakness", r:"Motor 5/5 throughout, upper and lower extremities. Normal tone and bulk. No focal weakness."},
+  {s:"Neurologic", t:"Pronator drift", d:"arm drift, UMN sign", a:"arm drift, UMN sign, drift", r:"No pronator drift. Arms held steady in supination without downward drift or pronation."},
+  {s:"Neurologic", t:"Deep tendon reflexes", d:"DTRs, reflexes, knee jerk, ankle jerk, hyperreflexia", a:"DTRs, reflexes, knee jerk, ankle jerk, biceps, patellar, hyperreflexia, clonus", r:"Reflexes 2+ and symmetric at biceps, triceps, brachioradialis, patellar, and Achilles. No clonus."},
+  {s:"Neurologic", t:"Plantar responses", d:"Babinski, plantar reflex, upgoing toes", a:"Babinski, plantar reflex, upgoing toes, toes", r:"Plantar responses downgoing (flexor) bilaterally. No Babinski sign."},
+  {s:"Neurologic", t:"Sensory", d:"sensation, light touch, pinprick, vibration, proprioception, sensory level", a:"sensation, light touch, pinprick, vibration, proprioception, sensory level, numbness", r:"Sensation intact to light touch, pinprick, temperature, vibration, and proprioception throughout. No sensory level."},
+  {s:"Neurologic", t:"Coordination", d:"cerebellar, finger-to-nose, heel-to-shin, dysmetria, ataxia", a:"cerebellar, finger-to-nose, finger nose, heel-to-shin, heel shin, dysmetria, ataxia, rapid alternating", r:"Finger-to-nose and heel-to-shin smooth and accurate bilaterally. No dysmetria, dysdiadochokinesia, or intention tremor."},
+  {s:"Neurologic", t:"Gait and stance", d:"gait, walking, Romberg, tandem, balance", a:"gait, walking, Romberg, tandem, balance, stance", r:"Normal-based, steady gait. Able to tandem walk. Romberg negative."},
+  {s:"Neurologic", t:"Involuntary movements", d:"tremor, myoclonus, chorea, fasciculations", a:"tremor, myoclonus, chorea, fasciculations, seizure, twitching, asterixis", r:"No tremor, myoclonus, chorea, or fasciculations at rest or with action. No seizure activity observed during the exam."},
+  {s:"Neurologic", t:"Kernig and Brudzinski", d:"meningeal signs, nuchal rigidity, neck stiffness, meningismus", a:"Kernig, Brudzinski, meningeal signs, nuchal rigidity, neck stiffness, meningismus, neck flexion", r:"Kernig and Brudzinski signs negative. Neck supple, no nuchal rigidity."}
+];
+
+const browse = document.getElementById('browse');
+const picked = [];
+const byId = {};
+
+function norm(s){ return s.toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim(); }
+
+let lastSection = null;
+EXAMS.forEach((e,i)=>{
+  if(e.s !== lastSection){
+    const h = document.createElement('h2'); h.textContent = e.s; h.dataset.section = e.s;
+    browse.appendChild(h); lastSection = e.s;
+  }
+  const d = document.createElement('div'); d.className='exam'; d.dataset.i=i; d.dataset.section=e.s;
+  const b = document.createElement('button'); b.type='button';
+  b.setAttribute('aria-expanded','false');
+  b.innerHTML = '<span class="ttl"><span class="name"></span><span class="desc"></span></span><span class="hint">Request result</span>';
+  b.querySelector('.name').textContent = e.t;
+  b.querySelector('.desc').textContent = e.d;
+  const r = document.createElement('div'); r.className='result'; r.textContent = e.r;
+  b.addEventListener('click',()=>reveal(i));
+  d.appendChild(b); d.appendChild(r); browse.appendChild(d);
+  byId[i] = {el:d, btn:b, key: norm(e.t+' '+e.d+' '+e.a)};
+});
+
+function reveal(i){
+  const x = byId[i];
+  if(x.el.classList.contains('open')) return;
+  x.el.classList.add('open');
+  x.btn.setAttribute('aria-expanded','true');
+  x.btn.querySelector('.hint').textContent = 'Result shown';
+  picked.push(i);
+  renderPicked();
+}
+
+function renderPicked(){
+  const ol = document.getElementById('picked'); ol.innerHTML='';
+  document.getElementById('empty').style.display = picked.length ? 'none' : 'block';
+  picked.forEach(i=>{
+    const li = document.createElement('li');
+    const b = document.createElement('b'); b.textContent = EXAMS[i].t+' ('+EXAMS[i].d+')';
+    li.appendChild(b); li.appendChild(document.createTextNode(EXAMS[i].r));
+    ol.appendChild(li);
+  });
+}
+
+const q = document.getElementById('q');
+q.addEventListener('input',()=>{
+  const term = norm(q.value);
+  const words = term ? term.split(' ') : [];
+  const visibleSections = new Set();
+  EXAMS.forEach((e,i)=>{
+    const show = words.every(w=>byId[i].key.includes(w));
+    byId[i].el.classList.toggle('hidden', !show);
+    if(show) visibleSections.add(e.s);
+  });
+  browse.querySelectorAll('h2').forEach(h=>h.classList.toggle('hidden', !visibleSections.has(h.dataset.section)));
+  let nr = document.getElementById('noresults');
+  if(!visibleSections.size){
+    if(!nr){ nr=document.createElement('p'); nr.id='noresults'; nr.className='noresults'; browse.appendChild(nr); }
+    nr.textContent = 'No exam by that name. Try another word, or clear the search to see every exam.';
+  } else if(nr){ nr.remove(); }
+});
+
+document.getElementById('copy').addEventListener('click',async (ev)=>{
+  const text = picked.map(i=>EXAMS[i].t+' ('+EXAMS[i].d+'): '+EXAMS[i].r).join('\n');
+  try{ await navigator.clipboard.writeText(text); ev.target.textContent='Copied'; }
+  catch(e){ ev.target.textContent='Select and copy the list above'; }
+  setTimeout(()=>ev.target.textContent='Copy findings',2000);
+});
+document.getElementById('print').addEventListener('click',()=>window.print());
+document.getElementById('reset').addEventListener('click',()=>{
+  picked.length=0; renderPicked();
+  Object.values(byId).forEach(x=>{ x.el.classList.remove('open'); x.btn.setAttribute('aria-expanded','false'); x.btn.querySelector('.hint').textContent='Request result'; });
+  q.value=''; q.dispatchEvent(new Event('input'));
+});
+</script>
+</body>
+</html>
