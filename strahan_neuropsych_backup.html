@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neuro-Psych Sim Backup — Samantha Strahan</title>
+<style>
+:root {
+  --bg:#f9fafb; --card:#fff; --ink:#101316; --muted:#5e646f; --line:#dfe2e7;
+  --accent:#354ca5; --soft:#ecf3fe; --ok:#367b46; --danger:#9b2c2c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:920px;margin:auto;padding:24px 16px 80px}
+header,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:800}
+h1{font-size:30px;line-height:1.15;margin:5px 0 4px;color:var(--accent)}
+h2{font-size:22px;margin:0 0 12px;color:var(--accent)}
+h3{font-size:17px;margin:18px 0 8px}
+p{margin:8px 0 12px}
+.muted{color:var(--muted)}
+.notice{background:var(--soft);border-radius:12px;padding:14px 16px;margin-top:16px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.nav a,.btn{display:inline-block;text-decoration:none;font:inherit;font-weight:700;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.btn.primary,.nav a.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lo li,.instructions li{margin-bottom:8px}
+.agent{padding:10px 0 4px}
+.agent-note{margin-bottom:14px}
+.vitals{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.vitals span{background:var(--soft);color:var(--accent);font-weight:650;border-radius:999px;padding:4px 10px;font-size:14px}
+.search{position:sticky;top:0;background:var(--bg);padding:8px 0 10px;z-index:2}
+.search input,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.search input{padding:12px 14px}
+textarea{padding:12px;min-height:125px;resize:vertical}
+label{display:block;font-weight:700;margin:18px 0 7px}
+.exam-section{font-size:15px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:22px 0 8px}
+.exam{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.exam button{all:unset;box-sizing:border-box;display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;font-weight:650}
+.exam button:hover{background:var(--soft);border-radius:12px}
+.exam .ttl{display:flex;flex-direction:column}
+.exam .desc{font-weight:400;font-size:13px;color:var(--muted)}
+.exam .hint{font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap}
+.exam.open{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.result{display:none;padding:10px 14px 14px;border-top:1px solid var(--line)}
+.exam.open .result{display:block}
+.hidden{display:none}
+.picked{background:var(--soft);border-radius:12px;padding:14px 16px;margin-top:18px}
+.picked ol{padding-left:22px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.save-status{color:var(--ok);font-size:14px;margin-top:10px;min-height:1.4em}
+.small{font-size:14px}
+@media print{
+  .nav,.search,.actions,.agent,.notice{display:none!important}
+  body{background:#fff}
+  header,.card{border:none;padding:0;margin-bottom:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Neuro-Psych Sim · Backup pathway</div>
+  <h1>Altered Mental Status Case</h1>
+  <p class="muted">Samantha Strahan, 27 · Emergency Department</p>
+  <div class="notice"><strong>Use this page if the usual MedSimAI workflow is unavailable.</strong> Everything below can be completed from this page. Your written responses save automatically in this browser, and you can download a copy at the end.</div>
+  <nav class="nav" aria-label="Page sections">
+    <a href="#door">Start</a><a href="#samantha">Samantha</a><a href="#kris">Kris</a><a href="#exam">Physical exam</a><a href="#reflection" class="primary">Reflection</a>
+  </nav>
+</header>
+
+<section class="card" id="door">
+  <div class="kicker">Learning objectives</div>
+  <ol class="lo">
+    <li>Obtain a clinical history for a patient with altered mental status, identifying what can be reliably obtained from the patient herself and what can be obtained from a frightened family member.</li>
+    <li>Direct a focused physical examination, naming which findings would change the differential and why.</li>
+    <li>Construct and defend a prioritized differential diagnosis for altered mental status, spanning both systemic and neurologic causes.</li>
+  </ol>
+
+  <h2>Learner instructions</h2>
+  <p>You are a clinical learner in the emergency department. You will speak with two people: a patient, and then her mother. Plan on twenty to thirty minutes.</p>
+  <p>Everything the simulated patient says and does is intentional. If something sounds strange to you, treat it as a clinical finding rather than a technical fault. Listen to how she speaks as carefully as you listen to what she says.</p>
+  <p>You cannot see her, so you will have to ask for what you want. Request specific examination findings by typing the maneuver or test you are interested in, and you will be given the result. You can conduct a mental status examination simply by asking her questions. What you cannot do is stumble onto a finding, so decide what you want to know and why, then ask for it.</p>
+  <p>She may not be able to tell you what you need. Anything you cannot get from her, ask her mother in Step 2. Her mother knows a great deal more, though not every fact about her adult daughter's life. You are practicing real medicine here: the gaps are part of the case, not a fault in it.</p>
+  <p><strong>After the encounter, draft the reflection at the bottom of this page and bring it to your debrief. Informal, not graded.</strong></p>
+
+  <h3>Door note — Step 1</h3>
+  <p><strong>Samantha Strahan</strong>, a 27-year-old woman presenting with altered mental status. Obtain a focused history about her current symptoms and recent events. Perform a focused physical examination by requesting the specific maneuvers or findings you would like to assess. Assess her mental status directly by asking Samantha the appropriate questions rather than requesting a mental status exam as a single finding. On entering the room, Samantha is awake and resting in bed in a partially reclined position.</p>
+</section>
+
+<section class="card" id="samantha">
+  <div class="kicker">Step 1</div>
+  <h2>Interview Samantha Strahan</h2>
+  <p class="agent-note">Speak with Samantha first. Pay attention to both the content and form of her responses. Ask mental-status questions directly.</p>
+  <div class="agent">
+    <elevenlabs-convai agent-id="agent_6001m34r3z7pff3971dxb1zct93a"></elevenlabs-convai>
+  </div>
+</section>
+
+<section class="card" id="kris">
+  <div class="kicker">Step 2</div>
+  <h2>Collateral history from Kris Strahan</h2>
+  <p><strong>Kris Strahan</strong> is Samantha's mother. Samantha is a 27-year-old woman presenting with headache, fever, and altered mental status. You have already attempted to interview Samantha, but her altered mental status limited the history you were able to obtain. Speak with Kris to gather collateral history and clarify important details Samantha could not reliably provide.</p>
+  <p class="muted small">You may return to the physical examination below for any specific findings you did not request earlier.</p>
+  <div class="agent">
+    <elevenlabs-convai agent-id="agent_5701m34qsyqqf0srsmfm8v8s05j0"></elevenlabs-convai>
+  </div>
+</section>
+
+<section class="card" id="exam">
+  <div class="kicker">Focused physical examination</div>
+  <h2>Request examination findings</h2>
+  <p>Choose only the examination maneuvers or findings you would actually request. Results appear when selected and are collected below in the order requested.</p>
+  <div class="vitals"><span>T 100.6 F</span><span>BP 114/82</span><span>HR 94</span><span>RR 22</span><span>SpO2 98% RA</span></div>
+  <div class="search"><input id="q" type="search" placeholder="Type the exam you want, e.g. reflexes, Babinski, lips" autocomplete="off"></div>
+  <div id="browse"></div>
+  <div class="picked">
+    <h3>Findings you requested</h3>
+    <p id="empty">None yet.</p>
+    <ol id="picked"></ol>
+  </div>
+</section>
+
+<section class="card" id="reflection">
+  <div class="kicker">Post-encounter reflection · informal, not graded</div>
+  <h2>Bring this to your debrief</h2>
+
+  <label for="r1">1. Your prioritized differential — at least four possibilities, with the one you are most worried about named as such.</label>
+  <textarea id="r1" data-save="r1"></textarea>
+
+  <label for="r2">2. The THREE history findings you consider most important, and what each does to your differential.</label>
+  <textarea id="r2" data-save="r2"></textarea>
+
+  <label for="r3">3. The examination findings you requested, and why. If you requested none, say so.</label>
+  <textarea id="r3" data-save="r3"></textarea>
+
+  <label for="r4">4. One thing you could not find out, and who or what could have told you.</label>
+  <textarea id="r4" data-save="r4"></textarea>
+
+  <div class="actions">
+    <button class="btn primary" type="button" id="download">Download my responses (.txt)</button>
+    <button class="btn" type="button" id="copyall">Copy responses</button>
+    <button class="btn" type="button" id="print">Print / Save as PDF</button>
+    <button class="btn" type="button" id="clear">Clear saved responses</button>
+  </div>
+  <div class="save-status" id="status" aria-live="polite">Responses save automatically on this device.</div>
+  <p class="muted small"><strong>Important:</strong> browser autosave is local to this device/browser. Download or print your responses before leaving the page if you need to keep or submit them.</p>
+</section>
+
+</div>
+
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<script>
+const EXAMS = [
+  // General
+  {s:"General", t:"General appearance", d:"overall appearance, distress, toxic-appearing", a:"appearance, general, looks, distress, toxic, overall", r:"Awake, looking about the room. Appears tired and flushed. Keeps her eyes half closed against the overhead light. No respiratory distress, not toxic-appearing."},
+  {s:"General", t:"HEENT", d:"head, eyes, ears, nose, throat, tympanic membranes, oropharynx", a:"head, eyes, ears, nose, throat, scalp, tympanic membranes, TM, otoscopy, oropharynx", r:"No scalp trauma. Tympanic membranes normal. Nares clear. Oropharynx without erythema or exudate."},
+  {s:"General", t:"Lips and mouth", d:"oral mucosa, hydration", a:"lips, mouth, oral, mucous membranes, sores, blisters, ulcers, cold sore, hydration", r:"A single small cold sore on the inner lip. No others. Mucous membranes slightly dry."},
+  {s:"General", t:"Neck", d:"range of motion, nuchal rigidity, lymph nodes, thyroid", a:"neck, lymph nodes, lymphadenopathy, thyroid, range of motion", r:"Supple, full range of motion. No nuchal rigidity. No lymphadenopathy. Thyroid normal."},
+  {s:"General", t:"Cardiovascular", d:"heart sounds, murmur, rate and rhythm, peripheral pulses", a:"heart, cardiac, CV, murmur, S1, S2, pulses, auscultation", r:"Mildly tachycardic, regular. Normal S1 and S2. No murmur. Peripheral pulses normal."},
+  {s:"General", t:"Respiratory", d:"lung auscultation, breath sounds, work of breathing", a:"lungs, chest, breath sounds, pulmonary, auscultation, work of breathing", r:"Breathing a little faster than normal. Chest clear bilaterally. No increased work of breathing."},
+  {s:"General", t:"Abdomen", d:"tenderness, distension, bowel sounds, organomegaly", a:"abdominal, belly, stomach, tenderness, organomegaly, liver, spleen, bowel sounds", r:"Soft, non-tender, non-distended. Bowel sounds present. No organomegaly."},
+  {s:"General", t:"Extremities", d:"edema, joints, calves, capillary refill", a:"legs, arms, edema, joints, calf, capillary refill", r:"No edema, no joint swelling, no calf tenderness. Capillary refill under two seconds."},
+  {s:"General", t:"Skin", d:"rash, lesions, petechiae, purpura", a:"skin, rash, petechiae, purpura, lesions", r:"Warm and flushed. No rash and no other lesions. No petechiae or purpura."},
+  // Neurologic
+  {s:"Neurologic", t:"Mental status", d:"MSE, orientation, memory, language, aphasia, confusion", a:"MSE, mental status exam, orientation, memory, language, aphasia, confusion, cognition", r:"Not given as an exam result. You examine her mental status by talking with her and observing her answers."},
+  {s:"Neurologic", t:"Level of consciousness", d:"LOC, GCS, alertness, arousal", a:"LOC, GCS, Glasgow, alertness, arousal, consciousness", r:"Awake and alert throughout. Looks fatigued, does not drift off. Opens eyes spontaneously and follows motor commands. Her verbal responses are not appropriate. GCS 14 (E4 V4 M6)."},
+  {s:"Neurologic", t:"Cranial nerves, overall", d:"CN II to XII, cranial nerve screen", a:"CN II-XII, CN 2-12, cranial nerve screen, cranial nerves", r:"Cranial nerves II through XII intact and symmetric. Pupils equal and reactive, extraocular movements full, face symmetric, palate elevates midline, tongue midline. No focal cranial nerve deficit."},
+  {s:"Neurologic", t:"Pupils and visual fields", d:"CN II, pupils, PERRLA, light reflex, visual acuity", a:"CN II, pupils, PERRLA, light reflex, visual acuity, visual fields, confrontation", r:"Pupils 3 mm, equal, briskly reactive to light bilaterally. She winces at the penlight. No relative afferent pupillary defect. Visual fields full to confrontation, with partial cooperation."},
+  {s:"Neurologic", t:"Fundoscopy", d:"CN II, optic disc, ophthalmoscopy, papilledema", a:"CN II, optic disc, ophthalmoscopy, papilledema, fundus, fundi", r:"Limited. She is bothered by the light and keeps closing her eyes, so the optic discs cannot be adequately seen."},
+  {s:"Neurologic", t:"Extraocular movements", d:"CN III, IV, VI, EOM, eye movements, H test, diplopia", a:"CN III, CN IV, CN VI, EOM, eye movements, H test, diplopia, nystagmus", r:"Full range of extraocular movements in all directions. No nystagmus, no diplopia, no gaze palsy."},
+  {s:"Neurologic", t:"Facial sensation and jaw", d:"CN V, trigeminal, corneal reflex, masseter", a:"CN V, trigeminal, corneal reflex, masseter, jaw", r:"Facial sensation intact to light touch in all three divisions bilaterally. Corneal reflexes intact. Masseter and temporalis strength normal and symmetric."},
+  {s:"Neurologic", t:"Facial symmetry", d:"CN VII, facial nerve, smile, eyebrow raise, droop", a:"CN VII, facial nerve, smile, eyebrow raise, droop, face", r:"Face symmetric at rest and with movement. Forehead wrinkles symmetrically, eye closure strong, smile symmetric. No facial droop."},
+  {s:"Neurologic", t:"Hearing", d:"CN VIII, acoustic, Weber, Rinne", a:"CN VIII, acoustic, Weber, Rinne, hearing", r:"Hearing grossly intact to finger rub bilaterally. Weber midline. Rinne air greater than bone bilaterally."},
+  {s:"Neurologic", t:"Palate, voice, articulation", d:"CN IX and X, gag reflex, uvula, say ahh, dysarthria", a:"CN IX, CN X, gag reflex, uvula, say ahh, dysarthria, speech, articulation", r:"Palate elevates midline, uvula central, gag present. Articulation is normal. No dysarthria."},
+  {s:"Neurologic", t:"Shoulder shrug", d:"CN XI, spinal accessory, trapezius, SCM", a:"CN XI, spinal accessory, trapezius, SCM, sternocleidomastoid", r:"Shoulder shrug 5/5 and symmetric. Sternocleidomastoid strength normal bilaterally."},
+  {s:"Neurologic", t:"Tongue", d:"CN XII, hypoglossal, protrusion, deviation", a:"CN XII, hypoglossal, protrusion, deviation, tongue", r:"Tongue protrudes midline without deviation, atrophy, or fasciculations."},
+  {s:"Neurologic", t:"Muscle strength, tone or bulk", d:"motor exam, power, MRC, spasticity, atrophy", a:"motor exam, strength, power, MRC, tone, spasticity, bulk, atrophy, weakness", r:"Motor 5/5 throughout, upper and lower extremities. Normal tone and bulk. No focal weakness."},
+  {s:"Neurologic", t:"Pronator drift", d:"arm drift, UMN sign", a:"arm drift, UMN sign, drift", r:"No pronator drift. Arms held steady in supination without downward drift or pronation."},
+  {s:"Neurologic", t:"Deep tendon reflexes", d:"DTRs, reflexes, knee jerk, ankle jerk, hyperreflexia", a:"DTRs, reflexes, knee jerk, ankle jerk, biceps, patellar, hyperreflexia, clonus", r:"Reflexes 2+ and symmetric at biceps, triceps, brachioradialis, patellar, and Achilles. No clonus."},
+  {s:"Neurologic", t:"Plantar responses", d:"Babinski, plantar reflex, upgoing toes", a:"Babinski, plantar reflex, upgoing toes, toes", r:"Plantar responses downgoing (flexor) bilaterally. No Babinski sign."},
+  {s:"Neurologic", t:"Sensory", d:"sensation, light touch, pinprick, vibration, proprioception, sensory level", a:"sensation, light touch, pinprick, vibration, proprioception, sensory level, numbness", r:"Sensation intact to light touch, pinprick, temperature, vibration, and proprioception throughout. No sensory level."},
+  {s:"Neurologic", t:"Coordination", d:"cerebellar, finger-to-nose, heel-to-shin, dysmetria, ataxia", a:"cerebellar, finger-to-nose, finger nose, heel-to-shin, heel shin, dysmetria, ataxia, rapid alternating", r:"Finger-to-nose and heel-to-shin smooth and accurate bilaterally. No dysmetria, dysdiadochokinesia, or intention tremor."},
+  {s:"Neurologic", t:"Gait and stance", d:"gait, walking, Romberg, tandem, balance", a:"gait, walking, Romberg, tandem, balance, stance", r:"Normal-based, steady gait. Able to tandem walk. Romberg negative."},
+  {s:"Neurologic", t:"Involuntary movements", d:"tremor, myoclonus, chorea, fasciculations", a:"tremor, myoclonus, chorea, fasciculations, seizure, twitching, asterixis", r:"No tremor, myoclonus, chorea, or fasciculations at rest or with action. No seizure activity observed during the exam."},
+  {s:"Neurologic", t:"Kernig and Brudzinski", d:"meningeal signs, nuchal rigidity, neck stiffness, meningismus", a:"Kernig, Brudzinski, meningeal signs, nuchal rigidity, neck stiffness, meningismus, neck flexion", r:"Kernig and Brudzinski signs negative. Neck supple, no nuchal rigidity."}
+];
+
+const browse = document.getElementById('browse');
+const picked = [];
+const byId = {};
+function norm(s){ return s.toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim(); }
+let lastSection = null;
+EXAMS.forEach((e,i)=>{
+  if(e.s !== lastSection){
+    const h=document.createElement('h3'); h.className='exam-section'; h.textContent=e.s; h.dataset.section=e.s;
+    browse.appendChild(h); lastSection=e.s;
+  }
+  const d=document.createElement('div'); d.className='exam'; d.dataset.i=i; d.dataset.section=e.s;
+  const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-expanded','false');
+  b.innerHTML='<span class="ttl"><span class="name"></span><span class="desc"></span></span><span class="hint">Request result</span>';
+  b.querySelector('.name').textContent=e.t; b.querySelector('.desc').textContent=e.d;
+  const r=document.createElement('div'); r.className='result'; r.textContent=e.r;
+  b.addEventListener('click',()=>reveal(i));
+  d.appendChild(b); d.appendChild(r); browse.appendChild(d);
+  byId[i]={el:d,btn:b,key:norm(e.t+' '+e.d+' '+e.a)};
+});
+function reveal(i){
+  const x=byId[i]; if(x.el.classList.contains('open')) return;
+  x.el.classList.add('open'); x.btn.setAttribute('aria-expanded','true');
+  x.btn.querySelector('.hint').textContent='Result shown'; picked.push(i); renderPicked();
+}
+function renderPicked(){
+  const ol=document.getElementById('picked'); ol.innerHTML='';
+  document.getElementById('empty').style.display=picked.length?'none':'block';
+  picked.forEach(i=>{
+    const li=document.createElement('li'); const b=document.createElement('b');
+    b.textContent=EXAMS[i].t+': '; li.appendChild(b); li.appendChild(document.createTextNode(EXAMS[i].r)); ol.appendChild(li);
+  });
+}
+const q=document.getElementById('q');
+q.addEventListener('input',()=>{
+  const words=norm(q.value)?norm(q.value).split(' '):[]; const visibleSections=new Set();
+  EXAMS.forEach((e,i)=>{const show=words.every(w=>byId[i].key.includes(w));byId[i].el.classList.toggle('hidden',!show);if(show)visibleSections.add(e.s);});
+  browse.querySelectorAll('.exam-section').forEach(h=>h.classList.toggle('hidden',!visibleSections.has(h.dataset.section)));
+});
+
+// Local autosave for reflection responses.
+const fields=[...document.querySelectorAll('[data-save]')];
+fields.forEach(el=>{
+  const key='strahan_backup_'+el.dataset.save;
+  const saved=localStorage.getItem(key); if(saved!==null) el.value=saved;
+  el.addEventListener('input',()=>{localStorage.setItem(key,el.value); document.getElementById('status').textContent='Saved automatically on this device.';});
+});
+
+function reflectionText(){
+  const examText=picked.length ? picked.map(i=>'- '+EXAMS[i].t+': '+EXAMS[i].r).join('\n') : 'None recorded on this page.';
+  return `Samantha Strahan — Neuro-Psych Sim Backup Reflection
+
+1. PRIORITIZED DIFFERENTIAL
+${document.getElementById('r1').value}
+
+2. THREE KEY HISTORY FINDINGS + EFFECT ON DIFFERENTIAL
+${document.getElementById('r2').value}
+
+3. EXAMINATION FINDINGS REQUESTED + WHY
+${document.getElementById('r3').value}
+
+4. ONE THING I COULD NOT FIND OUT + WHO/WHAT COULD HAVE TOLD ME
+${document.getElementById('r4').value}
+
+EXAM FINDINGS REQUESTED ON BACKUP PAGE
+${examText}
+`;
+}
+document.getElementById('download').addEventListener('click',()=>{
+  const blob=new Blob([reflectionText()],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Samantha_Strahan_reflection.txt'; a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById('copyall').addEventListener('click',async(e)=>{
+  try{await navigator.clipboard.writeText(reflectionText()); e.target.textContent='Copied'; setTimeout(()=>e.target.textContent='Copy responses',1800);}
+  catch(err){document.getElementById('status').textContent='Copy was blocked; use Download my responses instead.';}
+});
+document.getElementById('print').addEventListener('click',()=>window.print());
+document.getElementById('clear').addEventListener('click',()=>{
+  if(!confirm('Clear all saved reflection responses on this device?')) return;
+  fields.forEach(el=>{localStorage.removeItem('strahan_backup_'+el.dataset.save);el.value='';});
+  document.getElementById('status').textContent='Saved responses cleared.';
+});
+</script>
+</body>
+</html>
