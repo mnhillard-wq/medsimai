@@ -34,6 +34,9 @@ header{border-bottom:1px solid var(--gray-200);padding-bottom:20px;margin-bottom
 .chip{font-size:13px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:inherit;
  border:1px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-700)}
 .chip.on{background:var(--blue-700);border-color:var(--blue-700);color:#fff}
+.chip.draft{border-style:dashed}
+.draftbadge{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rust);background:var(--peach);padding:2px 7px;border-radius:3px;white-space:nowrap}
+.draftnote{margin-top:10px;border-left:3px solid var(--rust);background:#FDF1EC;padding:9px 13px;font-size:12.5px;line-height:1.5;color:var(--gray-600);border-radius:0 4px 4px 0;text-wrap:pretty}
 .chip:focus-visible{outline:2px solid var(--blue-600);outline-offset:2px}
 .panel-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:26px 0 4px}
 .panel-head h2{font-size:20px;font-weight:700;line-height:1.25}
@@ -79,24 +82,26 @@ footer strong{color:var(--gray-800)}
   <p class="lede">A complete history asks everything. A <strong>focused history</strong> asks what this concern demands, and the concern decides the questions. Pick what the patient came in with and read down. Cardinal features and red flags come first, because the dangerous questions belong early in the encounter, not tacked on at the end. Where an answer separates something dangerous from something benign, the right-hand column says so.</p>
 </header>
 
-<div class="scope"><strong>Scope.</strong> These banks are pediatric, drawn from the illness-script work behind the MedSimAI cases. Questions are phrased for a caregiver in most concerns and for the young person in others, so adjust the wording to whoever is answering. Twelve concerns are here now and more are being added.</div>
+<div class="scope"><strong>Scope.</strong> These banks are pediatric, drawn from the illness-script work behind the MedSimAI cases. Questions are phrased for a caregiver in most concerns and for the young person in others, so adjust the wording to whoever is answering. Fourteen concerns are here now. Two of them, chest pain and sore throat, are marked as drafts: their questions were written from the illness-script tables rather than from an existing question bank, and need review before this page is shared.</div>
 
 <div class="picker">
   <div class="picker-row">
     <div class="picker-lbl"><b>Chief concern</b><span>What the patient came in with.</span></div>
     <div class="chips">
 <button class="chip on" data-i="0">Headache</button>
-<button class="chip" data-i="1">Vomiting</button>
-<button class="chip" data-i="2">Diarrhea</button>
-<button class="chip" data-i="3">Cough</button>
-<button class="chip" data-i="4">Rash</button>
-<button class="chip" data-i="5">Limp</button>
-<button class="chip" data-i="6">Neck mass</button>
-<button class="chip" data-i="7">Poor weight gain</button>
-<button class="chip" data-i="8">Dark urine</button>
-<button class="chip" data-i="9">Abnormal movements</button>
-<button class="chip" data-i="10">Altered mental status</button>
-<button class="chip" data-i="11">Depressed mood</button>
+<button class="chip draft" data-i="1">Chest pain</button>
+<button class="chip draft" data-i="2">Sore throat</button>
+<button class="chip" data-i="3">Vomiting</button>
+<button class="chip" data-i="4">Diarrhea</button>
+<button class="chip" data-i="5">Cough</button>
+<button class="chip" data-i="6">Rash</button>
+<button class="chip" data-i="7">Limp</button>
+<button class="chip" data-i="8">Neck mass</button>
+<button class="chip" data-i="9">Poor weight gain</button>
+<button class="chip" data-i="10">Dark urine</button>
+<button class="chip" data-i="11">Abnormal movements</button>
+<button class="chip" data-i="12">Altered mental status</button>
+<button class="chip" data-i="13">Depressed mood</button>
     </div>
   </div>
 </div>
@@ -161,6 +166,120 @@ footer strong{color:var(--gray-800)}
 </div>
 </div>
 <div class="panel" id="p-1" hidden>
+<div class="panel-head"><h2>Chest pain</h2><span class="panel-sub">exertional or not</span><span class="draftbadge">Draft, not yet reviewed</span><span class="panel-n">21 questions</span></div>
+<div class="draftnote">These questions were drafted from the illness-script table for this concern, not taken from an existing question bank. Read them before this page is shared.</div><div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">7</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">When did the pain start, and how long does each episode last?</span><span class="why">Seconds to minutes is precordial catch. Days to weeks is costochondritis. Sudden onset raises pneumothorax.</span></li>
+<li><span class="q">Where is the pain, and can the child point to it with one finger?</span><span class="why">Localised to a costochondral joint is costochondritis. Retrosternal radiating to shoulder or neck is pericarditis.</span></li>
+<li><span class="q">What does the pain feel like?</span><span class="why">Burning and substernal is reflux. Sharp and pleuritic points to lung or pericardium.</span></li>
+<li><span class="q">Does anything make it better or worse: breathing, movement, pressing on it, lying down, eating?</span><span class="why">Reproducible on palpation is costochondritis. Worse lying flat and better sitting forward is pericarditis. After meals is reflux.</span></li>
+<li><span class="q">Is there a cough, or has the child been unwell recently?</span><span class="why">Cough with fatigue and poor appetite suggests pneumonia. A recent viral illness precedes pericarditis.</span></li>
+<li><span class="q">Is there heartburn, regurgitation, or a sour taste?</span><span class="why">Points to reflux and away from a cardiac or pulmonary cause.</span></li>
+<li><span class="q">Does the pain come with hyperventilation, dizziness, or tingling in the hands?</span><span class="why">Hyperventilation with paraesthesia suggests panic, but that is a diagnosis made after the dangerous ones are excluded.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Does the pain come on with exertion?</span><span class="why">The question that matters most. Exertional chest pain is hypertrophic cardiomyopathy or an anomalous coronary artery until imaging says otherwise.</span></li>
+<li><span class="q">Has the child fainted, or nearly fainted?</span><span class="why">Syncope with chest pain is cardiac until proven otherwise.</span></li>
+<li><span class="q">Are there palpitations or a racing heart with the pain?</span><span class="why">Palpitations with dizziness or syncope is arrhythmia.</span></li>
+<li><span class="q">Is the child working to breathe, or breathing fast?</span><span class="why">Respiratory distress or hypoxia: pneumothorax, pulmonary embolism, or pneumonia.</span></li>
+<li><span class="q">Is there fever with the pain?</span><span class="why">High fever with distress suggests pneumonia. Fever with fatigue and malaise suggests pericarditis.</span></li>
+<li><span class="q">In a child with sickle cell disease, is there chest pain with fever or a rising oxygen need?</span><span class="why">Acute chest syndrome. An increasing oxygen requirement is the sign that it is worsening.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Does the child have asthma, cystic fibrosis, or another lung condition?</span><span class="why">Raises pneumothorax, and asthma is itself a common cause of chest pain.</span></li>
+<li><span class="q">Is there any known heart problem, or has a murmur ever been mentioned?</span><span class="why">An undiagnosed congenital abnormality is how an anomalous coronary artery presents.</span></li>
+<li><span class="q">Is there a family history of sudden cardiac death, arrhythmia, or congenital heart disease?</span><span class="why">The strongest pointer to hypertrophic cardiomyopathy and inherited arrhythmia.</span></li>
+<li><span class="q">Is there a history of anxiety or panic?</span><span class="why">Supports panic, but does not exclude anything above it.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any recent injury to the chest?</span><span class="why">Trauma raises pneumothorax.</span></li>
+<li><span class="q">Any recent immobility, surgery, a central line, or oestrogen-containing contraception?</span><span class="why">The pulmonary embolism risk factors, alongside prior clot, lupus and obesity.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">What was happening when the pain started, and is there stress at school or home?</span><span class="why">Stressful situations drive panic, and pain that eases with reassurance supports it.</span></li>
+<li><span class="q">Is the child playing competitive sport?</span><span class="why">Exertional symptoms in an athlete are the hypertrophic cardiomyopathy presentation.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-2" hidden>
+<div class="panel-head"><h2>Sore throat</h2><span class="panel-sub">with or without fever</span><span class="draftbadge">Draft, not yet reviewed</span><span class="panel-n">17 questions</span></div>
+<div class="draftnote">These questions were drafted from the illness-script table for this concern, not taken from an existing question bank. Read them before this page is shared.</div><div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">7</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">When did the sore throat start, and how quickly did it come on?</span><span class="why">Group A strep is acute. Mononucleosis is subacute and drags on.</span></li>
+<li><span class="q">Is there a cough or a runny nose?</span><span class="why">Cough and rhinorrhoea point to a virus and away from group A strep.</span></li>
+<li><span class="q">Is there fever, and how high?</span><span class="why">High fever before any mouth lesions appear suggests herpes gingivostomatitis.</span></li>
+<li><span class="q">Are there blisters or ulcers in or around the mouth?</span><span class="why">Vesicles on the posterior oropharynx are coxsackie. Ulcers on lips, gums and tongue are herpes gingivostomatitis.</span></li>
+<li><span class="q">Is there a rash anywhere?</span><span class="why">A diffuse sandpaper rash is scarlet fever with group A strep. Vesicles on hands and feet are coxsackie.</span></li>
+<li><span class="q">Is there headache or stomach ache?</span><span class="why">Both travel with group A strep and with mononucleosis.</span></li>
+<li><span class="q">Has the voice changed?</span><span class="why">A muffled hot-potato voice is a peritonsillar abscess.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is the child drooling, or having trouble swallowing or breathing?</span><span class="why">Airway compromise. A retropharyngeal abscess is a potential airway emergency.</span></li>
+<li><span class="q">Is there neck stiffness or pain on moving the neck?</span><span class="why">Neck stiffness with high fever in a child under six is a retropharyngeal abscess.</span></li>
+<li><span class="q">Can the child open their mouth fully?</span><span class="why">Trismus, with unilateral swelling and uvular deviation, is a peritonsillar abscess.</span></li>
+<li><span class="q">Has the child stopped drinking, and when did they last pass urine?</span><span class="why">Dehydration is what turns this into an admission, and it is worst in herpes gingivostomatitis.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Has the child had a sore throat like this before, or recurrent tonsillitis?</span><span class="why">Recurrent episodes raise peritonsillar abscess in an adolescent and change the threshold for referral.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Has anyone at home or school had a sore throat or strep?</span><span class="why">Known sick contacts and school attendance are the group A strep risk factors.</span></li>
+<li><span class="q">Has the child shared drinks or water bottles, or been kissing?</span><span class="why">The mononucleosis exposures in a teenager.</span></li>
+<li><span class="q">Has the child been around anyone with mouth sores or hand, foot and mouth disease?</span><span class="why">Coxsackie and herpes gingivostomatitis both spread by close contact among young children.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Does the child attend school or daycare?</span><span class="why">Where group A strep and coxsackie circulate.</span></li>
+<li><span class="q">Can the child be kept comfortable and drinking at home?</span><span class="why">Decides whether this is managed at home or needs admission.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-3" hidden>
 <div class="panel-head"><h2>Vomiting</h2><span class="panel-sub">with or without diarrhea</span><span class="panel-n">31 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">15</span></div>
@@ -229,7 +348,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-2" hidden>
+<div class="panel" id="p-4" hidden>
 <div class="panel-head"><h2>Diarrhea</h2><span class="panel-sub">acute or persistent</span><span class="panel-n">28 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">8</span></div>
@@ -295,7 +414,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-3" hidden>
+<div class="panel" id="p-5" hidden>
 <div class="panel-head"><h2>Cough</h2><span class="panel-sub">acute or chronic</span><span class="panel-n">10 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">4</span></div>
@@ -336,7 +455,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-4" hidden>
+<div class="panel" id="p-6" hidden>
 <div class="panel-head"><h2>Rash</h2><span class="panel-sub">new or changing skin findings</span><span class="panel-n">8 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">6</span></div>
@@ -368,7 +487,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-5" hidden>
+<div class="panel" id="p-7" hidden>
 <div class="panel-head"><h2>Limp</h2><span class="panel-sub">or refusal to walk</span><span class="panel-n">8 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">6</span></div>
@@ -400,7 +519,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-6" hidden>
+<div class="panel" id="p-8" hidden>
 <div class="panel-head"><h2>Neck mass</h2><span class="panel-sub">swelling or lump in the neck</span><span class="panel-n">5 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">2</span></div>
@@ -422,7 +541,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-7" hidden>
+<div class="panel" id="p-9" hidden>
 <div class="panel-head"><h2>Poor weight gain</h2><span class="panel-sub">faltering growth</span><span class="panel-n">5 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">3</span></div>
@@ -444,7 +563,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-8" hidden>
+<div class="panel" id="p-10" hidden>
 <div class="panel-head"><h2>Dark urine</h2><span class="panel-sub">tea-coloured, red, or foamy</span><span class="panel-n">17 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">4</span></div>
@@ -499,7 +618,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-9" hidden>
+<div class="panel" id="p-11" hidden>
 <div class="panel-head"><h2>Abnormal movements</h2><span class="panel-sub">jerking, twisting, shaking, staring</span><span class="panel-n">17 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">5</span></div>
@@ -554,7 +673,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-10" hidden>
+<div class="panel" id="p-12" hidden>
 <div class="panel-head"><h2>Altered mental status</h2><span class="panel-sub">confusion, lethargy, not acting right</span><span class="panel-n">27 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">10</span></div>
@@ -619,7 +738,7 @@ footer strong{color:var(--gray-800)}
 </ul>
 </div>
 </div>
-<div class="panel" id="p-11" hidden>
+<div class="panel" id="p-13" hidden>
 <div class="panel-head"><h2>Depressed mood</h2><span class="panel-sub">sadness, irritability, withdrawal</span><span class="panel-n">18 questions</span></div>
 <div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
 <div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">5</span></div>
