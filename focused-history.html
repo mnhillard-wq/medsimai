@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Focused History Across Chief Concerns</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--blue-700:#1d4f85;--blue-600:#2563A8;--blue-lt:#EEF4FC;--blue-md:#CAEDFB;
+--teal-900:#134E4A;--teal-lt:#CCFBF1;--teal-md:#99F6E4;
+--purple-dk:#3d1f7a;--purple-lt:#E8E0F7;--purple-md:#C5B3E8;
+--steel-dk:#2A4A64;--steel-lt:#E3EDF5;--steel-md:#9DC4D8;
+--rust:#B3472D;--peach:#FAE2D5;
+--gray-50:#F8F9FA;--gray-100:#F0F2F5;--gray-200:#E2E6EA;--gray-400:#9BA3AF;--gray-600:#4B5563;--gray-800:#1F2937;
+--font:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.65;color:var(--gray-800);background:#fff}
+.wrap{max-width:960px;margin:0 auto;padding:40px 32px 96px}
+.kicker{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-600);background:var(--blue-md);padding:3px 9px;border-radius:3px;margin-bottom:10px}
+h1{font-size:26px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.lede{font-size:15px;line-height:1.6;color:var(--gray-600);max-width:820px;text-wrap:pretty}
+.lede strong{color:var(--gray-800);font-weight:600}
+header{border-bottom:1px solid var(--gray-200);padding-bottom:20px;margin-bottom:22px}
+.scope{border:1px solid var(--gray-200);background:var(--gray-50);border-radius:8px;padding:13px 16px;margin-bottom:22px;font-size:13px;line-height:1.55;color:var(--gray-600);text-wrap:pretty}
+.scope strong{color:var(--gray-800)}
+.picker{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--gray-200);padding:14px 0 12px;margin-bottom:8px}
+.picker-row{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.picker-lbl{width:120px;flex-shrink:0;padding-top:7px}
+.picker-lbl b{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600)}
+.picker-lbl span{display:block;font-size:11.5px;line-height:1.4;color:var(--gray-600);margin-top:4px;text-wrap:pretty}
+.chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+.chip{font-size:13px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:inherit;
+ border:1px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-700)}
+.chip.on{background:var(--blue-700);border-color:var(--blue-700);color:#fff}
+.chip:focus-visible{outline:2px solid var(--blue-600);outline-offset:2px}
+.panel-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:26px 0 4px}
+.panel-head h2{font-size:20px;font-weight:700;line-height:1.25}
+.panel-sub{font-size:13px;color:var(--gray-600)}
+.panel-n{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400)}
+.cat{margin-top:22px;border-top:1px solid var(--gray-200);padding-top:14px}
+.cat-head{display:flex;align-items:center;gap:9px}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);background:var(--md);padding:2px 8px;border-radius:3px}
+.cat-n{font-size:11px;color:var(--gray-400);font-variant-numeric:tabular-nums}
+.cat-blurb{font-size:12.5px;line-height:1.5;color:var(--gray-600);margin:6px 0 10px;max-width:760px;text-wrap:pretty}
+.col-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0 16px;padding:0 12px 4px 17px;
+ font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400)}
+.col-head span:last-child{padding-left:16px}
+ul.qs{list-style:none}
+ul.qs li{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0 16px;align-items:start;
+ padding:8px 12px 8px 14px;border-left:3px solid var(--md);background:var(--lt);
+ margin-bottom:5px;border-radius:0 4px 4px 0;text-wrap:pretty}
+ul.qs li.bare{grid-template-columns:1fr}
+ul.qs .q{font-size:13.5px;line-height:1.5;color:var(--gray-800)}
+ul.qs .why{font-size:12.5px;line-height:1.5;color:var(--gray-600);padding-left:16px;border-left:1px solid var(--md)}
+footer{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:16px;font-size:12.5px;line-height:1.6;color:var(--gray-600);text-wrap:pretty}
+footer strong{color:var(--gray-800)}
+@media (max-width:640px){
+ .wrap{padding:26px 18px 70px}
+ .picker-lbl{width:100%}
+ .panel-n{margin-left:0}
+ ul.qs li{grid-template-columns:1fr;gap:5px 0}
+ ul.qs .why{padding-left:0;border-left:none;padding-top:5px;border-top:1px dashed var(--md)}
+ .col-head{display:none}
+}
+@media print{
+ .picker{position:static;border:none} .chips,.picker-lbl span{display:none}
+ .panel[hidden]{display:block !important} body{font-size:11pt} .cat{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Clinical Skills</div>
+  <h1>The Focused History Across Chief Concerns</h1>
+  <p class="lede">A complete history asks everything. A <strong>focused history</strong> asks what this concern demands, and the concern decides the questions. Pick what the patient came in with and read down. Cardinal features and red flags come first, because the dangerous questions belong early in the encounter, not tacked on at the end. Where an answer separates something dangerous from something benign, the right-hand column says so.</p>
+</header>
+
+<div class="scope"><strong>Scope.</strong> These banks are pediatric, drawn from the illness-script work behind the MedSimAI cases. Questions are phrased for a caregiver in most concerns and for the young person in others, so adjust the wording to whoever is answering. Twelve concerns are here now and more are being added.</div>
+
+<div class="picker">
+  <div class="picker-row">
+    <div class="picker-lbl"><b>Chief concern</b><span>What the patient came in with.</span></div>
+    <div class="chips">
+<button class="chip on" data-i="0">Headache</button>
+<button class="chip" data-i="1">Vomiting</button>
+<button class="chip" data-i="2">Diarrhea</button>
+<button class="chip" data-i="3">Cough</button>
+<button class="chip" data-i="4">Rash</button>
+<button class="chip" data-i="5">Limp</button>
+<button class="chip" data-i="6">Neck mass</button>
+<button class="chip" data-i="7">Poor weight gain</button>
+<button class="chip" data-i="8">Dark urine</button>
+<button class="chip" data-i="9">Abnormal movements</button>
+<button class="chip" data-i="10">Altered mental status</button>
+<button class="chip" data-i="11">Depressed mood</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p-0" >
+<div class="panel-head"><h2>Headache</h2><span class="panel-sub">head pain, new or recurrent</span><span class="panel-n">21 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">5</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">When did the headache start, and how has it changed since?</span></li>
+<li class="bare"><span class="q">Where is the pain located?</span></li>
+<li class="bare"><span class="q">How long does each episode last?</span></li>
+<li class="bare"><span class="q">What does the pain feel like (pulsing, pressure, sharp)?</span></li>
+<li><span class="q">Are there associated symptoms (vomiting, fever, photophobia)?</span><span class="why">Fever points to meningitis, morning vomiting to raised pressure, photophobia to either meningitis or migraine.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any seizures, confusion, or loss of consciousness?</span><span class="why">Meningitis, raised pressure, or a bleed. Not a primary headache.</span></li>
+<li><span class="q">Any visual changes, such as double vision or loss of vision?</span><span class="why">Double vision or vision loss points to raised intracranial pressure or a mass.</span></li>
+<li><span class="q">Any problems walking or changes in coordination?</span><span class="why">Gait or coordination change with headache is a tumour until imaged.</span></li>
+<li><span class="q">Is the headache waking the child from sleep?</span><span class="why">Night waking and morning headache are the classic raised-pressure pattern.</span></li>
+<li><span class="q">Is there neck stiffness or a rash?</span><span class="why">Meningitis. Ask early and act on it.</span></li>
+<li><span class="q">Did the headache start very suddenly like a thunderclap?</span><span class="why">Thunderclap onset is subarachnoid haemorrhage or AVM rupture until excluded.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any previous similar headaches?</span><span class="why">A first and worst headache is a different problem from a familiar recurring one.</span></li>
+<li class="bare"><span class="q">Any history of head trauma or concussion?</span></li>
+<li class="bare"><span class="q">Any known neurological or developmental issues?</span></li>
+<li class="bare"><span class="q">Is the child on any medications?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any recent illnesses or infections in the household?</span><span class="why">Sick contacts and a recent URI raise meningitis.</span></li>
+<li class="bare"><span class="q">Has the child had recent travel or tick exposure?</span></li>
+<li class="bare"><span class="q">Any known allergies or recent new foods?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Is the child under stress at school or home?</span></li>
+<li class="bare"><span class="q">Any changes in sleep, eating, or behavior patterns?</span></li>
+<li class="bare"><span class="q">How is the child performing academically?</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-1" hidden>
+<div class="panel-head"><h2>Vomiting</h2><span class="panel-sub">with or without diarrhea</span><span class="panel-n">31 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">15</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">When did the vomiting start?</span><span class="why">Acute is infectious, metabolic, toxic or surgical. Chronic is gastrointestinal. Cyclic is usually migraine, arrhythmia or UPJ obstruction.</span></li>
+<li><span class="q">Is it forceful or projectile?</span><span class="why">Projectile non-bilious vomiting at 2 to 8 weeks is pyloric stenosis.</span></li>
+<li><span class="q">What does the vomit look like—bilious, bloody, undigested food?</span><span class="why">Bilious emesis in a neonate is a surgical emergency until proven otherwise. Malrotation with midgut volvulus.</span></li>
+<li class="bare"><span class="q">How often is the vomiting happening?</span></li>
+<li class="bare"><span class="q">Is the child keeping anything down?</span></li>
+<li><span class="q">Is the child still hungry after vomiting, or refusing feeds?</span><span class="why">The hungry vomiter is pyloric stenosis; poor feeding suggests a metabolic or intracranial cause.</span></li>
+<li><span class="q">Has the child had any diarrhea or change in stool pattern?</span><span class="why">Vomiting with diarrhoea is usually gastroenteritis. Isolated vomiting is far wider: raised pressure, pneumonia, ingestion, diabetic ketoacidosis.</span></li>
+<li><span class="q">Any blood in the stool or complete absence of stool (obstipation)?</span><span class="why">Currant jelly stool is intussusception; no stool at all suggests obstruction.</span></li>
+<li class="bare"><span class="q">Has the child lost weight or had trouble gaining weight?</span></li>
+<li><span class="q">Is there any timing pattern to the vomiting?</span><span class="why">Early-morning vomiting can mean raised intracranial pressure. Vomiting soon after eating suggests outlet obstruction or peptic ulcer.</span></li>
+<li><span class="q">Is the vomiting effortless?</span><span class="why">Effortless and painless is reflux. True vomiting is a noxious event with pain and retching.</span></li>
+<li><span class="q">Is there any blood in the vomitus?</span><span class="why">Haematemesis is darker, acidic and comes with retching. Haemoptysis is bright, frothy, alkaline and comes with respiratory symptoms.</span></li>
+<li><span class="q">Is undigested food present in the vomitus?</span><span class="why">Common in reflux. Old food suggests gastric outlet obstruction or a motility disorder.</span></li>
+<li><span class="q">Is there any abdominal pain?</span><span class="why">Right lower quadrant suggests appendicitis, right upper biliary, flank renal. Pain relieved by vomiting suggests ulcer; pancreatitis is not.</span></li>
+<li><span class="q">Is fever present?</span><span class="why">Points to gastroenteritis, appendicitis or an extraintestinal infection such as meningitis or a urinary tract infection.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is the child lethargic or unusually sleepy?</span><span class="why">Lethargy with vomiting means intracranial, metabolic, or shock.</span></li>
+<li><span class="q">Are there signs of dehydration (dry mouth, poor urine output)?</span><span class="why">Decides whether this child needs fluids now.</span></li>
+<li><span class="q">Is there a bulging fontanelle or unusual head size?</span><span class="why">Raised intracranial pressure in an infant.</span></li>
+<li><span class="q">Any confusion, deep breathing, fruity breath, or rapid breathing?</span><span class="why">Kussmaul breathing and fruity breath are DKA.</span></li>
+<li><span class="q">Does the child have persistent vomiting with poor growth or concern for abuse?</span><span class="why">Chronic vomiting with failure to thrive needs a cause found, not reassurance.</span></li>
+<li><span class="q">Is fecal material present in the emesis?</span><span class="why">Uncommon, and suggests distal obstruction: Hirschsprung disease, peritonitis, or a gastrocolic fistula.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any prior history of similar episodes?</span></li>
+<li class="bare"><span class="q">Any known GI or metabolic disorders?</span></li>
+<li class="bare"><span class="q">Any recent head trauma or neurological symptoms?</span></li>
+<li><span class="q">Is the child previously healthy or has chronic conditions?</span><span class="why">Known type 1 diabetes makes DKA the first thing to exclude.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any recent travel or sick contacts?</span></li>
+<li class="bare"><span class="q">Any dietary changes, new foods, or expired foods?</span></li>
+<li class="bare"><span class="q">Any missed medications (e.g., insulin)?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">How is feeding (breast/formula)?</span><span class="why">Formula-fed first-born males are the pyloric stenosis picture, and feeding pattern separates reflux from disease.</span></li>
+<li class="bare"><span class="q">Any stress, recent weight loss or dieting in older children?</span></li>
+<li class="bare"><span class="q">Are there signs of poor home care or neglect?</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-2" hidden>
+<div class="panel-head"><h2>Diarrhea</h2><span class="panel-sub">acute or persistent</span><span class="panel-n">28 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">8</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">When did the diarrhea start?</span><span class="why">Under two weeks is acute and usually infectious. Chronic raises malabsorption, celiac disease and cystic fibrosis.</span></li>
+<li><span class="q">How frequent are the stools? Are they watery, bloody, or mucousy?</span><span class="why">Acutely, blood or mucus means an enteroinvasive organism. Chronically, inflammatory bowel disease. In an ill-appearing child, haemolytic uraemic syndrome.</span></li>
+<li><span class="q">Is the child also vomiting?</span><span class="why">Bilious vomiting in a neonate or infant means an anatomic cause: malrotation or an incarcerated hernia.</span></li>
+<li class="bare"><span class="q">Is the child eating normally?</span></li>
+<li><span class="q">Is there abdominal pain or cramping? Tenesmus?</span><span class="why">Acute cramping fits gastroenteritis. Chronic cramping or tenesmus raises inflammatory bowel disease.</span></li>
+<li><span class="q">Is there a fever?</span><span class="why">Acutely, an enteroinvasive organism or a systemic illness. In a toxic-appearing child, sepsis.</span></li>
+<li><span class="q">Is the diarrhea worse with oral intake? Is it improved with fasting?</span><span class="why">Separates osmotic diarrhoea, which is most of them, from secretory diarrhoea, which can be occult oncologic disease.</span></li>
+<li><span class="q">Is there a rash?</span><span class="why">Petechial or purpuric suggests Henoch-Schonlein purpura, or sepsis in an ill child. Dermatitis herpetiformis suggests celiac disease.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is the stool bloody or unusually foul-smelling?</span><span class="why">Bloody stool is bacterial, IBD, or HUS; bulky and foul-smelling is malabsorption.</span></li>
+<li><span class="q">Has the child shown signs of dehydration (dry mouth, no tears, poor urine)?</span><span class="why">The finding that decides whether this child goes home.</span></li>
+<li><span class="q">Any signs of weight loss or poor growth?</span><span class="why">Chronic diarrhoea with failure to thrive raises cystic fibrosis, celiac disease and inflammatory bowel disease.</span></li>
+<li><span class="q">Any unusual infections or prolonged fevers?</span><span class="why">Raises immunodeficiency.</span></li>
+<li><span class="q">Any petechiae, pallor, or lethargy?</span><span class="why">HUS. Pallor and petechiae after bloody diarrhoea is the classic sequence.</span></li>
+<li><span class="q">Does the patient appear systemically ill?</span><span class="why">Raises sepsis, and with oliguria, haemolytic uraemic syndrome.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">5</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any prior history of similar episodes?</span></li>
+<li class="bare"><span class="q">Any known autoimmune or digestive conditions?</span></li>
+<li class="bare"><span class="q">Any recent GI illness or dietary changes?</span></li>
+<li><span class="q">Is there a history of recent antibiotic use?</span><span class="why">Antibiotic-associated diarrhoea, including Clostridioides difficile colitis.</span></li>
+<li><span class="q">Is there a significant family history?</span><span class="why">Inflammatory bowel disease runs in families. Celiac disease and cystic fibrosis have traditionally been linked to Northern European ancestry.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">5</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any recent travel or new foods?</span><span class="why">Travellers&#x27; diarrhoea from unfamiliar E. coli, and parasites such as Entamoeba and Giardia.</span></li>
+<li><span class="q">Has the child eaten undercooked meat or food from questionable sources?</span><span class="why">Undercooked beef is the E. coli O157:H7 route into haemolytic uraemic syndrome. New foods can mean milk-protein allergy in infants.</span></li>
+<li><span class="q">Any sick contacts or daycare exposure?</span><span class="why">Similar symptoms in close contacts suggest a common source.</span></li>
+<li><span class="q">What is the water source?</span><span class="why">Untreated water harbours Giardia and Cryptosporidium. Pools and lakes have transmitted E. coli O157:H7.</span></li>
+<li><span class="q">Are there any pets? Any exposure to animals?</span><span class="why">Reptiles carry Salmonella. Farm animals and petting zoos have caused E. coli O157:H7 outbreaks.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Is the child attending daycare?</span></li>
+<li class="bare"><span class="q">What does the child typically eat and drink?</span></li>
+<li class="bare"><span class="q">Any family stress or psychosocial issues?</span></li>
+<li><span class="q">Is the weight loss intentional?</span><span class="why">Teenagers concerned with body image may be using laxatives.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-3" hidden>
+<div class="panel-head"><h2>Cough</h2><span class="panel-sub">acute or chronic</span><span class="panel-n">10 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Did the cough begin with an upper respiratory tract infection?</span><span class="why">Viral URI is the commonest cause. Young children have six to eight a year, which can look like a chronic cough.</span></li>
+<li><span class="q">In young infants, is there any history of conjunctivitis in association with a cough and tachypnea?</span><span class="why">Conjunctivitis with pneumonitis in a young infant suggests Chlamydia trachomatis.</span></li>
+<li><span class="q">How is the cough related to time of day and to daily activities?</span><span class="why">After eating suggests aspiration or reflux; with cold air or exercise, reactive airway disease; at night, postnasal drip.</span></li>
+<li><span class="q">Does the cough resolve with sleep?</span><span class="why">A cough that vanishes in sleep, or appears only when an adult is present, suggests a psychogenic cough.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Are there systemic signs or symptoms that may suggest a particular etiology?</span><span class="why">Weight loss and night sweats point to tuberculosis or malignancy. Dysphagia suggests an oesophageal foreign body.</span></li>
+<li><span class="q">Is there a history of a choking episode?</span><span class="why">Foreign body aspiration. Commonest in toddlers, and the history is often the only clue.</span></li>
+<li><span class="q">Is there any history of hemoptysis?</span><span class="why">Widens this to fungal disease, autoimmune and granulomatous disorders, cystic fibrosis, congenital heart disease and tuberculosis.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is there a history of recurrent pneumonias or other infections?</span><span class="why">Raises immune dysfunction, and with sinusitis, otitis and situs inversus, primary ciliary dyskinesia.</span></li>
+<li><span class="q">How is the patient&#x27;s growth?</span><span class="why">Failure to thrive with steatorrhoea and recurrent pneumonia is cystic fibrosis.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Are there environmental stimuli that may irritate the airway?</span><span class="why">Passive smoke, solvent fumes and recreational drug use all drive a chronic cough.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-4" hidden>
+<div class="panel-head"><h2>Rash</h2><span class="panel-sub">new or changing skin findings</span><span class="panel-n">8 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">What was the progression of the rash over time and the duration of the rash?</span><span class="why">Viral exanthems progress predictably. Measles starts at the hairline and moves down, scarlet fever on the upper trunk.</span></li>
+<li><span class="q">What is the configuration of the rash?</span><span class="why">Linear or geometric suggests contact dermatitis, dermatomal suggests zoster, annular vesicles and bullae suggest linear IgA disease.</span></li>
+<li><span class="q">Where is the rash distributed on the body?</span><span class="why">Contact dermatitis must match where the agent touched. Scabies spares the face except in infants; atopic dermatitis favours the flexures.</span></li>
+<li><span class="q">What is the color of the rash?</span><span class="why">Pigment change is usually postinflammatory. Erythema suggests an active inflammatory or vascular process.</span></li>
+<li><span class="q">What other skin symptoms (such as pain or pruritis) are present?</span><span class="why">Cellulitis is painful. Contact dermatitis, often mistaken for it, is itchy.</span></li>
+<li><span class="q">Are there associated symptoms, including fever or joint pain?</span><span class="why">Time the fever against the rash. In roseola the fever comes first.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Are there any mouth sores or mucus membrane involvement?</span><span class="why">Oral vesicles accompany many viral infections, but oral bullae with a targetoid rash raise Stevens-Johnson syndrome.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Have there been any new exposures? (lotions, detergent, fabric softener, jewelry, clothing, pets, plants, travel)</span><span class="why">The inciting agent for contact dermatitis, and the reason distribution matters.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-5" hidden>
+<div class="panel-head"><h2>Limp</h2><span class="panel-sub">or refusal to walk</span><span class="panel-n">8 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">How did the symptoms evolve? Was there a sudden or gradual onset?</span><span class="why">Gradual onset suggests inflammation or overuse. Abrupt refusal to walk suggests injury or a septic joint.</span></li>
+<li><span class="q">Are there specific associated symptoms?</span><span class="why">Fever with pain suggests septic arthritis; bone pain with malaise, leukaemia; diarrhoea and weight loss, inflammatory bowel disease.</span></li>
+<li><span class="q">Does the child report pain?</span><span class="why">Pain suggests injury, infection or inflammation. A limp without pain points to neuromuscular, metabolic, congenital or developmental causes.</span></li>
+<li><span class="q">Could the pain be referred?</span><span class="why">Hip pathology refers to the knee and medial thigh. An acute abdomen or testicular torsion can present as refusal to walk.</span></li>
+<li><span class="q">How would you characterize the limp?</span><span class="why">Whether the child bears weight, and whether the gait is antalgic, narrows it quickly.</span></li>
+<li><span class="q">Do symptoms vary with the time of day?</span><span class="why">Worse in the morning and easing through the day is the rheumatologic gelling pattern. Progressive through the day suggests weakness; tumour pain is constant.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is there a history of trauma?</span><span class="why">The commonest cause. Ask whether the mechanism fits the child&#x27;s developmental age, because that is how abuse is separated from accident.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">1</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Has there been a recent illness?</span><span class="why">A viral infection often precedes toxic synovitis.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-6" hidden>
+<div class="panel-head"><h2>Neck mass</h2><span class="panel-sub">swelling or lump in the neck</span><span class="panel-n">5 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is the swelling due to lymphadenitis or lymphadenopathy?</span><span class="why">Redness, warmth and tenderness mean active infection. Swelling without them means enlargement alone.</span></li>
+<li><span class="q">Is the swelling acute, subacute, or chronic?</span><span class="why">Bacterial infection is acute and progressive. EBV, cat-scratch and tuberculosis are subacute. Congenital lesions are chronic until they superinfect.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is the airway compromised?</span><span class="why">Ask first. It demands immediate attention, and a neck mass can sit with an intrathoracic mass causing distress.</span></li>
+<li><span class="q">Are there systemic signs of illness?</span><span class="why">Fever, weight loss, night sweats and fatigue point to malignancy rather than a localised process.</span></li>
+<li><span class="q">Is there history of or clinical concern for trauma?</span><span class="why">Identifies causes needing surgery, such as a rapidly expanding haematoma, and cervical spine injury needing stabilisation.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-7" hidden>
+<div class="panel-head"><h2>Poor weight gain</h2><span class="panel-sub">faltering growth</span><span class="panel-n">5 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">What is the child&#x27;s pattern of growth over time?</span><span class="why">Old growth charts establish whether this is weeks or months, and whether the cause is acute or chronic.</span></li>
+<li><span class="q">What aspects of growth have been affected?</span><span class="why">Acquired causes hit weight first, then length, then head circumference. Congenital, genetic and endocrine causes are more symmetric.</span></li>
+<li><span class="q">Has the child developed any symptoms?</span><span class="why">Vomiting and diarrhoea mean losses; cardiac or pulmonary disease means increased demand. Often more revealing than laboratory tests.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">What has the child&#x27;s diet and eating pattern been?</span><span class="why">Parents who do not adapt what and how they offer food as the child develops can meet refusal and poor gain. Watching a meal often shows it.</span></li>
+<li><span class="q">What is the state of the family unit and their lifestyle?</span><span class="why">Explores the psychosocial and socioeconomic causes: supports, how the family is functioning, and whether they can afford enough food.</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-8" hidden>
+<div class="panel-head"><h2>Dark urine</h2><span class="panel-sub">tea-coloured, red, or foamy</span><span class="panel-n">17 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">When did you first notice the dark or foamy urine?</span><span class="why">Ten to fourteen days after strep is post-strep GN; one to two days after a URI is IgA nephropathy.</span></li>
+<li class="bare"><span class="q">Is the urine bubbly or frothy when it hits the toilet?</span></li>
+<li class="bare"><span class="q">Any pain, frequency, or urgency when peeing?</span></li>
+<li class="bare"><span class="q">Does the urine smell different?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Has your child been urinating less?</span><span class="why">Oliguria means acute kidney injury. HUS or a severe glomerulonephritis.</span></li>
+<li><span class="q">Any swelling around eyes or legs?</span><span class="why">Oedema with dark urine is nephritic or nephrotic, not a benign cause.</span></li>
+<li><span class="q">Any high blood pressure or seizures?</span><span class="why">Hypertension and seizures are the dangerous end of post-strep GN and HUS.</span></li>
+<li><span class="q">Any yellowing of eyes or skin?</span><span class="why">Jaundice moves this to hepatitis, and encephalopathy makes it urgent.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Has your child had recent sore throat, skin infection, or cold?</span><span class="why">The single most useful question here. The interval after the infection names the diagnosis.</span></li>
+<li><span class="q">Any prior episodes of red or dark urine?</span><span class="why">Recurrent gross haematuria is the IgA nephropathy pattern.</span></li>
+<li class="bare"><span class="q">Does your child have a history of kidney or urinary issues?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any recent stomach bugs with diarrhea?</span><span class="why">Dark urine after bloody diarrhoea is HUS.</span></li>
+<li class="bare"><span class="q">Any exposure to hepatitis (travel, food, contacts)?</span></li>
+<li class="bare"><span class="q">Has your child been unusually active, or had a fall or injury?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Who else at home has been sick?</span></li>
+<li class="bare"><span class="q">Any new foods, pets, or activities?</span></li>
+<li class="bare"><span class="q">Does your child attend daycare or school?</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-9" hidden>
+<div class="panel-head"><h2>Abnormal movements</h2><span class="panel-sub">jerking, twisting, shaking, staring</span><span class="panel-n">17 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">5</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">When did the abnormal movements start?</span></li>
+<li><span class="q">What do the movements look like (jerking, twisting, shaking, flowing, etc.)?</span><span class="why">The most discriminating question here. Twisting is dystonia, flowing is chorea, brief jerks are myoclonus.</span></li>
+<li class="bare"><span class="q">Do they occur when the child is awake or asleep?</span></li>
+<li><span class="q">Can the child suppress the movement?</span><span class="why">Suppressibility is what defines a tic.</span></li>
+<li><span class="q">Any loss of consciousness or awareness during episodes?</span><span class="why">Separates seizure from tics, tremor, and chorea, which spare awareness.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Are movements associated with weakness, regression, or loss of skills?</span><span class="why">Loss of milestones is infantile spasms or another progressive process.</span></li>
+<li><span class="q">Are the movements painful, prolonged, or progressive?</span><span class="why">A dystonic crisis or a prolonged seizure needs treating now.</span></li>
+<li><span class="q">Are there signs of systemic illness or neurologic change?</span><span class="why">Points to an underlying metabolic, autoimmune, or infectious cause.</span></li>
+<li><span class="q">Are the movements inconsistent with known neurologic patterns?</span><span class="why">Inconsistency and improvement with distraction suggest a functional disorder, a diagnosis to make carefully rather than by exclusion.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any history of seizures or epilepsy in the family?</span></li>
+<li><span class="q">Any known neurological or genetic disorders?</span><span class="why">Tuberous sclerosis and metabolic or genetic disease sit behind several of these.</span></li>
+<li class="bare"><span class="q">Any recent infections or fevers?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">2</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any recent illness, trauma, or medication changes?</span></li>
+<li class="bare"><span class="q">Is the child exposed to stress or anxiety?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any school or social issues impacting the child?</span></li>
+<li class="bare"><span class="q">Is the child getting adequate sleep?</span></li>
+<li class="bare"><span class="q">Any family history of movement disorders?</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-10" hidden>
+<div class="panel-head"><h2>Altered mental status</h2><span class="panel-sub">confusion, lethargy, not acting right</span><span class="panel-n">27 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">10</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Is there fever (≥38°C)?</span><span class="why">Fever with altered mental status is meningitis, encephalitis, or sepsis until excluded.</span></li>
+<li class="bare"><span class="q">Did the patient have a seizure?</span></li>
+<li><span class="q">Did the patient return to baseline after the event?</span><span class="why">Failure to return to baseline is the line between a postictal state and something ongoing.</span></li>
+<li class="bare"><span class="q">Is there photophobia?</span></li>
+<li><span class="q">Is there neck stiffness or pain?</span><span class="why">Meningeal signs. Ask early.</span></li>
+<li class="bare"><span class="q">Any nausea or vomiting?</span></li>
+<li class="bare"><span class="q">Any irritability or lethargy?</span></li>
+<li><span class="q">Is there a rash?</span><span class="why">Petechiae or purpura with fever is meningococcal disease.</span></li>
+<li class="bare"><span class="q">Is the patient experiencing a headache?</span></li>
+<li><span class="q">Are there any focal neurological signs?</span><span class="why">Focality means stroke, mass, or trauma rather than a metabolic cause.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">6</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">AMS + fever + meningeal signs?</span><span class="why">Treat as bacterial meningitis now. Do not wait for the lumbar puncture.</span></li>
+<li><span class="q">Seizure without return to baseline?</span><span class="why">Status epilepticus, or an ongoing intracranial process.</span></li>
+<li><span class="q">Kussmaul respirations or deep breathing?</span><span class="why">DKA with acidosis.</span></li>
+<li><span class="q">Signs of shock: hypotension, delayed cap refill?</span><span class="why">Shock or sepsis. Resuscitate first.</span></li>
+<li><span class="q">Papilledema or signs of increased ICP?</span><span class="why">Raised pressure. Image before any lumbar puncture.</span></li>
+<li><span class="q">Shunt malfunction signs (vomiting, headache, irritability)?</span><span class="why">In a child with a shunt this triad is malfunction until neurosurgery says otherwise.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">History of seizures/epilepsy, diabetes, VP shunt, brain tumor, or prematurity?</span><span class="why">Each of these names its own emergency. A shunt makes malfunction the first thought.</span></li>
+<li class="bare"><span class="q">Are vaccines up to date?</span></li>
+<li class="bare"><span class="q">Any known coagulopathy, immunosuppression, or metabolic disorders?</span></li>
+<li class="bare"><span class="q">Use of antiepileptic or endocrine medications?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Any toxin or medication access (e.g., household or teen substances)?</span><span class="why">Ingestion is a leading cause and several have an antidote.</span></li>
+<li class="bare"><span class="q">Symptoms of polyuria or polydipsia?</span></li>
+<li class="bare"><span class="q">Dry mucous membranes or poor intake?</span></li>
+<li class="bare"><span class="q">Any known sick contacts?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Unsafe storage of medications or chemicals?</span></li>
+<li class="bare"><span class="q">Daycare or crowded living environments?</span></li>
+<li class="bare"><span class="q">Poor healthcare access, food insecurity, or dehydration risk?</span></li>
+</ul>
+</div>
+</div>
+<div class="panel" id="p-11" hidden>
+<div class="panel-head"><h2>Depressed mood</h2><span class="panel-sub">sadness, irritability, withdrawal</span><span class="panel-n">18 questions</span></div>
+<div class="cat" style="--fg:var(--blue-600);--md:var(--blue-md);--lt:var(--blue-lt)">
+<div class="cat-head"><span class="cat-name">Cardinal features and associated symptoms</span><span class="cat-n">5</span></div>
+<p class="cat-blurb">The symptom itself and what travels with it: when it started, what it looks like, how it has behaved since, and what else appeared alongside it.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Has the child been feeling sad or irritable lately?</span></li>
+<li><span class="q">Do they still enjoy things they used to like?</span><span class="why">Anhedonia is what separates major depression from ordinary sadness.</span></li>
+<li><span class="q">How is their sleep, appetite, and energy level?</span><span class="why">Hypersomnia with increased appetite leans bipolar; fatigue with weight change raises a medical mimic.</span></li>
+<li class="bare"><span class="q">Are they having trouble at school or with friends?</span></li>
+<li><span class="q">Have they expressed any thoughts of self-harm or suicide?</span><span class="why">Asked directly, every time. Asking does not plant the idea.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--rust);--md:var(--peach);--lt:#FDF1EC">
+<div class="cat-head"><span class="cat-name">Red flags</span><span class="cat-n">4</span></div>
+<p class="cat-blurb">Second on purpose. These are the answers that change your plan today, so ask them while you are still on the presenting problem rather than at the end.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li><span class="q">Have they made any statements about death or wishing they weren’t here?</span><span class="why">Passive ideation still counts, and still needs a plan.</span></li>
+<li><span class="q">Do they engage in self-injury or other risky behaviors?</span><span class="why">Self-harm and risk-taking raise the immediate danger.</span></li>
+<li><span class="q">Are there signs of trauma, abuse, or neglect?</span><span class="why">Changes both the diagnosis and your obligations.</span></li>
+<li><span class="q">Are they withdrawing from friends, school, or family activities?</span><span class="why">Withdrawal is the behavioural marker that tracks with severity.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--steel-dk);--md:var(--steel-md);--lt:var(--steel-lt)">
+<div class="cat-head"><span class="cat-name">Past medical history</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What this child already carries that changes the differential.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any prior mental health diagnoses or treatments?</span></li>
+<li><span class="q">Any family history of depression, bipolar disorder, or suicide?</span><span class="why">A family history of bipolar disorder changes the risk of treating with an antidepressant alone.</span></li>
+<li><span class="q">Any medical conditions that could affect mood (e.g., thyroid, anemia)?</span><span class="why">Hypothyroidism and anaemia mimic depression and are checkable.</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--teal-900);--md:var(--teal-md);--lt:var(--teal-lt)">
+<div class="cat-head"><span class="cat-name">Exposure and risk</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">What they have been around, eaten, travelled to, or been given.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Any bullying, family conflict, or recent loss?</span></li>
+<li class="bare"><span class="q">Any substance use (vaping, marijuana, alcohol)?</span></li>
+<li class="bare"><span class="q">Any recent changes in school, home, or peer relationships?</span></li>
+</ul>
+</div>
+<div class="cat" style="--fg:var(--purple-dk);--md:var(--purple-md);--lt:var(--purple-lt)">
+<div class="cat-head"><span class="cat-name">Social context</span><span class="cat-n">3</span></div>
+<p class="cat-blurb">Home, school, sleep, supervision, and what the family can actually do.</p>
+<div class="col-head"><span>Ask</span><span>Why it matters</span></div>
+<ul class="qs">
+<li class="bare"><span class="q">Who does the child live with? Is there adult support?</span></li>
+<li class="bare"><span class="q">How are things going at school socially and academically?</span></li>
+<li class="bare"><span class="q">Any access to weapons or medications at home?</span></li>
+</ul>
+</div>
+</div>
+
+<footer>
+  <strong>How to use these.</strong> Cardinal features and red flags together carry the presenting problem, so work through both before you move on. What follows reframes the differential rather than settling it: what the child already carries, what they have been exposed to, and what home looks like. A concern with nothing red is a finding worth stating out loud.<br><br>
+  <strong>On the right-hand column.</strong> It appears only where the answer separates a dangerous cause from a benign one. Most questions have no note, which does not make them optional. It means the answer narrows the picture rather than deciding it.
+</footer>
+
+</div>
+<script>
+(function(){
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  chips.forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var i=ch.getAttribute('data-i');
+      chips.forEach(function(c){c.classList.toggle('on',c===ch);});
+      panels.forEach(function(p){p.hidden=(p.id!=='p-'+i);});
+    });
+  });
+})();
+</script>
+</body>
+</html>
