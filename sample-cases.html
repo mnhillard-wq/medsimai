@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap">
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
-/* Layout: curriculum levels down the page, case entries set like a course catalogue, then a skills matrix. MedSimAI palette: brand blue, navy, pale blue surfaces */
+/* Layout: curriculum levels down the page, case entries set like a course catalog, then a skills matrix. MedSimAI palette: brand blue, navy, pale blue surfaces */
 :root{
   --bg:#f4f5f8; --surface:#ffffff; --ink:#101317; --muted:#5b6370; --rule:#e2e6ed;
   --accent:#2d4dab; --accent-soft:#eaf3ff; --chip:#f4f5f8; --navy:hsl(227.3 79.4% 21%); --on-navy:#ffffff; --on-navy-muted:hsl(220 51% 82%);
@@ -83,7 +83,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <div class="wrap">
 <header>
   <h1>MedSimAI <span style="color:var(--accent)">Sample Cases</span></h1>
-  <p class="lede">Sample MedSimAI cases arranged by learner level. Each entry lists the activities in order, the skills practised, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
+  <p class="lede">Sample MedSimAI cases arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
 </header>
 
 <div class="filters" role="group" aria-label="Filter by skill">
@@ -184,7 +184,7 @@ function render(filter){
 function matrix(){
   const t=document.getElementById("matrix");
   let h="<thead><tr><th>Case</th>"+SK.map(k=>`<th>${SKL[k]}</th>`).join("")+"</tr></thead><tbody>";
-  CASES.forEach(c=>{h+=`<tr><td>${esc(c.name)}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" aria-label="assessed"></span>':c.sk[k]===1?'<span class="dot half" aria-label="practised"></span>':''}</td>`).join("")+"</tr>"});
+  CASES.forEach(c=>{h+=`<tr><td>${esc(c.name)}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" aria-label="assessed"></span>':c.sk[k]===1?'<span class="dot half" aria-label="practiced"></span>':''}</td>`).join("")+"</tr>"});
   t.innerHTML=h+"</tbody>";
 }
 document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
