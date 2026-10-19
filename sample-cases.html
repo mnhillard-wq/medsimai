@@ -91,7 +91,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
   <button type="button" id="f-hx" data-skill="History">History taking</button>
   <button type="button" id="f-pe" data-skill="Physical exam">Physical exam</button>
   <button type="button" id="f-cr" data-skill="Clinical reasoning">Clinical reasoning</button>
-  <button type="button" id="f-pr" data-skill="Oral presentation">Oral presentation</button>
+  <button type="button" id="f-pr" data-skill="Present/Discuss">Present/Discuss</button>
   <button type="button" id="f-mg" data-skill="Management">Management and orders</button>
   <button type="button" id="f-ci" data-skill="Challenging interview">Challenging interview</button>
   <button type="button" id="f-ip" data-skill="Interprofessional">Interprofessional</button>
@@ -111,8 +111,8 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 </div>
 
 <script>
-const SK=["History","Physical exam","Clinical reasoning","Oral presentation","Management","Challenging interview","Interprofessional"];
-const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Oral presentation":"Present","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
+const SK=["History","Physical exam","Clinical reasoning","Present/Discuss","Management","Challenging interview","Interprofessional"];
+const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
 const PHASES=[
  {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"Complete histories and a physical exam, with a pre-brief before the encounter and a post-encounter note after it. Each chief concern has a must-not-miss to screen for, so hypothesis-driven questioning starts here."},
  {id:"clerk",name:"Clerkship",when:"MS3",note:"Clinical reasoning and pre-rounding: reasoning out loud with an attending, presenting a patient, sensitive interviews, and finding what a presentation left out."},
@@ -132,12 +132,12 @@ const CASES=[
  {ph:"pre",name:"Camden Pierce",who:"45 · same-day clinic visit · hot, swollen knee",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
   reason:"Fever with one hot joint is a septic joint until proven otherwise. The history has to surface the fall, the scrape and the fever, and the note has to say why this is not gout or a sprain.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
- {ph:"pre",name:"Dr. Cole · Present/Discuss",who:"Outpatient · any patient the learner has seen",steps:["Present a patient","Discuss with Dr. Cole","Structured feedback"],
+ {ph:"pre",name:"Dr. Cole · Oral presentation",who:"Outpatient · any patient the learner has seen",steps:["Present a patient","Discuss with Dr. Cole","Structured feedback"],
   reason:"Organizing a complete-history presentation: what goes in the HPI, what to leave out, and a closing summary that commits.",
-  sk:{"Oral presentation":2,"Clinical reasoning":1}},
+  sk:{"Present/Discuss":2,"Clinical reasoning":1}},
  {ph:"clerk",name:"Alex Rivera with Dr. Okafor",who:"32 · progressive weakness",steps:["Focused history","Physical exam","Reasoning talk-through with attending"],
   reason:"Localizing the lesion and building the differential for ascending weakness (Guillain-Barré). The attending finds where the learner's reasoning breaks down.",
-  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Oral presentation":1}},
+  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Present/Discuss":1}},
  {ph:"clerk",name:"Leah MacDonald",who:"Adolescent · acute abdominal pain",steps:["Confidential teen interview","Physical exam","Order and interpret labs","Consult call to gynecology"],
   reason:"Taking a sensitive, confidential adolescent history, then turning it into tests and a focused consult request for a time-critical diagnosis.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Management":1,"Interprofessional":1}},
@@ -146,10 +146,10 @@ const CASES=[
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Challenging interview":2}},
  {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Pre-round: interview Ethel","Interview her daughter","Physical exam","Present on medicine rounds"],
   reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, then presenting pneumonia with hypernatremia and delirium.",
-  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Oral presentation":2,"Challenging interview":2}},
+  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
  {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"Adult · headache",steps:["Hear a student's presentation","Find the gaps","Re-interview the patient"],
   reason:"Combating premature closure: the presentation offers a tidy diagnosis, and the learner has to notice what it left out, including the clues no one examined, before going back to the patient to close the gap.",
-  sk:{"History":2,"Clinical reasoning":2,"Oral presentation":1}},
+  sk:{"History":2,"Clinical reasoning":2,"Present/Discuss":1}},
  {ph:"subi",name:"Jordan Liu",who:"18 · emergency department · cough and shortness of breath",steps:["ED encounter","Physical exam","Asthma management"],
   reason:"Interpreting the exam (wheeze) and escalating asthma treatment step by step.",
   sk:{"Physical exam":2,"History":1,"Clinical reasoning":2,"Management":2}},
