@@ -114,13 +114,13 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 const SK=["History","Physical exam","Clinical reasoning","Present/Discuss","Management","Challenging interview","Interprofessional"];
 const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
 const PHASES=[
- {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"Complete histories and a physical exam, most with a pre-brief before the encounter, and a post-encounter note after it. Each chief concern has a must-not-miss to screen for, so hypothesis-driven questioning starts here."},
+ {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"Complete histories and a physical exam, with a pre-brief before the encounter and a post-encounter note after it. Each chief concern has a must-not-miss to screen for, so hypothesis-driven questioning starts here."},
  {id:"clerk",name:"Clerkship",when:"MS3",note:"Clinical reasoning and pre-rounding: reasoning out loud with an attending, presenting a patient, sensitive interviews, and finding what a presentation left out."},
  {id:"subi",name:"Sub-internship",when:"MS4",note:"Acting-intern work, with more order entry and management: orders, nurse pages, handoffs and consult calls."},
  {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one reasoning error, assigned to learners who need practice on that skill."}
 ];
 const CASES=[
- {ph:"pre",name:"Sean Muller",who:"22 · outpatient · establishing care, chest discomfort",steps:["Complete history","Physical exam","Post-encounter note"],
+ {ph:"pre",name:"Sean Muller",who:"22 · outpatient · establishing care, chest discomfort",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
   reason:"Whether the learner screens for and de-risks a cardiac cause (father's MI at 45) without anchoring on it; the history points to GERD.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
  {ph:"pre",name:"Melanie Jones",who:"Adult · outpatient · new arm rash",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
@@ -128,9 +128,6 @@ const CASES=[
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
  {ph:"pre",name:"Zuri Whitman",who:"29 · outpatient · episodic dizziness",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
   reason:"Getting the sequence right: the racing heart comes first, then the near-faint. That order, plus a vagal cue and family history, points to SVT rather than vestibular or orthostatic causes.",
-  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
- {ph:"pre",name:"Camden Pierce",who:"45 · same-day clinic visit · hot, swollen knee",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
-  reason:"Fever with one hot joint is a septic joint until proven otherwise. The history has to surface the fall, the scrape and the fever, and the note has to say why this is not gout or a sprain.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
  {ph:"pre",name:"Dr. Cole · Oral presentation",who:"Outpatient · any patient the learner has seen",steps:["Obtain any H&P","Present patient","Structured feedback"],
   reason:"Organizing a complete-history presentation: what goes in the HPI, what to leave out, and a closing summary that commits.",
@@ -141,9 +138,6 @@ const CASES=[
  {ph:"clerk",name:"Leah MacDonald",who:"Adolescent · acute abdominal pain",steps:["Confidential teen interview","Physical exam","Order and interpret labs","Consult call to gynecology"],
   reason:"Taking a sensitive, confidential adolescent history, then turning it into tests and a focused consult request for a time-critical diagnosis.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Management":1,"Interprofessional":1}},
- {ph:"clerk",name:"Marcus Green with Dr. Reyes",who:"28 · urgent psychiatry clinic · behavior change",steps:["Psychiatric interview","Physical exam","Coaching with attending"],
-  reason:"Recognizing mania from what the patient says and how he says it, and asking about safety.",
-  sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Challenging interview":2}},
  {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Pre-round: interview Ethel","Interview her daughter","Physical exam","Present on medicine rounds"],
   reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, then presenting pneumonia with hypernatremia and delirium.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
