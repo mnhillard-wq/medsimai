@@ -114,13 +114,13 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 const SK=["History","Physical exam","Clinical reasoning","Present/Discuss","Management","Challenging interview","Interprofessional"];
 const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
 const PHASES=[
- {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"Complete histories and a physical exam, with a pre-brief before the encounter and a post-encounter note after it. Each chief concern has a must-not-miss to screen for, so hypothesis-driven questioning starts here."},
+ {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"Complete histories and a physical exam, most with a pre-brief before the encounter, and a post-encounter note after it. Each chief concern has a must-not-miss to screen for, so hypothesis-driven questioning starts here."},
  {id:"clerk",name:"Clerkship",when:"MS3",note:"Clinical reasoning and pre-rounding: reasoning out loud with an attending, presenting a patient, sensitive interviews, and finding what a presentation left out."},
  {id:"subi",name:"Sub-internship",when:"MS4",note:"Acting-intern work, with more order entry and management: orders, nurse pages, handoffs and consult calls."},
  {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one reasoning error, assigned to learners who need practice on that skill."}
 ];
 const CASES=[
- {ph:"pre",name:"Sean Muller",who:"22 · outpatient · establishing care, chest discomfort",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
+ {ph:"pre",name:"Sean Muller",who:"22 · outpatient · establishing care, chest discomfort",steps:["Complete history","Physical exam","Post-encounter note"],
   reason:"Whether the learner screens for and de-risks a cardiac cause (father's MI at 45) without anchoring on it; the history points to GERD.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2}},
  {ph:"pre",name:"Melanie Jones",who:"Adult · outpatient · new arm rash",steps:["Pre-brief","Complete history","Physical exam","Post-encounter note"],
@@ -147,18 +147,18 @@ const CASES=[
  {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Pre-round: interview Ethel","Interview her daughter","Physical exam","Present on medicine rounds"],
   reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, then presenting pneumonia with hypernatremia and delirium.",
   sk:{"Physical exam":2,"History":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
- {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"Adult · headache",steps:["Hear a student's presentation","Find the gaps","Re-interview the patient"],
-  reason:"Combating premature closure: the presentation offers a tidy diagnosis, and the learner has to notice what it left out, including the clues no one examined, before going back to the patient to close the gap.",
+ {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"Adult · headache",steps:["Hear a student's presentation","Find the gaps"],
+  reason:"Combating premature closure: the presentation offers a tidy diagnosis, and the learner has to notice what it left out, including the clues no one examined.",
   sk:{"History":2,"Clinical reasoning":2,"Present/Discuss":1}},
  {ph:"subi",name:"Jordan Liu",who:"18 · emergency department · cough and shortness of breath",steps:["ED encounter","Physical exam","Asthma management"],
   reason:"Interpreting the exam (wheeze) and escalating asthma treatment step by step.",
   sk:{"Physical exam":2,"History":1,"Clinical reasoning":2,"Management":2}},
- {ph:"subi",name:"Claudia Lopez",who:"Neonate · febrile infant",steps:["Written H&P","Orders in management simulator","Sign-out to admitting resident"],
+ {ph:"subi",name:"Claudia Lopez",who:"Neonate · febrile infant",steps:["Orders in management simulator","Sign-out to admitting resident"],
   reason:"A complete febrile-infant workup and empiric treatment, then a handoff that carries the pending results and contingencies.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
- {ph:"subi",name:"Tyler Brandt (nurse Monique Farrow)",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone","Bedside exam","Debrief with senior"],
+ {ph:"subi",name:"Tyler Brandt (nurse Monique Farrow)",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
   reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
-  sk:{"Physical exam":2,"Clinical reasoning":2,"Management":2,"Interprofessional":2}}
+  sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}}
 ];
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function render(filter){
