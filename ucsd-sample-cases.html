@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MedSimAI Cases for UCSD</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: curriculum levels down the page, case entries set like a course catalog, then a skills matrix. MedSimAI palette: brand blue, navy, pale blue surfaces */
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --ink:#101317; --muted:#5b6370; --rule:#e2e6ed;
+  --accent:#2d4dab; --accent-soft:#eaf3ff; --chip:#f4f5f8; --navy:hsl(227.3 79.4% 21%); --on-navy:#ffffff; --on-navy-muted:hsl(220 51% 82%);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:hsl(225 30% 8%); --surface:hsl(225 25% 12%); --ink:hsl(220 20% 93%); --muted:hsl(220 12% 68%); --rule:hsl(225 18% 22%);
+  --accent:hsl(222.8 70% 72%); --accent-soft:hsl(225 40% 20%); --chip:hsl(225 20% 17%); --navy:hsl(227 60% 16%); --on-navy:#ffffff; --on-navy-muted:hsl(220 40% 78%); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:hsl(225 30% 8%); --surface:hsl(225 25% 12%); --ink:hsl(220 20% 93%); --muted:hsl(220 12% 68%); --rule:hsl(225 18% 22%);
+  --accent:hsl(222.8 70% 72%); --accent-soft:hsl(225 40% 20%); --chip:hsl(225 20% 17%); --navy:hsl(227 60% 16%); --on-navy:#ffffff; --on-navy-muted:hsl(220 40% 78%); color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.2}
+h2{font-size:1.3rem;margin-bottom:4px}
+h3{font-size:1.08rem}
+.lede{color:var(--muted);max-width:68ch;margin:10px 0 0}
+.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+body{border-top:4px solid var(--navy)}
+header{padding-bottom:6px;margin-bottom:24px}
+h1{font-weight:500}
+h2,h3{font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:.85rem;color:var(--muted)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.s-now{background:var(--ok-soft);color:var(--ok)}
+.s-new{background:var(--accent-soft);color:var(--accent)}
+.s-soon{background:var(--chip);color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.filters button{font:inherit;font-size:.85rem;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filters button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.phase{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:26px 0;border-top:1px solid var(--rule)}
+.phase:first-of-type{border-top:0}
+.phase-head{position:relative}
+.phase-head .when{color:var(--accent);font-weight:600;font-size:.85rem;color:var(--muted);margin-top:4px}
+.phase-head p{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+.cases{display:grid;gap:14px;min-width:0}
+.case{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;min-width:0}
+.case-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.who{color:var(--muted);font-size:.88rem;margin-top:2px}
+.steps{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 10px;font-size:.84rem}
+.steps span{background:var(--accent-soft);color:var(--accent);font-weight:500;border-radius:999px;padding:3px 10px}
+.steps i{color:var(--muted);font-style:normal}
+dl{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;margin:0;font-size:.9rem}
+dt{color:var(--muted);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+dd{margin:0}
+.skills{display:flex;flex-wrap:wrap;gap:6px}
+.skills span{font-size:.78rem;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;color:var(--muted)}
+.matrix-wrap{overflow-x:auto;margin-top:14px;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:760px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:center}
+th:first-child,td:first-child{text-align:left;white-space:nowrap}
+thead th{font-weight:600;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);vertical-align:bottom}
+tbody tr:last-child td{border-bottom:0}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.dot.half{background:transparent;border:1.5px solid var(--accent)}
+section.matrix{margin-top:44px}
+footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-size:.83rem;color:var(--muted);max-width:80ch}
+.hidden{display:none}
+@media (max-width:720px){
+  .phase{grid-template-columns:1fr;gap:12px}
+  dl{grid-template-columns:1fr}
+  dt{padding-top:6px}
+  h1{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>MedSimAI <span style="color:var(--accent)">Cases for UCSD</span></h1>
+  <p class="lede">The nine cases in the UCSD trial course, arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
+</header>
+
+<div class="filters" role="group" aria-label="Filter by skill">
+  <button type="button" id="f-all" data-skill="all" aria-pressed="true">All cases</button>
+  <button type="button" id="f-hx" data-skill="History">History taking</button>
+  <button type="button" id="f-pe" data-skill="Physical exam">Physical exam</button>
+  <button type="button" id="f-cr" data-skill="Clinical reasoning">Clinical reasoning</button>
+  <button type="button" id="f-pr" data-skill="Present/Discuss">Present/Discuss</button>
+  <button type="button" id="f-mg" data-skill="Management">Management and orders</button>
+  <button type="button" id="f-ci" data-skill="Challenging interview">Challenging interview</button>
+  <button type="button" id="f-ip" data-skill="Interprofessional">Interprofessional</button>
+</div>
+
+<main id="phases"></main>
+
+<section class="matrix" aria-labelledby="mx">
+  <h2 id="mx">Skills at a glance</h2>
+  <p class="lede" style="margin-top:4px">A filled dot marks a skill the case assesses; an open dot marks one it exercises without scoring.</p>
+  <div class="matrix-wrap"><table id="matrix"></table></div>
+</section>
+
+<footer>
+  Levels reflect the learners each case was written for; faculty can place any case earlier or later. Feedback is AI-generated against faculty rubrics; human calibration and faculty sign-off are completed before student use.
+</footer>
+</div>
+
+<script>
+const SK=["History","Physical exam","Clinical reasoning","Present/Discuss","Management","Challenging interview","Interprofessional"];
+const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
+const PHASES=[
+ {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"A complete history taken with open questions first and closed questions to fill the gaps. The chief concern carries a must-not-miss, so hypothesis-driven questioning starts here."},
+ {id:"clerk",name:"Clerkship",when:"MS3",note:"Focused histories, sensitive and difficult interviews, pre-rounding, and reasoning out loud with an attending or consultant."},
+ {id:"subi",name:"Sub-internship",when:"MS4",note:"Acting-intern work: step-by-step orders, disposition, handoffs and overnight nurse calls."},
+ {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one reasoning error, assigned to learners who need practice on that skill."}
+];
+const CASES=[
+ {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history"],
+  reason:"Open questions first, closed questions to fill the gaps. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
+  sk:{"History":2,"Clinical reasoning":1}},
+ {ph:"clerk",name:"Alex Rivera with Dr. Okafor",who:"32 · emergency department · weakness",steps:["Focused history","Physical exam","Share impression with patient","Reasoning talk-through with attending"],
+  reason:"Localizing the lesion and building the differential for ascending weakness (Guillain-Barré). The attending finds where the learner's reasoning breaks down.",
+  sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":1}},
+ {ph:"clerk",name:"Marcus Green",who:"27 · emergency department · a week of behavior change, little sleep, grandiose speech",steps:["Focused psychiatric history","Safety assessment"],
+  reason:"Keeping a pressured, grandiose patient on track long enough to take a focused psychiatric history, and completing a safety assessment before the interview ends.",
+  sk:{"History":2,"Clinical reasoning":1,"Challenging interview":2}},
+ {ph:"clerk",name:"Asha Banda · Global health",who:"28 · 32 weeks pregnant · prenatal HIV screening, Tanzania",steps:["Disclose a positive result","Explore barriers and safety","Agree on a next step"],
+  reason:"Disclosing a positive HIV result and letting it land, then drawing out what stands between her and treatment one concern at a time: her safety at home, keeping care private, and the cost of reaching the clinic.",
+  sk:{"Challenging interview":2,"Management":1}},
+ {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Chart review","Pre-round: interview Ethel","Interview her daughter","Present on medicine rounds"],
+  reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, integrating I/Os, labs and vitals, then presenting pneumonia with hypernatremia and delirium.",
+  sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
+ {ph:"clerk",name:"Leah MacDonald",who:"16 · emergency department · abdominal pain",steps:["Confidential teen interview","Order and interpret studies","Consult call by phone"],
+  reason:"Taking a sensitive, confidential adolescent history with a psychosocial screen, then turning it into tests and a focused consult request for a time-critical diagnosis.",
+  sk:{"History":2,"Clinical reasoning":2,"Management":2,"Challenging interview":1,"Interprofessional":2}},
+ {ph:"subi",name:"Claudia Lopez",who:"28 days · pediatric emergency department · fever at home",steps:["Orders in management simulator","Admit or discharge","Sign-out to admitting resident"],
+  reason:"Working up a well-appearing febrile infant step by step, using each result to choose the next test, treatment and disposition, then a handoff that carries the pending results and contingencies.",
+  sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
+ {ph:"subi",name:"Tyler Brandt (nurse Monique Farrow)",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
+  reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
+  sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
+ {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"19 · outpatient · headaches for 10 weeks",steps:["Hear a student's presentation as the attending","Ask for what was left out","Reflection questions"],
+  reason:"Combating premature closure: the learner plays the attending, hears a presentation that offers a tidy diagnosis, and has to ask for what it left out before committing to a plan.",
+  sk:{"History":1,"Clinical reasoning":2,"Present/Discuss":2}}
+];
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(filter){
+  const m=document.getElementById("phases");m.innerHTML="";
+  PHASES.forEach(p=>{
+    const list=CASES.filter(c=>c.ph===p.id&&(filter==="all"||c.sk[filter]));
+    if(!list.length)return;
+    const sec=document.createElement("section");sec.className="phase";
+    sec.innerHTML=`<div class="phase-head"><h2>${p.name}</h2><div class="when">${p.when}</div><p>${p.note}</p></div><div class="cases"></div>`;
+    const box=sec.querySelector(".cases");
+    list.forEach(c=>{
+      const steps=c.steps.map(s=>`<span>${esc(s)}</span>`).join('<i aria-hidden="true">→</i>');
+      const skills=SK.filter(k=>c.sk[k]).map(k=>`<span>${esc(k)}</span>`).join("");
+      const el=document.createElement("article");el.className="case";
+      el.innerHTML=`<div class="case-top"><h3>${esc(c.name)}</h3></div>
+      <div class="who">${esc(c.who)}</div><div class="steps">${steps}</div>
+      <dl><dt>Reasoning</dt><dd>${esc(c.reason)}</dd><dt>Skills</dt><dd class="skills">${skills}</dd></dl>`;
+      box.appendChild(el);
+    });
+    m.appendChild(sec);
+  });
+}
+function matrix(){
+  const t=document.getElementById("matrix");
+  let h="<thead><tr><th>Case</th>"+SK.map(k=>`<th>${SKL[k]}</th>`).join("")+"</tr></thead><tbody>";
+  CASES.forEach(c=>{h+=`<tr><td>${esc(c.name)}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" aria-label="assessed"></span>':c.sk[k]===1?'<span class="dot half" aria-label="practiced"></span>':''}</td>`).join("")+"</tr>"});
+  t.innerHTML=h+"</tbody>";
+}
+document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");render(b.dataset.skill);
+}));
+render("all");matrix();
+</script>
+</body>
+</html>
