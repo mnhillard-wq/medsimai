@@ -83,7 +83,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <div class="wrap">
 <header>
   <h1>MedSimAI Sample Cases <span style="color:var(--accent)">· UCSD</span></h1>
-  <p class="lede">Sample MedSimAI cases for UCSD, arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
+  <p class="lede">Sample MedSimAI cases for UCSD, arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Assessed activities end with rubric feedback; several cases continue to an AI attending, nurse or consultant.</p>
 </header>
 
 <div class="filters" role="group" aria-label="Filter by skill">
@@ -107,7 +107,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 </section>
 
 <footer>
-  Levels reflect the learners each case was written for; faculty can place any case earlier or later. Feedback is AI-generated against faculty rubrics; human calibration and faculty sign-off are completed before student use.
+  Levels reflect the learners each case was written for; faculty can place any case earlier or later. Feedback is AI-generated against faculty rubrics; human calibration and faculty sign-off are required before student use.
 </footer>
 </div>
 
@@ -121,16 +121,16 @@ const PHASES=[
  {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one skill or reasoning error, for targeted practice or remediation."}
 ];
 const CASES=[
- {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history","Post-encounter note"],
-  reason:"Open questions first, closed questions to fill the gaps, then a note. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
-  sk:{"History":2,"Clinical reasoning":2,"Note":2}},
- {ph:"pre",name:"Marielena Gil",tag:"Español",who:"19 · outpatient · abdominal pain · Spanish-speaking",steps:["Complete history in Spanish","Post-encounter note","Feedback on Spanish-language communication and clinical reasoning in the note"],
-  reason:"Taking a complete history in Spanish with open questions first and closed questions to fill the gaps, then writing a note. Feedback covers how the learner communicated in Spanish and the clinical reasoning in the note.",
+ {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history","Physical exam","Post-encounter note"],
+  reason:"Open questions first, closed questions to fill the gaps, then an exam and a note. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
+  sk:{"History":2,"Physical exam":1,"Clinical reasoning":2,"Note":2}},
+ {ph:"pre",name:"Marielena Gil",tag:"Español",who:"20 · outpatient · abdominal pain · Spanish-speaking",steps:["Complete history in Spanish","Post-encounter note in English","Feedback on Spanish-language communication and clinical reasoning in the note"],
+  reason:"Taking a complete history in Spanish with open questions first and closed questions to fill the gaps, then writing a note in English. Feedback covers how the learner communicated in Spanish and the clinical reasoning in the note.",
   sk:{"History":2,"Clinical reasoning":2,"Note":2}},
  {ph:"clerk",name:"Alex Rivera + Dialogic Reasoning",who:"32 · emergency department · weakness",steps:["Focused history","Physical exam","Share impression with patient","Reasoning talk-through with attending"],
   reason:"Localizing the lesion and building the differential for ascending weakness (Guillain-Barré). The attending finds where the learner's reasoning breaks down.",
-  sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":1}},
- {ph:"clerk",name:"Marcus Greene + Psych Presentation",who:"27 · emergency department · a week of behavior change, little sleep, grandiose speech",steps:["Focused psychiatric history","Safety assessment","Present to psychiatry attending"],
+  sk:{"History":2,"Physical exam":2,"Clinical reasoning":1,"Present/Discuss":1}},
+ {ph:"clerk",name:"Marcus Greene + Psych Presentation",who:"28 · outpatient urgent psychiatry clinic · a week of behavior change, little sleep, grandiose speech",steps:["Focused psychiatric history","Safety assessment","Present to psychiatry attending"],
   reason:"Keeping a pressured, grandiose patient on track long enough to take a focused psychiatric history and safety assessment, then presenting him to the attending.",
   sk:{"History":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
  {ph:"clerk",name:"Ethel Kaplan + IM Rounds",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Chart review","Pre-round: interview Ethel","Interview her daughter","Present on medicine rounds"],
@@ -138,19 +138,19 @@ const CASES=[
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
  {ph:"clerk",name:"Leah MacDonald + GYN Consult",who:"16 · emergency department · abdominal pain",steps:["Confidential teen interview","Order and interpret studies","Consult call by phone"],
   reason:"Taking a sensitive, confidential adolescent history with a psychosocial screen, then turning it into tests and a focused consult request for a time-critical diagnosis.",
-  sk:{"History":2,"Clinical reasoning":2,"Management":2,"Challenging interview":1,"Interprofessional":2}},
+  sk:{"History":2,"Clinical reasoning":2,"Management":1,"Challenging interview":1,"Interprofessional":2}},
  {ph:"subi",name:"Claudia Lopez + Sign-out",who:"28 days · pediatric emergency department · fever at home",steps:["Orders in management simulator","Sign-out to admitting resident"],
   reason:"Working up a well-appearing febrile infant step by step, using each result to choose the next test, treatment and disposition, then a handoff that carries the pending results and contingencies.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
  {ph:"subi",name:"Monique Farrow, RN",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
-  reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
+  reason:"Answering an overnight pain page safely: avoiding nephrotoxic options and closing the loop with the nurse.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
  {ph:"coach",name:"Asha Banda · Global health",who:"28 · 32 weeks pregnant · prenatal HIV screening, Tanzania",steps:["Disclose a positive result","Explore barriers and safety","Agree on a next step"],
   reason:"Disclosing a positive HIV result and letting it land, then drawing out what stands between her and treatment one concern at a time: her safety at home, keeping care private, and the cost of reaching the clinic.",
   sk:{"Challenging interview":2,"Management":1}},
  {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"19 · outpatient · headaches for 10 weeks",steps:["Hear a student's presentation as the attending","Ask for what was left out","Reflection questions"],
   reason:"Combating premature closure: the learner plays the attending, hears a presentation that offers a tidy diagnosis, and has to ask for what it left out before committing to a plan.",
-  sk:{"History":1,"Clinical reasoning":2,"Present/Discuss":2}}
+  sk:{"History":1,"Clinical reasoning":1,"Present/Discuss":1}}
 ];
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function render(filter){
