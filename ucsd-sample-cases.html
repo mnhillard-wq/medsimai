@@ -91,6 +91,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
   <button type="button" id="f-hx" data-skill="History">History taking</button>
   <button type="button" id="f-pe" data-skill="Physical exam">Physical exam</button>
   <button type="button" id="f-cr" data-skill="Clinical reasoning">Clinical reasoning</button>
+  <button type="button" id="f-nt" data-skill="Note">Written note</button>
   <button type="button" id="f-pr" data-skill="Present/Discuss">Present/Discuss</button>
   <button type="button" id="f-mg" data-skill="Management">Management and orders</button>
   <button type="button" id="f-ci" data-skill="Challenging interview">Challenging interview</button>
@@ -111,8 +112,8 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 </div>
 
 <script>
-const SK=["History","Physical exam","Clinical reasoning","Present/Discuss","Management","Challenging interview","Interprofessional"];
-const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
+const SK=["History","Physical exam","Clinical reasoning","Note","Present/Discuss","Management","Challenging interview","Interprofessional"];
+const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Note":"Note","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Challenging interview":"Challenging interview","Interprofessional":"Interprof."};
 const PHASES=[
  {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"A complete history taken with open questions first and closed questions to fill the gaps. The chief concern carries a must-not-miss, so hypothesis-driven questioning starts here."},
  {id:"clerk",name:"Clerkship",when:"MS3",note:"Focused histories, sensitive and difficult interviews, pre-rounding, and reasoning out loud with an attending or consultant."},
@@ -120,28 +121,28 @@ const PHASES=[
  {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one skill or reasoning error, for targeted practice or remediation."}
 ];
 const CASES=[
- {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history"],
-  reason:"Open questions first, closed questions to fill the gaps. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
-  sk:{"History":2,"Clinical reasoning":1}},
+ {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history","Post-encounter note"],
+  reason:"Open questions first, closed questions to fill the gaps, then a note. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
+  sk:{"History":2,"Clinical reasoning":2,"Note":2}},
  {ph:"pre",name:"Marielena Gil",tag:"Español",who:"19 · outpatient · abdominal pain · Spanish-speaking",steps:["Complete history in Spanish","Post-encounter note","Feedback on Spanish-language communication and clinical reasoning in the note"],
   reason:"Taking a complete history in Spanish with open questions first and closed questions to fill the gaps, then writing a note. Feedback covers how the learner communicated in Spanish and the clinical reasoning in the note.",
-  sk:{"History":2,"Clinical reasoning":2}},
- {ph:"clerk",name:"Alex Rivera with Dr. Okafor",who:"32 · emergency department · weakness",steps:["Focused history","Physical exam","Share impression with patient","Reasoning talk-through with attending"],
+  sk:{"History":2,"Clinical reasoning":2,"Note":2}},
+ {ph:"clerk",name:"Alex Rivera + Dialogic Reasoning",who:"32 · emergency department · weakness",steps:["Focused history","Physical exam","Share impression with patient","Reasoning talk-through with attending"],
   reason:"Localizing the lesion and building the differential for ascending weakness (Guillain-Barré). The attending finds where the learner's reasoning breaks down.",
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":1}},
  {ph:"clerk",name:"Marcus Greene + Psych Presentation",who:"27 · emergency department · a week of behavior change, little sleep, grandiose speech",steps:["Focused psychiatric history","Safety assessment","Present to psychiatry attending"],
   reason:"Keeping a pressured, grandiose patient on track long enough to take a focused psychiatric history and safety assessment, then presenting him to the attending.",
   sk:{"History":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
- {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Chart review","Pre-round: interview Ethel","Interview her daughter","Present on medicine rounds"],
+ {ph:"clerk",name:"Ethel Kaplan + IM Rounds",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Chart review","Pre-round: interview Ethel","Interview her daughter","Present on medicine rounds"],
   reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, integrating I/Os, labs and vitals, then presenting pneumonia with hypernatremia and delirium.",
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
  {ph:"clerk",name:"Leah MacDonald + GYN Consult",who:"16 · emergency department · abdominal pain",steps:["Confidential teen interview","Order and interpret studies","Consult call by phone"],
   reason:"Taking a sensitive, confidential adolescent history with a psychosocial screen, then turning it into tests and a focused consult request for a time-critical diagnosis.",
   sk:{"History":2,"Clinical reasoning":2,"Management":2,"Challenging interview":1,"Interprofessional":2}},
- {ph:"subi",name:"Claudia Lopez",who:"28 days · pediatric emergency department · fever at home",steps:["Orders in management simulator","Sign-out to admitting resident"],
+ {ph:"subi",name:"Claudia Lopez + Sign-out",who:"28 days · pediatric emergency department · fever at home",steps:["Orders in management simulator","Sign-out to admitting resident"],
   reason:"Working up a well-appearing febrile infant step by step, using each result to choose the next test, treatment and disposition, then a handoff that carries the pending results and contingencies.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
- {ph:"subi",name:"Tyler Brandt (nurse Monique Farrow)",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
+ {ph:"subi",name:"Monique Farrow, RN",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
   reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
  {ph:"coach",name:"Asha Banda · Global health",who:"28 · 32 weeks pregnant · prenatal HIV screening, Tanzania",steps:["Disclose a positive result","Explore barriers and safety","Agree on a next step"],
