@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MedSimAI Cases for UCSD</title>
+<title>MedSimAI Sample Cases · UCSD</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&display=swap">
@@ -82,8 +82,8 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <body>
 <div class="wrap">
 <header>
-  <h1>MedSimAI <span style="color:var(--accent)">Cases for UCSD</span></h1>
-  <p class="lede">The nine cases in the UCSD trial course, arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
+  <h1>MedSimAI Sample Cases <span style="color:var(--accent)">· UCSD</span></h1>
+  <p class="lede">Sample MedSimAI cases for UCSD, arranged by learner level. Each entry lists the activities in order, the skills practiced, and the reasoning the case is built to draw out. Every encounter ends with rubric feedback; several continue to an AI attending, nurse or consultant.</p>
 </header>
 
 <div class="filters" role="group" aria-label="Filter by skill">
@@ -117,11 +117,14 @@ const PHASES=[
  {id:"pre",name:"Preclinical",when:"MS1 – MS2",note:"A complete history taken with open questions first and closed questions to fill the gaps. The chief concern carries a must-not-miss, so hypothesis-driven questioning starts here."},
  {id:"clerk",name:"Clerkship",when:"MS3",note:"Focused histories, sensitive and difficult interviews, pre-rounding, and reasoning out loud with an attending or consultant."},
  {id:"subi",name:"Sub-internship",when:"MS4",note:"Acting-intern work: step-by-step orders, disposition, handoffs and overnight nurse calls."},
- {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one reasoning error, assigned to learners who need practice on that skill."}
+ {id:"coach",name:"Focused skills coaching",when:"Remediation or targeted practice · any level",note:"A short case built around one skill or reasoning error, for targeted practice or remediation."}
 ];
 const CASES=[
  {ph:"pre",name:"Sean Muller",who:"21 · outpatient · establishing care, chest pain",steps:["Complete history"],
   reason:"Open questions first, closed questions to fill the gaps. A father's MI at 45 tests whether the learner screens for a cardiac cause without anchoring on it; the history points to GERD.",
+  sk:{"History":2,"Clinical reasoning":1}},
+ {ph:"pre",name:"Marielena Gil",tag:"Español",who:"19 · outpatient · abdominal pain · Spanish-speaking",steps:["Complete history in Spanish","Feedback on the Spanish-language interview"],
+  reason:"Taking a complete history in Spanish with open questions first and closed questions to fill the gaps. Feedback addresses how the learner conducted the interview in Spanish.",
   sk:{"History":2,"Clinical reasoning":1}},
  {ph:"clerk",name:"Alex Rivera with Dr. Okafor",who:"32 · emergency department · weakness",steps:["Focused history","Physical exam","Share impression with patient","Reasoning talk-through with attending"],
   reason:"Localizing the lesion and building the differential for ascending weakness (Guillain-Barré). The attending finds where the learner's reasoning breaks down.",
@@ -129,9 +132,6 @@ const CASES=[
  {ph:"clerk",name:"Marcus Green",who:"27 · emergency department · a week of behavior change, little sleep, grandiose speech",steps:["Focused psychiatric history","Safety assessment"],
   reason:"Keeping a pressured, grandiose patient on track long enough to take a focused psychiatric history, and completing a safety assessment before the interview ends.",
   sk:{"History":2,"Clinical reasoning":1,"Challenging interview":2}},
- {ph:"clerk",name:"Asha Banda · Global health",who:"28 · 32 weeks pregnant · prenatal HIV screening, Tanzania",steps:["Disclose a positive result","Explore barriers and safety","Agree on a next step"],
-  reason:"Disclosing a positive HIV result and letting it land, then drawing out what stands between her and treatment one concern at a time: her safety at home, keeping care private, and the cost of reaching the clinic.",
-  sk:{"Challenging interview":2,"Management":1}},
  {ph:"clerk",name:"Ethel Kaplan with Dr. Morgan",who:"87 · inpatient medicine · pneumonia, confusion",steps:["Chart review","Pre-round: interview Ethel","Interview her daughter","Present on medicine rounds"],
   reason:"Pre-rounding on an inpatient: interviewing Ethel herself and recognizing that she is delirious, turning to her daughter for the history, integrating I/Os, labs and vitals, then presenting pneumonia with hypernatremia and delirium.",
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":2,"Challenging interview":2}},
@@ -144,6 +144,9 @@ const CASES=[
  {ph:"subi",name:"Tyler Brandt (nurse Monique Farrow)",who:"31 · inpatient night · rhabdomyolysis with AKI",steps:["Return a nurse page by phone"],
   reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
+ {ph:"coach",name:"Asha Banda · Global health",who:"28 · 32 weeks pregnant · prenatal HIV screening, Tanzania",steps:["Disclose a positive result","Explore barriers and safety","Agree on a next step"],
+  reason:"Disclosing a positive HIV result and letting it land, then drawing out what stands between her and treatment one concern at a time: her safety at home, keeping care private, and the cost of reaching the clinic.",
+  sk:{"Challenging interview":2,"Management":1}},
  {ph:"coach",name:"Kayla Novak · Find What's Missing",who:"19 · outpatient · headaches for 10 weeks",steps:["Hear a student's presentation as the attending","Ask for what was left out","Reflection questions"],
   reason:"Combating premature closure: the learner plays the attending, hears a presentation that offers a tidy diagnosis, and has to ask for what it left out before committing to a plan.",
   sk:{"History":1,"Clinical reasoning":2,"Present/Discuss":2}}
@@ -161,7 +164,7 @@ function render(filter){
       const steps=c.steps.map(s=>`<span>${esc(s)}</span>`).join('<i aria-hidden="true">→</i>');
       const skills=SK.filter(k=>c.sk[k]).map(k=>`<span>${esc(k)}</span>`).join("");
       const el=document.createElement("article");el.className="case";
-      el.innerHTML=`<div class="case-top"><h3>${esc(c.name)}</h3></div>
+      el.innerHTML=`<div class="case-top"><h3>${esc(c.name)}</h3>${c.tag?`<span class="status s-new" lang="es">${esc(c.tag)}</span>`:""}</div>
       <div class="who">${esc(c.who)}</div><div class="steps">${steps}</div>
       <dl><dt>Reasoning</dt><dd>${esc(c.reason)}</dd><dt>Skills</dt><dd class="skills">${skills}</dd></dl>`;
       box.appendChild(el);
@@ -172,7 +175,7 @@ function render(filter){
 function matrix(){
   const t=document.getElementById("matrix");
   let h="<thead><tr><th>Case</th>"+SK.map(k=>`<th>${SKL[k]}</th>`).join("")+"</tr></thead><tbody>";
-  CASES.forEach(c=>{h+=`<tr><td>${esc(c.name)}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" aria-label="assessed"></span>':c.sk[k]===1?'<span class="dot half" aria-label="practiced"></span>':''}</td>`).join("")+"</tr>"});
+  CASES.forEach(c=>{h+=`<tr><td>${esc(c.name)}${c.tag?` <span class="status s-new" lang="es">${esc(c.tag)}</span>`:""}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" aria-label="assessed"></span>':c.sk[k]===1?'<span class="dot half" aria-label="practiced"></span>':''}</td>`).join("")+"</tr>"});
   t.innerHTML=h+"</tbody>";
 }
 document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
