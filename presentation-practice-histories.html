@@ -5,7 +5,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080A0E;--surface:#1B1E23;--ink:#F0F2F4;--muted:#A0A5AE;--line:#2E333B;--primary:#86A4EC;--primary-deep:#BBD1FF;--tint:#1B243B;--on-primary:#080A0E;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#080A0E;--surface:#1B1E23;--ink:#F0F2F4;--muted:#A0A5AE;--line:#2E333B;--primary:#86A4EC;--primary-deep:#BBD1FF;--tint:#1B243B;--on-primary:#080A0E;color-scheme:dark}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .bar{height:4px;background:var(--brand)}
 .wrap{max-width:1040px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:24px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -15,13 +15,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font
 .kicker,.lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
 .kicker{margin:0}
 h1{margin:6px 0 10px;font-family:var(--display);font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:500;line-height:1.1;text-wrap:balance}
-.lede{margin:0;color:var(--muted);max-width:44rem}
+.lede{margin:0;font-size:14px;color:var(--muted);max-width:44rem}
 a{color:var(--primary-deep);text-underline-offset:2px}
 :focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 .crumb{font-size:14px}
 .how{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
 .steps{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:10px 20px;counter-reset:s}
-.steps li{display:flex;gap:10px;font-size:15px;counter-increment:s}
+.steps li{display:flex;gap:10px;font-size:14px;counter-increment:s}
 .steps li::before{content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,27rem),1fr));gap:20px;align-items:start}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -42,16 +42,16 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 .menu a{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink)}
 .menu a:hover{border-color:var(--primary)}
 .menu a[aria-current="true"]{background:var(--tint);border-color:var(--primary)}
-.menu .mn{font-weight:600}
-.menu .mc{font-size:13px;color:var(--muted)}
+.menu .mn{font-weight:600;font-size:14px}
+.menu .mc{font-size:12px;color:var(--muted)}
 .js .card[hidden]{display:none}
 @media (max-width:760px){.pick{grid-template-columns:1fr}.menu{position:static}}
 @media print{.menu{display:none}.js .card[hidden]{display:flex}}
 .card{padding:16px 20px;gap:8px}
-.card h3{font-size:1.3rem}
-.cc{font-size:14px;margin:-4px 0 0}
-.notes{font-size:14px;line-height:1.4;gap:2px}
-.vitals{font-size:13px;line-height:1.4;padding-top:6px}
+.card h3{font-size:1.15rem}
+.cc{font-size:13px;margin:-4px 0 0}
+.notes{font-size:13px;line-height:1.4;gap:2px}
+.vitals{font-size:12px;line-height:1.4;padding-top:6px}
 .task{font-size:14px;line-height:1.4}
 @media (min-width:1000px){.pick .notes{columns:2;column-gap:28px;display:block}.pick .notes li{break-inside:avoid;margin-bottom:3px}}
 </style></head><body>
@@ -101,7 +101,6 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>No headache, rash, or joint pain this week. Otherwise feels well.</li>
   </ol>
   <p class="vitals">T 37.0 &deg;C &middot; HR 78 &middot; BP 118/72 &middot; RR 14 &middot; SpO&#8322; 99% &middot; Comfortable. Mild suprapubic tenderness, no costovertebral angle tenderness. Urine dipstick in clinic: positive leukocyte esterase and nitrites, trace blood. Urine pregnancy test negative.</p>
-  <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how she is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
 <article class="card" id="castellano">
@@ -124,7 +123,6 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>No rash, back pain, urinary symptoms, or kidney stones. Rest of the review of systems negative.</li>
   </ol>
   <p class="vitals">T 37.4 &deg;C &middot; HR 88 &middot; BP 146/90 &middot; RR 16 &middot; SpO&#8322; 98% &middot; BMI 31 &middot; Uncomfortable, walking with a limp. Right first toe joint warm, swollen, shiny, and discolored, very tender to light touch; skin intact; other joints normal.</p>
-  <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how he is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
 <article class="card" id="brandvold">
@@ -147,7 +145,6 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>No abdominal pain, urinary symptoms, or rash. Rest of the review of systems negative.</li>
   </ol>
   <p class="vitals">T 36.8 &deg;C &middot; HR 70 &middot; BP 122/76 &middot; RR 14 &middot; SpO&#8322; 99% &middot; Comfortable at rest, walks normally, gets onto the exam table without help. Right lower lumbar muscle tenderness, no midline spinal tenderness; straight leg raise negative; strength, sensation, and reflexes in the legs normal.</p>
-  <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how he is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
 </div>
