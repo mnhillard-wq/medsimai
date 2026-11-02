@@ -7,22 +7,22 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .bar{height:4px;background:var(--brand)}
-.wrap{max-width:1040px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:24px}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 16px 48px;display:flex;flex-direction:column;gap:14px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{font-family:var(--display);font-size:20px;font-weight:600;color:var(--ink);text-decoration:none}
+.brand{font-family:var(--display);font-size:17px;font-weight:600;color:var(--ink);text-decoration:none}
 .brand span{color:var(--primary)}
 .pill{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--tint);color:var(--primary-deep);padding:4px 10px;border-radius:999px}
 .kicker,.lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
 .kicker{margin:0}
-h1{margin:6px 0 10px;font-family:var(--display);font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:500;line-height:1.1;text-wrap:balance}
-.lede{margin:0;font-size:14px;color:var(--muted);max-width:44rem}
+h1{margin:2px 0 6px;font-family:var(--display);font-size:clamp(1.2rem,2.2vw,1.45rem);font-weight:500;line-height:1.1;text-wrap:balance}
+.lede{margin:0;font-size:14px;color:var(--muted)}
 a{color:var(--primary-deep);text-underline-offset:2px}
 :focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 .crumb{font-size:14px}
-.how{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
-.steps{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:10px 20px;counter-reset:s}
-.steps li{display:flex;gap:10px;font-size:14px;counter-increment:s}
-.steps li::before{content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.how{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 18px}
+.steps{list-style:none;padding:0;margin:6px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:6px 18px;counter-reset:s}
+.steps li{display:flex;gap:8px;font-size:13px;line-height:1.4;counter-increment:s}
+.steps li::before{content:counter(s);flex:none;width:20px;height:20px;border-radius:50%;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,27rem),1fr));gap:20px;align-items:start}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .cardtop{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -38,8 +38,8 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 @media print{.bar,.top,.crumb,.foot{display:none}.card{break-inside:avoid}}
 .pick{display:grid;grid-template-columns:16rem 1fr;gap:20px;align-items:start}
 .pick .cards{display:block}
-.menu{position:sticky;top:16px;display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
-.menu a{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink)}
+.menu{position:sticky;top:12px;display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.menu a{display:flex;flex-direction:column;gap:1px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink)}
 .menu a:hover{border-color:var(--primary)}
 .menu a[aria-current="true"]{background:var(--tint);border-color:var(--primary)}
 .menu .mn{font-weight:600;font-size:14px}
@@ -47,17 +47,16 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 .js .card[hidden]{display:none}
 @media (max-width:760px){.pick{grid-template-columns:1fr}.menu{position:static}}
 @media print{.menu{display:none}.js .card[hidden]{display:flex}}
-.card{padding:16px 20px;gap:8px}
+.card{padding:14px 18px;gap:6px}
 .card h3{font-size:1.15rem}
 .cc{font-size:13px;margin:-4px 0 0}
 .notes{font-size:13px;line-height:1.4;gap:2px}
 .vitals{font-size:12px;line-height:1.4;padding-top:6px}
 .task{font-size:14px;line-height:1.4}
-@media (min-width:1000px){.pick .notes{columns:2;column-gap:28px;display:block}.pick .notes li{break-inside:avoid;margin-bottom:3px}}
+@media (min-width:1000px){.steps{grid-template-columns:.8fr 2fr 1.6fr .9fr}.pick .notes{columns:2;column-gap:28px;display:block}.pick .notes li{break-inside:avoid;margin-bottom:3px}}
 </style></head><body>
 <div class="bar" aria-hidden="true"></div>
 <div class="wrap">
-<header class="top"><span class="brand">Practice Cases <span>for Presentations</span></span></header>
 <header>
   <p class="kicker">Complete history &middot; Preclinical</p>
   <h1>Practice histories for presenting to Dr. Cole</h1>
