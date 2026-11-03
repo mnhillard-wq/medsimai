@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MedSimAI Cases at Weill Cornell Medicine</title>
-<meta name="description" content="MedSimAI AI-simulated patient cases and coaches at Weill Cornell Medicine, arranged by curriculum stage, with demo clips.">
+<meta name="description" content="MedSimAI AI-simulated patient cases and coaches at Weill Cornell Medicine, arranged by curriculum stage, with demo clips and test-run excerpts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Source+Sans+3:wght@400;500;600;700&display=swap">
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
@@ -64,7 +64,7 @@ header .lede{max-width:none}
 @media (max-width:480px){.tabbar{gap:0; flex-wrap:nowrap; overflow-x:auto}.tabbar button{padding:8px 9px 10px; font-size:.9rem; white-space:nowrap}}
 .clip{min-width:0}
 .credit{margin:-22px 0 36px; font-size:.86rem; color:var(--muted); font-style:italic}
-.clip video{display:block; width:100%; max-width:100%; aspect-ratio:16/9; background:#0f1530; border-radius:10px; border:1px solid var(--rule)}
+.clip video{object-fit:contain; display:block; width:100%; max-width:100%; aspect-ratio:16/9; background:#0f1530; border-radius:10px; border:1px solid var(--rule)}
 .clip p{margin:8px 0 0; font-size:.9rem; color:var(--muted)}
 .clip p strong{display:block; color:var(--ink); font-size:.98rem}
 
@@ -85,6 +85,12 @@ header .lede{max-width:none}
 .case{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; min-width:0}
 .case.hasimg{display:grid; grid-template-columns:minmax(0,1fr) 230px; gap:18px}
 .case figure{margin:0}
+.case.hasimg{grid-template-columns:minmax(0,1fr) 300px}
+.cvid.tall video{aspect-ratio:9/16; max-height:420px; width:auto; margin:0 auto}
+.caud{background:var(--accent-soft); border-radius:10px; padding:12px; align-self:start}
+.caud .aul{margin:0 0 8px; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--accent)}
+.caud audio{width:100%}
+.cvid video{display:block; width:100%; aspect-ratio:16/9; object-fit:contain; background:#0f1530; border-radius:8px; border:1px solid var(--rule)}
 .case figure img{display:block; width:100%; height:auto; border-radius:8px; border:1px solid var(--rule)}
 .case .ph{aspect-ratio:16/10; border:1.5px dashed var(--rule); border-radius:8px; display:flex; align-items:center; justify-content:center; text-align:center; padding:10px; color:var(--muted); font-size:.82rem; background:var(--chip)}
 .case figure figcaption{font-size:.78rem; color:var(--muted); margin-top:4px}
@@ -266,10 +272,40 @@ details.skillsx summary:focus-visible{outline:2px solid var(--accent); outline-o
 @media (max-width:820px){.arrows{grid-template-columns:1fr; gap:18px}}
 .flow li.spec{background:var(--ready-soft); outline:2px dashed var(--ready); outline-offset:-2px}
 .flow li.spec .n{background:var(--ready)}
+.handout summary{cursor:pointer; color:var(--accent); font-weight:600}
+.handout{background:var(--accent-soft); border-radius:10px; padding:8px 12px}
+.handout .hsub{margin:8px 0 4px; font-size:.84rem; color:var(--muted)}
+.handout .hq{margin:6px 0; font-weight:600; font-size:.9rem}
+.space{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+.space li{display:grid; grid-template-columns:28px minmax(0,1fr); gap:10px; align-items:start; font-size:.88rem}
+.space b{display:flex; width:28px; height:28px; border-radius:50%; background:var(--accent); color:var(--surface); align-items:center; justify-content:center; font-family:var(--serif)}
+.space strong{display:block}
+.handout .hturn{margin:10px 0 4px; font-size:.88rem}
+.yr{display:inline-block; vertical-align:middle; margin-left:8px; font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ready); background:var(--ready-soft); border-radius:999px; padding:2px 9px}
+details.acc{margin-top:26px; border-top:1px solid var(--rule); padding-top:12px}
+details.acc summary{cursor:pointer; font-weight:700; font-size:1.02rem}
+.exc .xl p{margin:4px 0; font-size:.88rem} .exc .xl b{color:var(--accent)} .exc .xg{text-align:center; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.byline{font-size:.88rem; font-weight:600; color:var(--accent); margin-top:2px}
+.ack{margin-top:44px; padding-top:22px; border-top:1px solid var(--rule)}
+.ackgrid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px 28px; margin-top:14px}
+.ackgrid h3{font-family:var(--sans); font-size:.76rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 6px}
+.ackgrid ul{list-style:none; margin:0; padding:0; font-size:.92rem} .ackgrid li{margin-bottom:3px}
+.ackrow{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 28px; margin-top:18px; font-size:.92rem}
+.ackrow h3{font-family:var(--sans); font-size:.76rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+.ackrow p{margin:0}
+@media (max-width:820px){.ackgrid{grid-template-columns:repeat(2,minmax(0,1fr))} .ackrow{grid-template-columns:1fr}}
+.tiles{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:12px}
+.tile{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:12px 14px}
+.tile .n{font-family:var(--serif); font-size:1.8rem; color:var(--accent); line-height:1.1; font-variant-numeric:tabular-nums}
+.tile .l{font-size:.84rem; color:var(--muted)}
+.tile .l strong{display:block; color:var(--ink); font-size:.88rem}
+.caveat{background:var(--ready-soft); border-radius:10px; padding:10px 14px; font-size:.88rem; margin-top:12px}
+.caveat strong{color:var(--ready)}
+.caveat ul{margin:4px 0 0; padding-left:18px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .qabox{margin-top:34px; border:1px solid var(--rule); border-left:4px solid var(--accent); border-radius:12px; background:var(--surface); padding:18px 22px}
 .qabox h3{font-family:var(--sans); font-weight:700; font-size:1.02rem; margin:0}
-
-.panel > section:first-child{margin-top:28px}</style>
+</style>
 </head><body>
 <div class="wrap">
 <header>
@@ -283,21 +319,9 @@ details.skillsx summary:focus-visible{outline:2px solid var(--accent); outline-o
 
 
 <div class="panel" id="p-cases">
-<section aria-labelledby="see-h">
-  <h2 id="see-h">See it in use</h2>
-  <p class="lede" style="margin-top:4px">Short clips from real cases. Sound on.</p>
-  <div class="clips">
-    <div class="clip"><video id="v-sean" controls preload="none" playsinline poster="vid/sean-muller.jpg"><source src="vid/sean-muller.mp4" type="video/mp4"></video>
-      <p><strong>Sean Muller: history, note, presentation</strong>The student interviews Sean and requests exam findings, writes the note, then presents to Dr. Leila Marks, the AI attending. 58 s.</p></div>
-    <div class="clip"><video id="v-ethel" controls preload="none" playsinline poster="vid/ethel-kaplan.jpg"><source src="vid/ethel-kaplan.mp4" type="video/mp4"></video>
-      <p><strong>Ethel Kaplan: pre-rounding</strong>The student pre-rounds on an 87-year-old inpatient, then presents to Dr. Morgan on rounds. 52 s.</p></div>
-    
-  </div>
-  <p class="credit">Thank you to Ariadna Rotaru at MedSimAI for the demo videos.</p>
-</section>
-
 <section aria-labelledby="map-h">
   <h2 id="map-h">The case map</h2>
+  <p class="lede" style="margin-top:4px">Short clips from the cases sit beside their case cards; sound on.</p>
   <div class="mapgrid">
     <nav class="rail" aria-label="Skills ladder">
       <p class="rt">Complexity</p>
@@ -309,7 +333,9 @@ details.skillsx summary:focus-visible{outline:2px solid var(--accent); outline-o
 </section>
 </div>
 
-<footer>Stages reflect where each case is used at Weill Cornell Medicine; faculty can place any case earlier or later. Built with <a href="https://medsimai.com">MedSimAI</a>.</footer>
+
+
+<footer>Stages reflect where each case is used at Weill Cornell Medicine; faculty can place any case earlier or later. Transcript excerpts come from AI test runs with simulated learners, not real students.</footer>
 </div>
 
 
@@ -318,108 +344,207 @@ const SK=["History","Physical exam","Clinical reasoning","Note","Present/Discuss
 const SKL={"History":"History","Physical exam":"Exam","Clinical reasoning":"Reasoning","Note":"Note","Present/Discuss":"Present/Discuss","Management":"Orders/Mgmt","Communication":"Communication","Interprofessional":"Interprof."};
 const ST={use:["s-use","In use"],ready:["s-ready","Ready to deploy"],test:["s-test","In testing"]};
 const PHASES=[
- {id:"p1",name:"Phase 1 · Preclinical",when:"MS1 – MS2 · EPOM, HID 1, HID 2",note:"Comfort and fluency with the complete history first, with the note and the oral presentation, then focused history and exam, communication, and, in transition-to-clerkship prep, the start of articulated clinical reasoning.",
+ {id:"p1",name:"Phase 1 · Preclinical",when:"MS1 – MS2 · EPOM, HID 1, HID 2",note:"MS1: the history, exam and communication, with complete history modules in EPOM, focused history and exam, presentations, and motivational interviewing. MS2: difficult conversations and early reasoning, with challenging communication encounters, then pre-rounding and dialogic talk-through in transition-to-clerkship OSCE prep.",
   groups:["Complete history","Oral presentation","Focused history and physical exam","Communication","TTC OSCE prep: articulated clinical reasoning begins"]},
- {id:"p2",name:"Phase 2 · Clerkships",when:"MS3",note:"Moving on to specialty-specific care, with a greater emphasis on systems and management. Learners reason out loud with an AI attending, present to specialty coaches, and practice clerkship skills organized by skill rather than diagnosis.",
-  groups:["Reasoning with an AI attending","Specialty presentation coaches","Targeted skill building and remediation","Consult calls"]},
- {id:"p3",name:"Phase 3 · Sub-I and transition to residency",when:"MS4",note:"Acting-intern work: managing uncertainty with families, orders that change the course of a case, handoffs, and overnight pages.",
-  groups:["Ambiguity","Management and sign-out","Paging"]},
- {id:"sp",cls:"special",name:"Special projects",when:"Across years",note:"Programs built with faculty partners, each with its own evaluation.",groups:["Special projects"]}
+ {id:"p2",name:"Phase 2 · Clerkships",when:"MS3",note:"Specialty-specific thinking: data collection and synthesis, specialty presentation coaches, and reasoning discussions with an AI attending, including after the mid-clerkship OSCE.",
+  groups:["Reasoning with an AI attending","Specialty presentation coaches","Targeted skill building and remediation"]},
+ {id:"p3",name:"Phase 3 · Sub-I and transition to residency",when:"MS4",note:"Executing the plan and evaluating the response: consult calls, orders and sign-out, overnight nurse pages, and managing uncertainty with families.",
+  groups:["Consult calls","Management and sign-out","Paging","Ambiguity"]},
+ {id:"sp",cls:"special",name:"Special projects",when:"Across years",note:"Modules built by students, fellows and faculty, each with its own evaluation.",groups:["Special projects"]}
 ];
 const CASES=[
- {ph:"p1",g:"Complete history",name:"Complete history and physical exam modules",r:"hx",st:"use",who:"Outpatient cases · adult and pediatric",
+ {ph:"p1",g:"Complete history",name:"Complete history and physical exam modules",yr:"MS1",mx:"Complete history modules (Sean Muller)",r:"hx",st:"use",who:"Outpatient cases · adult and pediatric",lead:"Led by Dr. Gwen Jack, EPOM-PCP lead",vid:"vid/sean-muller",vidcap:"Sean Muller: the student interviews Sean and requests exam findings, writes the note, then presents to Dr. Leila Marks, the AI attending. 58 s.",
   used:"EPOM, fall: 4 required and 4 strongly encouraged, shared with a clinical mentor · HID 1 and HID 2 Complete H&P OSCE prep, optional",
   ex:"Sean Muller, 22, establishing care with chest discomfort. The chief concern is not an easy one: a father's MI at 45 has to be screened for without anchoring on it. The conversation itself is uncomplicated, so students build comfort and fluency with the interview before harder communication arrives.",
-  steps:["Complete history, section by section","Physical exam","Post-encounter note","Rubric feedback"],
+  steps:["History by section","Physical exam","Note","Rubric feedback"],
   reason:"Builds the complete history one section at a time, then the exam and a note that carries the reasoning, with feedback on each part before students put the whole encounter together for the OSCE.",
   sk:{"History":2,"Physical exam":2,"Note":2,"Communication":1}},
- {ph:"p1",g:"Oral presentation",name:"Dr. Cole · case-agnostic presentation coach",r:"np",st:"use",who:"Outpatient · MS1 – MS3 · any patient the learner has seen",
-  used:"First of the case-agnostic coaches · also in HID 1 Complete History OSCE prep",link:["https://mnhillard-wq.github.io/medsimai/presentation-practice-histories.html","Practice histories for presenting to Dr. Cole"],
-  steps:["Obtain any H&P","Present the patient","Structured feedback"],
-  reason:"Organizing a complete-history presentation: what goes in the HPI, what to leave out, and a closing summary that commits.",
+ {ph:"p1",g:"Oral presentation",name:"Dr. Cole · presenting to a coach that works with any patient",yr:"MS1",mx:"Dr. Cole presentation coach",ex2:"cole",r:"np",st:"use",who:"Outpatient complete history presentations · MS1 · any fictional patient",
+  used:"Complete History OSCE prep · the first of the case-agnostic coaches",link:["https://mnhillard-wq.github.io/medsimai/presentation-practice-histories.html","Practice histories for presenting to Dr. Cole"],
+  steps:["Present any fictional patient","Reflection first","Section-by-section coaching"],
+  reason:"Dr. Cole listens to the whole presentation without interrupting, asks the student to reflect first, then coaches one section at a time: what to lead with, what was missing, what to trim. It ends with one change to try next time. Structure only; the clinical content is reviewed with the attending.",
   sk:{"Present/Discuss":2,"Clinical reasoning":1}},
- {ph:"p1",g:"Focused history and physical exam",name:"Melissa Bishop · cardio-pulmonary simulation",r:"fpe",req:1,st:"use",who:"Adult · simulation session",
+ {ph:"p1",g:"Focused history and physical exam",name:"Melissa Bishop · cardio-pulmonary simulation",yr:"MS1",mx:"Melissa Bishop",r:"fpe",req:1,st:"use",who:"Adult · simulation session",
   used:"HID 1 cardio-pulmonary simulation · required before the session · debriefed in small groups",
   steps:["Focused history","Exam findings","Group debrief"],
   reason:"A focused cardiopulmonary history in the simulation session. Her history includes a known heart-valve problem she never followed up.",
   sk:{"History":2,"Physical exam":1,"Clinical reasoning":1}},
- {ph:"p1",g:"Communication",name:"Jessica Raymond · motivational interviewing",r:"ac",st:"use",who:"55 · outpatient · behavior change",
-  used:"HID · practice · fall",
+ {ph:"p1",g:"Communication",name:"Jessica Raymond · motivational interviewing",yr:"MS1",mx:"Jessica Raymond",r:"ac",st:"use",who:"55 · outpatient · behavior change",lead:"Championed by Carly Borinsky, MD, HID-1-PCP Unit Director (2026)",vid:"vid/jessica-raymond",vidcap:"A behavior-change conversation; Dr. Rosenblum then coaches from the transcript. 35 s.",
+  used:"HID 1A · motivational interviewing",
   steps:["Behavior-change conversation","Coaching from Dr. Rosenblum"],
   reason:"Direct observation with immediate feedback: the AI coach works from the transcript and helps the learner refine their motivational interviewing technique rather than grading it.",
   sk:{"Communication":2}},
- {ph:"p1",g:"Focused history and physical exam",name:"Samantha Strahan · neurology simulation",r:"fpe",req:1,st:"use",who:"Altered mental status · patient, then her mother",
+ {ph:"p1",g:"Communication",name:"Marcus Greene · a focused psychiatric history",yr:"MS1–MS2",mx:"Marcus Greene",r:"ac",st:"use",who:"28 · brought in by his roommate · a week of little sleep, pressured speech and impulsive spending",vid:"vid/marcus-greene",vidcap:"Marcus opens by asking to be told he is fine. 23 s.",
+  used:"Challenging communication encounter",
+  steps:["Focused psychiatric history","Mental status exam","Safety screen and collateral"],
+  reason:"Recognizing a manic episode from its components and separating it from hypomania and from substance, medical and psychotic mimics, while earning enough trust that Marcus agrees to follow up. Naming mania or bipolar disorder before building rapport makes him guarded and clipped.",
+  sk:{"History":2,"Clinical reasoning":2,"Communication":1}},
+ {ph:"p1",g:"Focused history and physical exam",name:"Jordan Liu · focused history and exam actions",yr:"MS1",mx:"Jordan Liu",r:"fpe",st:"use",who:"18 · emergency department · cough, chest tightness, shortness of breath",lead:"Used at WCM-Q, spring 2026, with Dr. Liam J. Fernyhough",aud:"vid/jordan-lungs.mp3",audcap:"The lung sounds returned for \"listen to lungs.\" 16 s.",
+  used:"HID 1A systems-based encounter · the same design is used in the required cardiopulmonary and neurology pre-simulation cases",
+  steps:["Focused history","Exam actions with audible findings","Attending discussion: asthma management"],
+  reason:"The student types each exam maneuver, one action at a time, and can say what they are looking for, which makes them commit to a hypothesis. Only the findings asked for come back, including recorded lung sounds to listen to and describe.",
+  sk:{"History":2,"Physical exam":2,"Clinical reasoning":1,"Management":1}},
+ {ph:"p1",g:"Focused history and physical exam",name:"Samantha Strahan · neurology simulation",yr:"MS2",mx:"Samantha Strahan",vid:"vid/samantha-strahan",vidcap:"Interviewing Samantha, then her mother Kris, then the pre-debrief reflection. 38 s.",r:"fpe",req:1,st:"use",who:"Altered mental status · patient, then her mother",
   used:"HID 2 neurology simulation · required before the session · facilitated group debrief",
   steps:["Interview Samantha","Interview her mother","Group debrief"],
   reason:"Deciding what can be obtained from a patient with altered mental status and what must come from a frightened family member. New this year: Samantha has a fluent aphasia with poor comprehension and repetition, so learners who run the bedside language tests can classify it and localize the lesion, with the caveat that fluctuating attention confounds that testing.",
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Communication":1}},
- {ph:"p1",g:"TTC OSCE prep: articulated clinical reasoning begins",name:"Ethel Kaplan · pre-rounding",r:"acr",st:"use",who:"87 · inpatient medicine · pneumonia, confusion",
-  used:"HID 2 transition-to-clerkship (TTC) OSCE prep · also in the MD-PhD set",
-  steps:["Pre-round: interview Ethel","Interview her daughter","Physical exam","Present to Dr. Morgan"],
-  reason:"Recognizing that Ethel is delirious, turning to her daughter for the history, then presenting pneumonia with hypernatremia and delirium on rounds.",
+ {ph:"p1",g:"TTC OSCE prep: articulated clinical reasoning begins",name:"Ethel Kaplan · pre-rounding and synthesis",yr:"MS2",mx:"Ethel Kaplan",vid:"vid/ethel-kaplan",vidcap:"The student pre-rounds on Ethel, then presents to Dr. Morgan on rounds. 52 s.",r:"acr",st:"use",who:"87 · inpatient medicine · pneumonia and confusion",
+  used:"HID 2 transition-to-clerkship (TTC) OSCE prep · applies the inpatient medicine presentation module, with pre-rounding added first · also in the MD-PhD set",
+  steps:["Pre-round: interview Ethel","Interview her daughter","Physical exam","Chart review, hospital day 4","Present to Dr. Morgan"],
+  reason:"Recognizing that Ethel is delirious and turning to her daughter for the history, then finding on chart review that her sodium has risen to 151 from 138 on admission and her BUN to 38 from 21. The student gathers and synthesizes, then presents pneumonia with hypernatremia and delirium to Dr. Morgan with a problem-based plan.",
   sk:{"History":2,"Physical exam":2,"Clinical reasoning":2,"Present/Discuss":2,"Communication":2}},
- {ph:"p2",g:"Specialty presentation coaches",name:"Case-agnostic specialty coaches",r:"np",st:"test",who:"Clerkship level · one coach per specialty and setting",
-  used:"Clerkships · one coach per specialty, built from Dr. Cole",link:["https://mnhillard-wq.github.io/medsimai/presentation-practice-histories.html","Example practice histories"],
+ {ph:"p2",g:"Specialty presentation coaches",name:"Case-agnostic specialty coaches",yr:"MS3",mx:"Specialty presentation coaches",ex2:"morgan",r:"np",st:"test",who:"Clerkship level · one coach per specialty and setting",
+  used:"Clerkships, launching January 2027 · one coach per specialty, built from Dr. Cole",link:["https://mnhillard-wq.github.io/medsimai/presentation-practice-histories.html","Example practice histories"],
   steps:["Present any patient on the service","Feedback against that specialty's expectations"],
   reason:"Ten coaches built on Dr. Cole's base, one per clerkship setting, usable with any patient: each knows what its team expects from a presentation, so students practice the version they will give on the wards.",
   sk:{"Present/Discuss":2,"Clinical reasoning":1}},
- {ph:"p2",g:"Reasoning with an AI attending",name:"Claudia Lopez and her father Arthur, with Dr. Brooks",r:"acr",who:"Febrile newborn · pediatric emergency department · a frightened parent",
-  used:"Pediatrics clerkship example",
-  steps:["Interview her father","Decide the workup","Explain the plan to the family","Present to Dr. Brooks"],
-  reason:"Deciding the workup for a well-appearing febrile newborn, managing the urgency, and explaining the plan to a frightened parent; Dr. Brooks then probes the reasoning behind each choice.",
+ {ph:"p2",g:"Reasoning with an AI attending",name:"Claudia Lopez and her father Arthur, with Dr. Brooks",ex2:"brooks",yr:"MS3",mx:"Claudia Lopez, with Dr. Brooks",r:"acr",who:"28 days old · febrile · pediatric emergency department",
+  used:"Example case: articulating clinical reasoning · Dr. Brooks, PGY-3, Pediatrics",
+  steps:["Interview her father","Decide the workup","Discuss with Dr. Brooks"],
+  reason:"Deciding the workup for a well-appearing febrile newborn by applying the guidelines, then presenting to Dr. Brooks, who probes the reasoning behind each choice and extends the learning with hypotheticals. The conversation adapts: it skips what the learner already covered, gives two tries before teaching, and climbs higher with strong learners.",
   sk:{"History":2,"Clinical reasoning":2,"Management":1,"Present/Discuss":2,"Communication":2}},
- {ph:"p2",g:"Targeted skill building and remediation",name:"Kayla Novak · Find What's Missing",r:"acr",st:"ready",who:"19 · outpatient · headaches and visual changes",
+ {ph:"p2",g:"Targeted skill building and remediation",name:"Kayla Novak · Find What's Missing",yr:"MS3",mx:"Kayla Novak",ex2:"kayla",r:"acr",st:"ready",who:"19 · outpatient · headaches and visual changes",
   used:"Targeted skill: hypothesis-driven inquiry and avoiding premature closure",
   steps:["Hear another student present","Ask for what was left out","Commit to a plan"],
   reason:"Combating premature closure: the learner hears a presentation that offers a tidy diagnosis, and has to ask for what it left out before committing to a plan.",
   sk:{"History":1,"Clinical reasoning":2,"Present/Discuss":1}},
- {ph:"p2",g:"Consult calls",name:"Leah MacDonald + consult call",r:"acr",st:"ready",who:"16 · emergency department · abdominal pain",
-  used:"Clerkships",
-  steps:["Confidential teen interview","Order and interpret studies","Consult call by phone"],
-  reason:"Taking a sensitive, confidential adolescent history, then turning it into tests and a focused consult request for a time-critical diagnosis.",
-  sk:{"History":2,"Clinical reasoning":2,"Management":1,"Communication":1,"Interprofessional":2}},
- {ph:"p3",g:"Management and sign-out",name:"Claudia Lopez · orders and sign-out",r:"sic",st:"ready",who:"Febrile newborn · pediatric emergency department",
+ {ph:"p3",g:"Consult calls",name:"Leah MacDonald · a teen history, management and a consult",yr:"MS3–MS4",mx:"Leah MacDonald",ex2:"leah",r:"acr",st:"ready",who:"16 · emergency department · abdominal pain",lead:"Revived from a former pediatrics clerkship group OSCE in the OATES communication skills curriculum",
+  used:"MS3–MS4 · one case, three skills",
+  steps:["Confidential HEADSS history","Order studies and interpret each result","Consult by phone to Dr. Voss"],
+  reason:"Taking a sensitive, confidential adolescent history, interpreting each result as it returns, then making a focused consult request to Dr. Voss, who has no chart and asks only for what is missing.",
+  sk:{"History":2,"Clinical reasoning":2,"Management":2,"Communication":2,"Interprofessional":2}},
+ {ph:"p3",g:"Management and sign-out",name:"Claudia Lopez · orders and sign-out",yr:"MS4",mx:"Claudia Lopez, orders and sign-out",r:"sic",st:"ready",who:"Febrile newborn · pediatric emergency department",
   used:"Sub-I and transition to residency",
   steps:["Order entry in management simulator","Sign-out to the floor team"],
   reason:"Working up a well-appearing febrile infant step by step, using each result to choose the next test, treatment and disposition, then a handoff that carries the pending results and contingencies.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
- {ph:"p3",g:"Paging",name:"Tyler Brandt · nurse page",r:"sic",st:"ready",who:"31 · inpatient night · rhabdomyolysis with AKI",
+ {ph:"p3",g:"Paging",name:"Tyler Brandt · nurse page",yr:"MS4",mx:"Tyler Brandt",ex2:"brandt",r:"sic",st:"ready",who:"31 · inpatient night · rhabdomyolysis with AKI",
   used:"Sub-I and transition to residency · drawn from the TTR mock paging boot camp",
   steps:["Return a nurse page by phone"],
   reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
- {ph:"p3",g:"Ambiguity",name:"Ambiguity in Medicine",r:"ac",st:"use",who:"3 pediatric cases · febrile infant, abnormal movements, persistent fever",
-  used:"Pediatrics TTR, MS4 · spring 2026 · with Diane Na · tolerance-of-ambiguity study, poster at PMEC 2026",
+ {ph:"p3",g:"Ambiguity",name:"Navigating Ambiguity",yr:"MS4",mx:"Navigating Ambiguity",r:"ac",st:"use",who:"3 pediatric cases · febrile infant, abnormal movements, persistent fever",lead:"Led by Diane Na, PGY-5 Pediatric Hospital Medicine fellow · 2026–27 NYP Fellows Research Award",
+  used:"Pediatrics TTR, MS4 · spring 2026 · tolerance-of-ambiguity study, poster at PMEC 2026",
   steps:["Encounter with diagnostic uncertainty","AI-preceptor debrief","In-person group debrief"],
   reason:"Communicating and planning when the diagnosis is not yet clear: what to tell the family, what to watch for, and when to return.",
   sk:{"Clinical reasoning":2,"Communication":2,"Management":1}},
- {ph:"sp",g:"Special projects",name:"Global Health",r:"acr",st:"use",who:"6 cases · a hospital in Tanzania",
-  used:"Optional module for students going abroad · fall 2026 · EDGE grant",
+ {ph:"sp",g:"Special projects",name:"Global Health",yr:"Elective",mx:"Global Health",r:"acr",st:"use",who:"6 cases · a hospital in Tanzania",
+  lead:"Led by Duncan Hau, MD · 2025–26 WCM EDGE Grant award winner",vid:"vid/global-health",vidcap:"The student evaluates a child in respiratory distress with Nurse Asha. 12 s.",used:"Optional module for international rotations · fall 2026",
   steps:["Evaluate with a local nurse","Plan within the hospital's resources","Work through the ethical question"],
   reason:"Respiratory distress, low blood pressure, hemoptysis, meningitis, a cancer-treatment decision, and a community research project, each worked within the hospital's real resources and staffing, with the ethical questions that come with an international rotation.",
   sk:{"Clinical reasoning":2,"Management":2,"Communication":1}},
- {ph:"sp",g:"Special projects",name:"Medical Spanish",r:"hx",st:"use",tag:"Español",who:"13 cases · basic and advanced tracks · including Marielena Gil",
+ {ph:"sp",g:"Special projects",name:"Medical Spanish",yr:"Any year",mx:"Medical Spanish",r:"hx",st:"use",tag:"Español",who:"13 cases · basic and advanced tracks · including Marielena Gil",lead:"Led by Peyton Thompson, student lead, with Anyanate Jack",vid:"vid/medical-spanish",vidcap:"Marielena Gil, Basic Spanish track. 21 s.",
   used:"Summer 2026 · open to any class year · pilot evaluation and manuscript in progress",
   steps:["History in Spanish","Note in English","Feedback on language and reasoning"],
   reason:"Taking a history in Spanish at any level of fluency. Each patient comes in two versions: Spanish only, for learners ready to work entirely in Spanish, and bilingual, where the patient follows the learner's lead between languages so earlier learners can practice without stalling. Feedback covers communication in Spanish and the clinical reasoning in the note. The same model converts readily to any other language.",
-  sk:{"History":2,"Clinical reasoning":1,"Note":2,"Communication":2}}
+  sk:{"History":2,"Clinical reasoning":1,"Note":2,"Communication":2}},
+ {ph:"sp",g:"Special projects",name:"Nutrition consults",who:"Nutrition-focused cases",lead:"Led by Laura Barre, MD, PhD, Cornell University",
+  used:"Nutrition history and counseling, also being built into the clerkship cases",
+  reason:"Nutrition-focused cases, such as a mother describing the eating of her 9-year-old with autism and seizures.",
+  sk:{}},
+ {ph:"sp",g:"Special projects",name:"Autism-informed care",yr:"PA year 1",mx:"Autism-informed care",r:"ac",st:"use",who:"Physician Assistant program · 3 faculty-built cases",lead:"Led by Lisa Doron, DMS, PA-C · Curricular Innovations award, NYSSPA 2026 CME Conference",vid:"vid/jonah-brooks",vidcap:"Jonah Brooks, 5: the opening of the history. The clinician's face is blurred. 37 s.",handout:`<details class="handout"><summary>Example post-case handout: Applying SPACE to Jordan Lee</summary>\n<p class="hsub">19-year-old college freshman with autism · left-palm laceration · sensitive to exam-table paper and bright lights · needs to move</p>\n<p class="hq">How you could have optimally applied SPACE in this encounter:</p>\n<ol class="space">\n<li><b>S</b><div><strong>Sensory</strong> Offer the chair, not the exam table; the crinkling paper bothers him. Dim the bright lights. Warn before every touch and explain each step before you do it.</div></li>\n<li><b>P</b><div><strong>Predictability</strong> Lay out the plan before touching anything: first look, then clean, then talk about closure. Say what is next before each step, and honor his one-minute movement break with a clear return.</div></li>\n<li><b>A</b><div><strong>Acceptance</strong> Let him sit in the chair, move his body and stim; these are how he stays regulated, not misbehavior. Offer a fidget. Never tell him to sit still.</div></li>\n<li><b>C</b><div><strong>Communication</strong> Literal and direct, one question at a time. Do not bundle questions. Explain before any touch or procedure.</div></li>\n<li><b>E</b><div><strong>Empathy</strong> Ask what helps him feel calm and validate his worry, especially about needing to move during stitches. Check in on comfort. Do not minimize.</div></li>\n<li><b>+</b><div><strong>Physical, processing and emotional space</strong> Give him room, time to answer, and a beat to settle once the environment is handled.</div></li>\n</ol>\n<p class="hturn"><strong>The turning point:</strong> address the environment early, warn before touch, and honor the movement break. If he needs sutures, get ahead of the movement: a fidget for his other hand, foot-tapping is fine, and an agreed pause signal.</p>\n<p class="src">SPACE framework: Doherty M, et al. Autistic SPACE. Br J Hosp Med. 2023.</p>\n</details>`,
+  used:"First-year PA students",
+  steps:["Lecture: the Autistic SPACE framework","Three MedSimAI cases","Facilitated class debrief"],
+  reason:"Applying the Autistic SPACE framework with autistic patients. In one case, Jonah Brooks, 5, is curious about how things in the office work and keeps his answers short, off-topic or repetitive; he becomes disappointed if his interests are dismissed, and more responsive when the clinician gives him time to ask his own questions.",
+  sk:{"Communication":2}}
 ];
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 const RUNGS=[["hx","Complete history"],["fpe","Focused history and PE"],["np","Notes and oral presentations"],["ac","Advanced communication"],["acr","Articulated clinical reasoning"],["sic","Specialty inpatient care"]];
 const RL=Object.fromEntries(RUNGS);
 let active=null;
+const EX={"cole": {"src": "From an AI test run with a simulated learner, October 2026. Not a real student. Trimmed where marked …", "lines": [["Dr. Cole", "How did that presentation feel?"], ["Learner", "Good, I think. It felt complete."], ["Dr. Cole", "Is there a specific part you'd like to start with, or should I just work through it?"], ["Learner", "Just work through it."], ["Dr. Cole", "Your HPI opened with “in his usual state of health until three days ago,” and that anchor in time let me follow the whole story from the dresser forward; hang onto that habit."], ["gap", "A few turns later"], ["Dr. Cole", "One thing wasn't in the presentation: the source of information. Did you get that?"], ["Learner", "Yes, the patient himself, he seemed reliable. …"], ["Dr. Cole", "Good to know; next time say it right after your opening, something like “History is from the patient, who seemed reliable.” …"]]}, "morgan": {"src": "Dr. Morgan, inpatient medicine, after a learner presents Ethel Kaplan. From an AI test run with a simulated learner, October 2026. Not a real student.", "lines": [["Learner", "Pretty organized, I think. The part I'm least sure about is the fluid choice."], ["Dr. Morgan", "You gave me the sodium, BUN, creatinine, and urine output as trends over the stay instead of single numbers. Keep doing that, because trends are what tell me the story on medicine."], ["Learner", "Thanks."], ["Dr. Morgan", "One thing that would sharpen it is grouping the data so it tells me what the body is doing, instead of listing it system by system. Something like: “Her pressure is down from the 130s to 108, her heart rate is up, urine output fell from 1400 to 850, and she's dry on exam, so the volume picture all points the same way.” That way I hear the physiology before I hear your assessment."], ["Learner", "Got it, grouping the volume data together. That makes sense."], ["Dr. Morgan", "Okay. You said the fluid choice was the part you felt least sure about, so let's start there. She's been on D5 half-normal saline, so what does switching to D5W give her that she isn't getting now?"]]}, "kayla": {"src": "The learner plays the attending; Riley, an AI student, has just presented Kayla. From an AI test run with a simulated learner, October 2026. Not a real student.", "lines": [["Learner", "Hmm, I'm not so sure this is just tension headache. What exactly happened when she got lightheaded at practice, and did anyone look in her eyes?"], ["Riley", "She bent down to tie her cleat, and when she stood up, everything went grey for about ten seconds. I guess I called it lightheaded. I didn't look in her eyes, and nobody else has today."], ["Learner", "Hmm, that's concerning. The headaches being worse with bending over and lying flat, plus the whooshing and double vision, and now no one's looked in her eyes? And what about her acne medication?"], ["Riley", "Oh, doxycycline, one hundred milligrams twice a day since July. I didn't think it mattered."], ["Learner", "Doxycycline, huh? That's a problem. We definitely need to look in her eyes now."], ["Riley", "But student health already said tension headache, and she looks totally fine."]]}, "leah": {"src": "From an AI test run with a simulated learner, September 2026. Not a real student.", "lines": [["Learner", "Okay, and when was your last menstrual period?"], ["Leah", "About four weeks ago, I think. It's due around now."], ["Learner", "Okay, Leah, before I ask my next question, I want you to know that anything you tell me stays private between us, and I won't share it with your mom unless you're in danger. I ask every teenager these questions. Have you ever been sexually active?"], ["Leah", "[quietly] Okay... thanks. Yeah. I have a boyfriend, Connor, and we've had sex."], ["Learner", "Okay, when was that?"], ["Leah", "Once, a little over two weeks ago. It was my first time."], ["Learner", "Did you use any protection?"], ["Leah", "No. We didn't use anything."], ["Learner", "Okay, and who knows about this?"], ["Leah", "Nobody. My mom would freak out, and my dad would kill me."]]}, "brandt": {"src": "Monique, the night nurse, pages about Tyler Brandt. From an AI test run with a simulated learner, October 2026. Not a real student. This learner declined the naproxen but never asked about the legs, urine output or kidney labs.", "lines": [["Nurse", "Fourteen Central, this is Monique."], ["Learner", "Hi Monique, this is the night intern. I'm calling about Tyler Brandt in C14-11."], ["Nurse", "Yeah, Brandt in eleven. He's hurting and wants something for pain, and there's nothing ordered. I asked days twice again. His mom brought his naproxen from home, can I just give him that?"], ["Learner", "Hmm, no, we can't give him the naproxen. What's his pain level, and where is it?"], ["Nurse", "It's a six out of ten in both thighs, aching, and he keeps shifting his legs around in bed."], ["Learner", "Okay, six out of ten. Hmm, I'll put in an order for some IV hydromorphone for him."], ["Nurse", "What dose?"], ["Learner", "Let's do 0.5 mg IV, every four hours as needed for pain."], ["Nurse", "Okay, got it."]]}, "brooks": {"src": "Same case, two simulated learners. Excerpts from Dr. Brooks's AI test runs, November 2026. Not real students. Trimmed where marked …", "lines": [["gap", "A hesitant learner: the question narrows"], ["Learner", "Um, I didn’t do a spinal tap. I’m not sure what I’d be looking for in the fluid, honestly."], ["Dr. Brooks", "That’s okay—we’ll work it out. Since Claudia is twenty-eight days old, what would guide your decision about whether she needs spinal-fluid studies now?"], ["Learner", "Um, I’m not sure. Is it because she’s under 30 days, so she’s higher risk for meningitis?"], ["Dr. Brooks", "Her age does keep meningitis on the table, but the relevant cutoff here isn’t thirty days. What screening information would you use…?"], ["gap", "Two narrower questions later"], ["Learner", "Hmm, um, maybe the absolute neutrophil count? I’m not totally sure."], ["gap", "A strong learner: held to the exact criterion, then what-ifs"], ["Learner", "Catheterized urine with culture, blood culture, CBC with differential, CRP, and procalcitonin… I’d do a lumbar puncture if any inflammatory marker comes back abnormal…"], ["Dr. Brooks", "That’s a safe, well-structured plan… Which specific bacterial infections are you trying not to miss with this evaluation?"], ["gap", "Later in the conversation"], ["Learner", "If the ANC is low, CRP is elevated, or procalcitonin is above the threshold — any of those would push me to do the LP."], ["Dr. Brooks", "You’re right that any abnormal inflammatory marker should push us toward spinal-fluid studies, but a low ANC isn’t the criterion here; it’s an ANC above four thousand to five thousand two hundred…"], ["gap", "Once the plan is safe, the case changes"], ["Dr. Brooks", "Suppose Claudia looked ill appearing when you went in to examine her—what would change in your plan?"], ["Learner", "If she looked ill, I’d do the full workup including LP right away and add acyclovir empirically — I wouldn’t wait on any labs."], ["Dr. Brooks", "Exactly… Now suppose she were eighteen days old but still looked well; what would change?"], ["Learner", "At 18 days, age alone drives the decision — full workup including LP, no deferring based on inflammatory markers."]]}};
+function exHtml(k){const e=EX[k]; return `<details class="handout exc"><summary>${k==="brooks"?"See the preceptor conversations":"See an excerpt"}</summary><p class="hsub">${esc(e.src)}</p><div class="xl">`+e.lines.map(l=>l[0]==="gap"?`<p class="xg">${esc(l[1])}</p>`:`<p><b>${esc(l[0])}:</b> ${esc(l[1])}</p>`).join("")+`</div></details>`;}
 function card(c){
-  const steps=c.steps.map(x=>`<span>${esc(x)}</span>`).join('<i aria-hidden="true">→</i>');
+  const steps=(c.steps||[]).map(x=>`<span>${esc(x)}</span>`).join('<i aria-hidden="true">→</i>');
   const skills=SK.filter(k=>c.sk[k]).map(k=>`<span>${esc(k)}</span>`).join("");
   const stc=null;
-  const el=document.createElement("article"); el.className="case"+(c.img||c.shot?" hasimg":""); el.dataset.r=c.r||"";
+  const el=document.createElement("article"); el.className="case"+(c.img||c.shot||c.vid||c.aud?" hasimg":""); el.dataset.r=c.r||"";
   const chips=(c.req?`<span class="status s-req">Required pre-sim</span>`:"")+(stc?`<span class="status ${stc[0]}">${stc[1]}</span>`:"");
   const body=`<div><div class="case-top"><h3>${esc(c.name)}${c.tag?` <span class="status s-ready" lang="es">${esc(c.tag)}</span>`:""}</h3><span>${chips}</span></div>
-    <div class="who">${esc(c.who)}</div><div class="meta">${c.r?`<span class="rungtag">${esc(RL[c.r])}</span>`:""}<span class="skills">${skills}</span></div><div class="steps">${steps}</div>
-    <dl><dt>Used in</dt><dd>${esc(c.used)}</dd>${c.ex?`<dt>Example</dt><dd>${esc(c.ex)}</dd>`:""}<dt>Reasoning</dt><dd>${esc(c.reason)}</dd>${c.link?`<dt>Examples</dt><dd><a href="${c.link[0]}">${esc(c.link[1])}</a></dd>`:""}</dl></div>`;
-  el.innerHTML=body+(c.shot&&!c.img?`<figure><div class="ph">Screenshot to come</div></figure>`:"")+(c.img?`<figure><img src="${c.img}" alt="${esc(c.imgcap)}" loading="lazy"><figcaption>${esc(c.imgcap)}</figcaption></figure>`:"");
+    <div class="who">${esc(c.who)}</div>${c.lead?`<div class="byline">${esc(c.lead)}</div>`:""}<div class="meta">${c.r?`<span class="rungtag">${esc(RL[c.r])}</span>`:""}<span class="skills">${skills}</span></div>${steps?`<div class="steps">${steps}</div>`:""}
+    <dl><dt>Used in</dt><dd>${esc(c.used)}</dd>${c.ex?`<dt>Example</dt><dd>${esc(c.ex)}</dd>`:""}<dt>Reasoning</dt><dd>${esc(c.reason)}</dd>${c.ex2?`<dt>Excerpt</dt><dd>${exHtml(c.ex2)}</dd>`:""}${c.handout?`<dt>Handout</dt><dd>${c.handout}</dd>`:""}${c.link?`<dt>Examples</dt><dd><a href="${c.link[0]}">${esc(c.link[1])}</a></dd>`:""}</dl></div>`;
+  el.innerHTML=body+(c.shot&&!c.img?`<figure><div class="ph">Screenshot to come</div></figure>`:"")+(c.aud?`<figure class="caud"><p class="aul">Recorded lung sounds</p><audio controls preload="none" src="${c.aud}"></audio><figcaption>${esc(c.audcap)}</figcaption></figure>`:"")+(c.vid?`<figure class="cvid${c.vtall?" tall":""}"><video controls preload="none" playsinline poster="${c.vid}.jpg"><source src="${c.vid}.mp4" type="video/mp4"></video><figcaption>${esc(c.vidcap)}</figcaption></figure>`:"")+(c.img?`<figure><img src="${c.img}" alt="${esc(c.imgcap)}" loading="lazy"><figcaption>${esc(c.imgcap)}</figcaption></figure>`:"");
   return el;
 }
+const ARC=[["Problem representation","Summarize this patient in a sentence or two."],["Leading diagnosis","What else supports that?"],["Differential with why-not","What else would you consider, and why less likely?"],["Acute management","Which exact thing would you do first?"],["Danger and decompensation","What would tell you they are decompensating?"],["Disposition","Where does this patient go, and at what level of care?"],["Revisit","How would you update your problem representation now?"]];
+function flow(steps,cls){return `<ol class="flow ${cls||""}">`+steps.map((x,i)=>`<li${x[2]?` class="${x[2]}"`:""}><span class="n">${i+1}</span><strong>${esc(x[0])}</strong>${x[1]?`<em>${esc(x[1])}</em>`:""}</li>`).join("")+`</ol>`;}
+function arcEl(){const d=document.createElement("div"); d.className="diagram";
+  d.innerHTML=`<p class="dh">What a reasoning conversation covers</p>`+flow(ARC,"arc")+`<p class="dn">The steps set the coverage in a logical order, not a script: when the learner covers one early, the attending confirms it and moves on. Underneath, the attending answers questions from a faculty-approved knowledge bank and steps in on unsafe statements.</p>`; return d;}
+const COACHES=[
+ {id:"t1",tab:"Reasoning coach",name:"Clinical reasoning coach",use:"The default. The learner presents and the attending coaches the whole encounter, the way a sign-out to an attending works.",
+  steps:[["Present the patient"],["Commit to a diagnosis"],["Defend it"],["Screen for danger"],["Choose management"],["Decide disposition"]],
+  note:"Adaptive: skips what the learner already covered, gives two tries before teaching, and climbs higher with strong learners.",ex:"Claudia Lopez with Dr. Brooks"},
+ {id:"t2",tab:"Socratic coach",name:"Socratic reasoning coach",use:"No presentation. Reasoning is drawn out through questions, for cases about deep diagnostic reasoning after students have seen the material.",
+  steps:[["Problem representation"],["Leading diagnosis"],["Why-not differential"],["Management, danger, disposition"],["Revisit"]],
+  note:"Tags where each learner's reasoning breaks down, which feeds a faculty-facing assessment of reasoning by skill.",ex:"Alex Rivera with Dr. Okafor"},
+ {id:"t3",tab:"Communication debrief",name:"Communication watch-and-debrief",use:"The learner runs a live conversation; the coach has the transcript and coaches how they communicated, not the medicine.",
+  steps:[["Live conversation with the patient"],["Coach reviews the transcript"],["Learner reflects first"],["Specific coaching, tied to their words"]],
+  note:"One shell, three rubrics: ambiguity and family communication, Medical Spanish, and motivational interviewing.",ex:"Jessica Raymond with Dr. Rosenblum; Navigating Ambiguity; Medical Spanish"},
+ {id:"t4",tab:"Presentation coach",name:"Presentation structure coach",use:"Case-agnostic. Coaches how a presentation is built and delivered, never whether the medicine is right.",
+  steps:[["Uninterrupted presentation","Coach listens without interrupting"],["Reflection","The learner reflects first"],["General feedback"],["Specialty module","What that team listens for first, and the target length","spec"],["1–3 gaps","Each with a model for improvement"]],
+  note:"Works with a real patient, an AI patient, or a practice history. Every step is the same for every coach except the specialty module, which swaps in what that clerkship team listens for first (for example, sick or not sick in emergency medicine, localization in neurology) and how long a presentation should take.",ex:"Dr. Cole; the specialty presentation coaches"}
+];
+function coachEl(){const d=document.createElement("div"); d.className="diagram coaches";
+  d.innerHTML=`<p class="dh">Types of AI coaches</p><div class="tabs" role="tablist" aria-label="Coach types">`+COACHES.map((c,i)=>`<button type="button" role="tab" id="tab-${c.id}" aria-selected="${i===0}" aria-controls="pane-${c.id}" tabindex="${i===0?0:-1}">${esc(c.tab)}</button>`).join("")+`</div>`+
+   COACHES.map((c,i)=>`<div class="pane" role="tabpanel" id="pane-${c.id}" aria-labelledby="tab-${c.id}" ${i?"hidden":""}><h4>${esc(c.name)}</h4><p class="use">${esc(c.use)}</p>`+
+     (c.rows?`<div class="rows">`+c.rows.map(r=>`<div class="row"><strong>${esc(r[0])}</strong><span>${esc(r[1])}</span><em>${esc(r[2])}</em></div>`).join("")+`</div>`:flow(c.steps))+
+     `<p class="dn">${esc(c.note)}</p>${c.ex?`<p class="ex"><span>Example</span> ${esc(c.ex)}</p>`:""}</div>`).join("");
+  const tabs=[...d.querySelectorAll('[role="tab"]')];
+  function sel(t){tabs.forEach(x=>{const on=x===t; x.setAttribute("aria-selected",on); x.tabIndex=on?0:-1; d.querySelector("#"+x.getAttribute("aria-controls")).hidden=!on;});}
+  tabs.forEach((t,i)=>{t.addEventListener("click",()=>sel(t)); t.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length]; sel(n); n.focus(); e.preventDefault();}});});
+  return d;}
+
+const WEAK=[["s", "Um, I didn’t do a spinal tap. I’m not sure what I’d be looking for in the fluid, honestly."], ["a", "That’s okay—we’ll work it out. Since Claudia is twenty-eight days old, what would guide your decision about whether she needs spinal-fluid studies now?", "Reassures, then reframes the question"], ["s", "Um, I’m not sure. Is it because she’s under 30 days, so she’s higher risk for meningitis?"], ["a", "Her age does keep meningitis on the table, but the relevant cutoff here isn’t thirty days. What screening information would you use…?", "Corrects the cutoff and narrows again"], ["gap", "Two narrower questions later"], ["s", "Hmm, um, maybe the absolute neutrophil count? I’m not totally sure.", "Reaches the answer before being told"]];
+const STRONG=[["s", "Catheterized urine with culture, blood culture, CBC with differential, CRP, and procalcitonin… I’d do a lumbar puncture if any inflammatory marker comes back abnormal…"], ["a", "That’s a safe, well-structured plan… Which specific bacterial infections are you trying not to miss with this evaluation?", "Credits the full plan and moves on"], ["gap", "Later in the conversation"], ["s", "If the ANC is low, CRP is elevated, or procalcitonin is above the threshold — any of those would push me to do the LP."], ["a", "You’re right that any abnormal inflammatory marker should push us toward spinal-fluid studies, but a low ANC isn’t the criterion here; it’s an ANC above four thousand to five thousand two hundred…", "Keeps the principle, corrects the one detail that was wrong"], ["gap", "Once the plan is safe, the case changes"], ["a", "Suppose Claudia looked ill appearing when you went in to examine her—what would change in your plan?", "Changes one variable: appearance"], ["s", "If she looked ill, I’d do the full workup including LP right away and add acyclovir empirically — I wouldn’t wait on any labs."], ["a", "Exactly… Now suppose she were eighteen days old but still looked well; what would change?", "Changes one variable: age"], ["s", "At 18 days, age alone drives the decision — full workup including LP, no deferring based on inflammatory markers."]];
+function chatHtml(arr){return `<div class="chat">`+arr.map(t=>t[0]==="gap"?`<div class="gap">${esc(t[1])}</div>`:`<div class="msg ${t[0]}"><span class="who">${t[0]==="a"?"Dr. Brooks":"Learner"}</span><p>${esc(t[1])}</p>${t[2]?`<span class="why">${esc(t[2])}</span>`:""}</div>`).join("")+`</div>`;}
+function convoEl(){const d=document.createElement("div"); d.className="diagram convo";
+  d.innerHTML=`<p class="dh">Same case, two learners</p><p class="dn" style="margin:0 0 14px">Excerpts from Dr. Brooks's AI test runs with simulated learners, November 2026. Same case, same prompt; the conversations diverge because the learners do. Not real students.</p>
+   <div class="vs"><div><h4 class="vsh weak">A hesitant learner: the question narrows</h4>${chatHtml(WEAK)}</div><div><h4 class="vsh strong">A strong learner: held to the exact criterion, then what-ifs</h4>${chatHtml(STRONG)}</div></div>`; return d;}
+
+
+function scaffoldEl(){const d=document.createElement("div"); d.className="diagram scaf";
+  d.innerHTML=`<p class="dh">How the attending scaffolds</p><div class="arrows">
+   <div class="arw down"><span class="ai" aria-hidden="true">↓</span><div><h4>When the learner is stuck, the questions narrow</h4><p>The attending asks again with a more pointed probe built on what the learner said. Teaching comes only after two tries, and the learner applies it to Claudia right away.</p></div></div>
+   <div class="arw up"><span class="ai" aria-hidden="true">↑</span><div><h4>When the learner is strong, the ceiling rises</h4><p>What the learner already covered is confirmed and skipped. The time goes to harder what-ifs until the learner reaches the edge of what they know.</p></div></div>
+  </div>
+   <p class="dn">Both paths are tied to the reasoning targets faculty set for the case, so the same case runs very differently for two learners, as the paired transcripts below show.</p>`; return d;}
+
+const MODS=[
+ ["cole","Outpatient, complete history","Dr. Cole · MS1–2",["Opening statement that leads with the problem","HPI anchored in time, with why now","An assessment that commits, with a supporting feature"],"4–6 min"],
+ ["hayes","Outpatient medicine","Dr. Hayes · MS3–4",["One-liner with the reason for today's visit","Timeline, and what changed since last time","Plan by problem, with clear follow-up"],"4–6 min new · 2–3 follow-up"],
+ ["morgan","Inpatient medicine admission","Dr. Morgan · MS3–4",["Interval history and focused chart review","Assessment that interprets the data, not restates it","Plan by problem, stated as actions"],"Under 5 min · walk rounds 3"],
+ ["alvarezi","Inpatient pediatrics","Dr. Alvarez · MS3–4",["Precise age in the opening","ED or overnight course; feeding in a young child","Assessment with a safety net"],"Under 5 min new · under 2 on rounds"],
+ ["alvarezo","Outpatient pediatrics","Dr. Alvarez · MS3–4",["Age and the reason for today's visit","Timeline in the child's own terms","Plan with return precautions"],"4–6 min new · 2–3 follow-up"],
+ ["mercer","Emergency medicine","Dr. Mercer · MS3–4",["Sick or not sick, stated first","A disposition, not just 'get labs'","Which dangerous diagnoses are being excluded"],"About 3 min"],
+ ["ashby","Psychiatry","Dr. Ashby · MS3–4",["Risk assessment with a stated risk level","Mental status exam, complete and in order","Safety and level of care first in the plan"],"5–7 min new · 1–2 on rounds"],
+ ["nakamura","Neurology","Dr. Nakamura · MS3–4",["Localization before the differential","Tempo, and last known well for an acute deficit","Neurologic exam in the standard order"],"About 5 min"],
+ ["lindgren","Obstetrics and gynecology","Dr. Lindgren · MS3–4",["Gravidity, parity, gestational age, dating","The four pregnancy questions, tracing and cervix","Assessment and plan numbered by problem"],"2–3 min · postpartum about 1"],
+ ["thornton","Surgery","Dr. Thornton · MS3–4",["The surgical problem and the decision, named","A plan with preparation and a contingency","Perioperative items: anticoagulation, last intake"],"Consult 2–3 min · post-op about 1"],
+ ["sloane","Intensive care","Dr. Sloane · MS3–4",["Why ICU, supports with numbers, trajectory","Targets and endpoints for every support","Instability up front, not buried"],"3–5 min"]
+];
+function moduleEl(){const d=document.createElement("div"); d.className="diagram modular";
+  const band=(cls,lab,steps)=>`<div class="band ${cls}"><span class="bl">${lab}</span><ol>`+steps.map(x=>`<li>${esc(x)}</li>`).join("")+`</ol></div>`;
+  d.innerHTML=`<p class="dh">One coach, many specialties</p><p class="dn" style="margin:0 0 14px">Every presentation coach runs the same base. Only the middle block changes: what that specialty listens for first, and how long a presentation should take. Pick a specialty.</p>
+   <div class="tabs" role="tablist" aria-label="Specialty">`+MODS.map((m,i)=>`<button type="button" role="tab" id="mt-${m[0]}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${esc(m[1])}</button>`).join("")+`</div>
+   <div class="stack">`+band("same","Same for every coach",["Uninterrupted presentation","Reflection","General feedback"])+
+   `<div class="band vary" aria-live="polite"><span class="bl">Specialty module</span><div class="mv"></div></div>`+
+   band("same","Same for every coach",["1–3 gaps, each with a model for improvement"])+`</div>
+   <p class="dn">The AI coach observes and silently compares the presentation with the instructor-designed rubric to select priorities. Constant across all eleven coaches: structure only, never the clinical content, so any patient works.</p>`;
+  const mv=d.querySelector(".mv"), tabs=[...d.querySelectorAll('[role="tab"]')];
+  function show(i){const m=MODS[i]; tabs.forEach((t,j)=>{t.setAttribute("aria-selected",j===i); t.tabIndex=j===i?0:-1;});
+    mv.innerHTML=`<p class="mh"><strong>${esc(m[1])}</strong> <span>${esc(m[2])}</span></p><p class="ml">Listens for first</p><ol>`+m[3].map(x=>`<li>${esc(x)}</li>`).join("")+`</ol><p class="mt"><span>Target length</span> ${esc(m[4])}</p>`;}
+  tabs.forEach((t,i)=>{t.addEventListener("click",()=>show(i)); t.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const n=(i+(e.key==="ArrowRight"?1:MODS.length-1))%MODS.length; show(n); tabs[n].focus(); e.preventDefault();}});});
+  show(0); return d;}
+
+function howto(){const m=document.getElementById("howto");
+  const parts=[
+   ["Types of AI coaches","Every coach on the platform, with a flowchart and a WCM example.",coachEl],
+   ["How the attending scaffolds","Designed to use AI for what a static resource cannot do: adapt to each learner's needs and level. Two tries before teaching for a learner who is stuck; harder questions for one who is not.",scaffoldEl],
+   ["Same case, two learners","The same attending adapts to the learner in front of it.",convoEl],
+];
+  parts.forEach(([h,sub,fn])=>{const w=document.createElement("div"); w.className="hpart";
+    w.innerHTML=`<h3>${esc(h)}</h3><p class="lede" style="margin:2px 0 12px">${esc(sub)}</p>`; const el=fn(); const dh=el.querySelector(".dh"); if(dh) dh.remove(); w.appendChild(el); m.appendChild(w);});}
 function render(){
   const m=document.getElementById("phases"); m.innerHTML="";
   PHASES.forEach(p=>{
@@ -445,6 +570,16 @@ function applyRung(){
   document.querySelectorAll("#phases .case").forEach(c=>c.classList.toggle("dim",!!active&&c.dataset.r!==active));
   document.getElementById("clear").hidden=!active;
 }
+const TYPEMAP={"Complete history":"Complete history and physical exam","Oral presentation":"Presentation coaches","Specialty presentation coaches":"Presentation coaches","Focused history and physical exam":"Pre-sim focused history and exam","Communication":"Communication: motivational interviewing","TTC OSCE prep: articulated clinical reasoning begins":"TTC prep: pre-rounding","Reasoning with an AI attending":"Clerkship reasoning with an AI attending","Targeted skill building and remediation":"Targeted skill building and remediation","Consult calls":"Consult calls","Ambiguity":"Ambiguity in Medicine","Management and sign-out":"Management and sign-out","Paging":"Overnight paging"};
+function matrix(){
+  const t=document.getElementById("matrix"); const PH={p1:"MS1–MS2",p2:"MS3",p3:"MS4",sp:"Special project"};
+  let h="<thead><tr><th>Case</th><th>Stage</th>"+SK.map(k=>`<th>${SKL[k]}</th>`).join("")+"</tr></thead><tbody>";
+  PHASES.forEach(p=>CASES.filter(c=>c.ph===p.id&&Object.keys(c.sk).length).forEach(c=>{
+    h+=`<tr><td>${esc(c.mx||c.name)}</td><td class="stg">${esc(c.yr||PH[c.ph])}</td>`+SK.map(k=>`<td>${c.sk[k]===2?'<span class="dot" role="img" aria-label="core focus"></span>':c.sk[k]===1?'<span class="dot half" role="img" aria-label="also practiced"></span>':''}</td>`).join("")+"</tr>";}));
+  t.innerHTML=h+"</tbody>";
+}
 rail(); render();
+
+
 </script>
 </body></html>
