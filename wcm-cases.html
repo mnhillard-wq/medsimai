@@ -348,8 +348,8 @@ const PHASES=[
   groups:["Complete history","Oral presentation","Focused history and physical exam","Communication","TTC OSCE prep: articulated clinical reasoning begins"]},
  {id:"p2",name:"Phase 2 · Clerkships",when:"MS3",note:"Specialty-specific thinking: data collection and synthesis, specialty presentation coaches, and reasoning discussions with an AI attending, including after the mid-clerkship OSCE.",
   groups:["Reasoning with an AI attending","Specialty presentation coaches","Targeted skill building and remediation"]},
- {id:"p3",name:"Phase 3 · Sub-I and transition to residency",when:"MS4",note:"Executing the plan and evaluating the response: consult calls, orders and sign-out, overnight nurse pages, and managing uncertainty with families.",
-  groups:["Consult calls","Management and sign-out","Paging","Ambiguity"]},
+ {id:"p3",name:"Phase 3 · Sub-I and transition to residency",when:"MS4",note:"Executing the plan and evaluating the response: consult calls, orders and sign-out, and overnight nurse pages.",
+  groups:["Consult calls","Management and sign-out","Paging"]},
  {id:"sp",cls:"special",name:"Special projects",when:"Across years",note:"Modules built by students, fellows and faculty, each with its own evaluation.",groups:["Special projects"]}
 ];
 const CASES=[
@@ -424,12 +424,12 @@ const CASES=[
   steps:["Return a nurse page by phone"],
   reason:"Answering an overnight pain page safely: avoiding nephrotoxic options, deciding whether to go to the bedside, and closing the loop with the nurse.",
   sk:{"Clinical reasoning":2,"Management":2,"Interprofessional":2}},
- {ph:"p3",g:"Ambiguity",name:"Navigating Ambiguity",yr:"MS4",mx:"Navigating Ambiguity",r:"ac",st:"use",who:"3 pediatric cases · febrile infant, abnormal movements, persistent fever",lead:"Led by Diane Na, PGY-5 Pediatric Hospital Medicine fellow · 2026–27 NYP Fellows Research Award",
+
+ {ph:"sp",g:"Special projects",name:"Navigating Ambiguity",yr:"MS4",mx:"Navigating Ambiguity",r:"ac",st:"use",who:"3 pediatric cases · febrile infant, abnormal movements, persistent fever",lead:"Led by Diane Na, PGY-5 Pediatric Hospital Medicine fellow · 2026–27 NYP Fellows Research Award",
   used:"Pediatrics TTR, MS4 · spring 2026 · tolerance-of-ambiguity study, poster at PMEC 2026",
   steps:["Encounter with diagnostic uncertainty","AI-preceptor debrief","In-person group debrief"],
   reason:"Communicating and planning when the diagnosis is not yet clear: what to tell the family, what to watch for, and when to return.",
-  sk:{"Clinical reasoning":2,"Communication":2,"Management":1}},
- {ph:"sp",g:"Special projects",name:"Global Health",yr:"Elective",mx:"Global Health",r:"acr",st:"use",who:"6 cases · a hospital in Tanzania",
+  sk:{"Clinical reasoning":2,"Communication":2,"Management":1}}, {ph:"sp",g:"Special projects",name:"Global Health",yr:"Elective",mx:"Global Health",r:"acr",st:"use",who:"6 cases · a hospital in Tanzania",
   lead:"Led by Duncan Hau, MD · 2025–26 WCM EDGE Grant award winner",vid:"vid/global-health",vidcap:"The student evaluates a child in respiratory distress with Nurse Asha. 12 s.",used:"Optional module for international rotations · fall 2026",
   steps:["Evaluate with a local nurse","Plan within the hospital's resources","Work through the ethical question"],
   reason:"Respiratory distress, low blood pressure, hemoptysis, meningitis, a cancer-treatment decision, and a community research project, each worked within the hospital's real resources and staffing, with the ethical questions that come with an international rotation.",
